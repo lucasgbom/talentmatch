@@ -12,6 +12,6 @@ if (!isset($_SESSION['nome'])){
 </head>
 <body>
     <h1>Bem vindo, <?php echo($_SESSION['nome'])?></h1>
-    <a href="../Model/sair.php"><button>Sair</button></a>
+    <a href="../Model/sair.php"><button></button></a>
 </body>
 </html>
