@@ -1,0 +1,10 @@
+Freelance de músico local
+
+Conceito geral:
+	Um site onde as corporações podem publicar ofertas de trabalho(shows, composição, etc.) e os músicos interessados podem aplicar para o trabalho, além disso as empresas podem pedir para um músico um certo trabalho. O projeto terá um sistema de localização, onde apareçam serviços que estão perto de quem procura, além de mostrar para as empresas os músicos da área que estão disponíveis.
+	Cada músico pode postar vídeos mostrando suas habilidades em seu perfil.
+	As empresas podem solicitar uma audiência, onde o músicos tocarão músicas especificas que ajudará as empresas a decidirem a quem escolher
+Como lucrar:
+	Sistema de assinatura:
+	Músicos podem ter uma assinatura em que ajudará a aparecer seu perfil mais cedo na pesquisa. De forma análoga, empresas podem 		pagar para aparecer mais cedo na oferta de trabalhos.
+		Além disso, empresas podem pagar para divulgar shows no site.
