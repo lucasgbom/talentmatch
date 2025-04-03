@@ -4,18 +4,16 @@ $email = $_POST['email'];
 $senha = $_POST['senha'];
 $senha_crip = md5(sha1($senha));
 $tipo = $_POST['tipo'];
-$sql = tipo($tipo, 1);
+$sql = gerarSQL($tipo, 1);
 $consulta = $conexao->prepare($sql);
 $consulta->bindValue(':email', $email);
 $consulta->bindValue(':senha', $senha_crip);
 $consulta->execute();
-$usuario = $consulta->fetchAll(PDO::FETCH_ASSOC);
-if (count($usuario) >= 1) {
-    session_start();
+$usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+if ($usuario) {
     salvarSession($usuario);
-    var_dump($_SESSION);
 } else {
-    tipo($tipo, 0);
+    gerarSQL($tipo, 0);
 }
 
 
@@ -59,14 +57,16 @@ if (count($usuario) >= 1) {
 
 function salvarSession($usuario)
 {
+    session_start();
+    var_dump($_SESSION); 
     $_SESSION['nome'] = $usuario['nome'];
     $_SESSION['senha'] = $usuario['senha'];
     $_SESSION['email'] = $usuario['email'];
     $_SESSION['endereco'] = $usuario['endereco'];
     $_SESSION['id'] = $usuario['id'];
-    //header('location: ../View/home.php');
+    header('location: ../View/home.php');
 }
-function tipo($tipo, $procurar)
+function gerarSQL($tipo, $procurar)
 {
     if ($procurar) {
         if ($tipo == 'contratador') {
@@ -77,8 +77,8 @@ function tipo($tipo, $procurar)
         return $sql;
     }
     if ($tipo == 'contratador') {
-        //header('location: ../View/login_contratador.php?msg=NomeOuSenhaIncorretos');
+        header('location: ../View/login_contratador.php?msg=NomeOuSenhaIncorretos');
     } else {
-        //header('location: ../View/login_artista.php?msg=NomeOuSenhaIncorretos');
+        header('location: ../View/login_artista.php?msg=NomeOuSenhaIncorretos');
     }
 }
