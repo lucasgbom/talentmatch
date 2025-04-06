@@ -13,5 +13,6 @@ if (!isset($_SESSION['nome'])){
 <body>
     <h1>Bem vindo, <?php echo($_SESSION['nome'])?></h1>
     <a href="../Model/sair.php"><button>Sair</button></a>
+    <a href="perfil.php"><button>perfil</button></a>
 </body>
 </html>
