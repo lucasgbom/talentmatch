@@ -12,9 +12,9 @@
     <form action="../Model/logar.php" method="POST">
         <?php include('../../html/form_login.html') ?>
         <input type="hidden" value="contratador" name="tipo">
-    </form>
-    <a href="cadastro_contratador.php">Cadastro</a>
-    <a href="pagina_inicial">Página Inicial</a>
+    </form> <br>
+    <a href="cadastro_contratador.php"><button>Cadastro</button></a> <br> <br>
+    <a href="pagina_inicial.php"><button>Página Inicial</button></a>
 </body>
 <?php include('../../php/emailSenhaIncorretos.php') ?>
 

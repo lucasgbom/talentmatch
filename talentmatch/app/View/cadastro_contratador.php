@@ -12,9 +12,9 @@
     <form action="../Model/cadastrar.php" method="POST">
         <?php include('../../html/form_cadastro.html') ?>
         <input type="hidden" value="contratador" name="tipo">
-    </form>
-    <a href="login_contratador"><button>Login</button></a> <br>
-    <a href="pagina_inicial">Página Inicial</a>
+    </form> <br>
+    <a href="login_contratador.php"><button>Login</button></a> <br> <br>
+    <a href="pagina_inicial.php"><button>Página Inicial</button></a>
 </body>
 
 </html>

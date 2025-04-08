@@ -6,17 +6,18 @@ if (!isset($_SESSION['nome'])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
+    <script src="../../bootstrap/bootstrap.js"></script>
 </head>
-
-<body>
-    <h1>Bem-vindo, <?php echo $_SESSION['nome']; ?></h1>
-    <a href="../Model/sair.php"><button>Sair</button></a>
-    <a href="perfil.php"><button>Perfil</button></a>
+<body style="background-color: #f5f5f5;">
+    <?php include('../../php/navbar_home.php') ?>
+    <main class="d-flex justify-content-center" style="">
+            <div class="container posts" style="background-color: white;">a</div>
+    </main>
 </body>
 
 </html>
