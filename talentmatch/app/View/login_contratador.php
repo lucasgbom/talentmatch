@@ -10,9 +10,12 @@
 <body>
     <h1>LOGIN PARA CONTRATADORES</h1>
     <form action="../Model/logar.php" method="POST">
-    <?php include('../../html/form_login.html') ?>
+        <?php include('../../html/form_login.html') ?>
         <input type="hidden" value="contratador" name="tipo">
     </form>
+    <a href="cadastro_contratador.php">Cadastro</a>
+    <a href="pagina_inicial">Página Inicial</a>
 </body>
-<?php include('../../php/nomeSenhaIncorretos.php') ?>
+<?php include('../../php/emailSenhaIncorretos.php') ?>
+
 </html>

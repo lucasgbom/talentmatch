@@ -13,6 +13,8 @@
         <?php include('../../html/form_login.html') ?>
         <input type="hidden" value="artista" name="tipo">
     </form>
+    <a href="login_artista">Login</a> <br>
+    <a href="pagina_inicial">Página Inicial</a> 
 </body>
-<?php include('../../php/nomeSenhaIncorretos.php') ?>
+<?php include('../../php/emailSenhaIncorretos.php') ?>
 </html>
