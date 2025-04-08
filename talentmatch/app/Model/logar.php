@@ -1,11 +1,11 @@
 <?php
-include('../conexao/conexao.php');
+include('../conexao/Conexao.php');
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 $senha_crip = md5(sha1($senha));
 $tipo = $_POST['tipo'];
 $sql = gerarSQL($tipo, 1);
-$consulta = $conexao->prepare($sql);
+$consulta = Conexao::getConexao()->prepare($sql);
 $consulta->bindValue(':email', $email);
 $consulta->bindValue(':senha', $senha_crip);
 $consulta->execute();

@@ -1,5 +1,5 @@
 <?php
-include('../conexao/conexao.php');
+include('../conexao/Conexao.php');
 $nome = $_POST['nome'];
 $senha = $_POST['senha'];
 $endereco = $_POST['endereco'];
@@ -8,13 +8,13 @@ $senha_crip = md5(sha1($senha));
 $tipo = $_POST['tipo'];
 $sql = gerarSQL($tipo);
 
-$consulta = $conexao->prepare($sql[0]);
+$consulta = Conexao::getConexao()->prepare($sql[0]);
 $consulta->bindValue(':email', $email);
 $consulta->execute();
 $usuarios = $consulta->fetchAll(PDO::FETCH_ASSOC);
 var_dump($usuarios);
 if (count($usuarios) == 0) {
-    $consulta = $conexao->prepare($sql[1]);
+    $consulta = Conexao::getConexao()->prepare($sql[1]);
     $consulta->bindValue(':email', $email);
     $consulta->bindValue(':nome', $nome);
     $consulta->bindValue(':endereco', $endereco);
