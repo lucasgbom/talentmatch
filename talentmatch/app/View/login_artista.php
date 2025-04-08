@@ -14,11 +14,5 @@
         <input type="hidden" value="artista" name="tipo">
     </form>
 </body>
-<?php
-if (isset($_GET['msg'])) {
-    if ($_GET['msg'] == 'NomeOuSenhaIncorretos') {
-        echo ('<script>alert("Nome ou senha incorretos.")</script>');
-    }
-} ?>
-
+<?php include('../../php/nomeSenhaIncorretos.php') ?>
 </html>
