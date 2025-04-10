@@ -3,9 +3,10 @@
 /* @Autor: Adaptado por ChatGPT
    Classe DAO para Artista */
 
-class ArtistaDAO {
-
-    public function carregar($id) {
+class ArtistaDAO
+{
+    public function carregar($id)
+    {
         try {
             $sql = 'SELECT * FROM artista WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
@@ -17,7 +18,33 @@ class ArtistaDAO {
         }
     }
 
-    public function listarTodos() {
+    public function logar($senha, $email)
+    {
+        try {
+            $sql = 'SELECT * FROM artista WHERE senha = :senha AND email = :email';
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(":senha", $senha);
+            $consulta->bindValue(":email", $email);
+            $consulta->execute();
+            $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario) {
+                session_start();
+                foreach ($usuario as $key => $value) {
+                    $_SESSION[$key] = $value;
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            print "Erro ao logar <br>" . $e . '<br>';
+            return false;
+        }
+    }
+
+    public function listarTodos()
+    {
         try {
             $sql = 'SELECT * FROM artista';
             $consulta = Conexao::getConexao()->prepare($sql);
@@ -28,7 +55,8 @@ class ArtistaDAO {
         }
     }
 
-    public function buscar($coluna, $valor) {
+    public function buscar($coluna, $valor)
+    {
         try {
             $sql = "SELECT * FROM artista WHERE $coluna LIKE :valor";
             $consulta = Conexao::getConexao()->prepare($sql);
@@ -40,7 +68,8 @@ class ArtistaDAO {
         }
     }
 
-    public function deletar(Artista $artista) {
+    public function deletar(Artista $artista)
+    {
         try {
             $sql = 'DELETE FROM artista WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
@@ -51,7 +80,8 @@ class ArtistaDAO {
         }
     }
 
-    public function inserir(Artista $artista) {
+    public function inserir(Artista $artista)
+    {
         try {
             $sql = 'INSERT INTO artista (
                         biografia, senha, nome, foto_perfil, endereco, disponivel, x, instagram, spotify, email
@@ -75,7 +105,8 @@ class ArtistaDAO {
         }
     }
 
-    public function atualizar(Artista $artista) {
+    public function atualizar(Artista $artista)
+    {
         try {
             $sql = 'UPDATE artista SET 
                         biografia = :biografia, 
