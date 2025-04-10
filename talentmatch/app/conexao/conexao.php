@@ -8,7 +8,6 @@ class Conexao {
    private function __construct() {
        //
    }
-
    public static function getConexao() {
        if (!isset(self::$instance)) {
     			$servidor = "localhost";
@@ -23,5 +22,4 @@ class Conexao {
 
        return self::$instance;
    }
-
 }

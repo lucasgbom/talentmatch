@@ -9,9 +9,9 @@
 
 <body>
     <h1>CADASTRO PARA ARTISTAS</h1>
-    <form action="../Model/cadastrar.php" method="POST">
+    <form action="../Controller/ArtistaController.php" method="POST">
         <?php include('../../html/form_cadastro.html') ?>
-        <input type="hidden" value="artista" name="tipo">
+        <input type="hidden" value="cadastro_artista" name="tipo">
     </form> <br>
     <a href="login_artista.php"><button>Login</button></a> <br> <br>
     <a href="pagina_inicial.php"><button>Página Inicial</button> </a>

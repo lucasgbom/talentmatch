@@ -18,7 +18,29 @@ class ContratadorDAO
 			print "Erro ao carregar Contratador <br>" . $e . '<br>';
 		}
 	}
-
+	public function logar($senha, $email)
+	{
+		try {
+			$sql = 'SELECT * FROM artista WHERE senha = :senha AND email = :email';
+			$consulta = Conexao::getConexao()->prepare($sql);
+			$consulta->bindValue(":senha", $senha);
+			$consulta->bindValue(":email", $email);
+			$consulta->execute();
+			$usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+			if ($usuario) {
+				session_start();
+				foreach ($usuario as $key => $value) {
+					$_SESSION[$key] = $value;
+				}
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			print "Erro ao logar <br>" . $e . '<br>';
+			return false;
+		}
+	}
 	public function listarTodos()
 	{
 		try {
