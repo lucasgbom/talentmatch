@@ -88,6 +88,7 @@ class ArtistaDAO {
                         instagram = :instagram,
                         spotify = :spotify,
                         email = :email
+                        
                     WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':biografia', $artista->getBiografia());
