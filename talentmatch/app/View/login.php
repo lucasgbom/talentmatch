@@ -9,9 +9,9 @@
 
 <body>
     <h1>LOGIN</h1>
-    <form action="../Controller/UsuarioController.php" method="POST">
+    <form action="../Controller/ArtistaController.php" method="POST">
         <?php include('../../html/form_login.html') ?>
-        <input type="hidden" value="contratador" name="tipo">
+        <input type="hidden" value="login_artista" name="tipo">
     </form> <br>
 </body>
 <?php include('../../php/emailSenhaIncorretos.php') ?>

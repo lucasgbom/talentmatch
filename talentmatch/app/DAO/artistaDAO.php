@@ -18,13 +18,13 @@ class ArtistaDAO
         }
     }
 
-    public function logar($senha, $email)
+    public function logar(Artista $artista)
     {
         try {
             $sql = 'SELECT * FROM artista WHERE senha = :senha AND email = :email';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(":senha", $senha);
-            $consulta->bindValue(":email", $email);
+            $consulta->bindValue(":senha", $artista->getSenha());
+            $consulta->bindValue(":email", $artista->getEmail());
             $consulta->execute();
             $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
 
@@ -33,7 +33,8 @@ class ArtistaDAO
                 foreach ($usuario as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
-                return true;
+              
+                var_dump($_SESSION);
             } else {
                 return false;
             }

@@ -24,13 +24,15 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
     $artistas = $artistaDAO->listarTodos();
 }
 
-// Cadastrar
-if (isset($tipo)) {
-    if ($artistaDAO->logar($senha, $email)) {
-        $artista->setSenha($senha);
-        $artista->setNome($nome);
-        $artista->setEndereco($endereco);
-        $artista->setEmail($tipo);
+if (isset($tipo)){
+    $artista->setSenha($senha);
+    $artista->setNome($nome);
+    $artista->setEndereco($endereco);
+    $artista->setEmail($email);
+
+    if ($tipo = "cadastro_artista") {
+    
+        
         //$artista->setInstagram($u['instagram']);
         //$artista->setSpotify($u['spotify']);
         //$artista->setBiografia($u['biografia']);
@@ -39,9 +41,17 @@ if (isset($tipo)) {
         //$artista->setX($u['x']);
         //header("location: ../");
         $artistaDAO->inserir($artista);
-        
-    }
 }
+
+if($tipo = "login_artista"){
+
+$artistaDAO->logar($artista);
+}
+
+}
+
+// Cadastrar
+
 // Editar
 else if (isset($_POST['editar'])) {
     $artista->setId($u['id']);
