@@ -10,7 +10,9 @@
 <body>
     <h1>LOGIN</h1>
     <form action="../Controller/ArtistaController.php" method="POST">
-        <?php include('../../html/form_login.html') ?>
+    <label for="email">Email: </label><input type="email" name="email">
+<label for="senha">Senha: </label><input type="password" name="senha">
+<input type="submit" value="Enviar">
         <input type="hidden" value="login_artista" name="tipo">
     </form> <br>
 </body>

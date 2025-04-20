@@ -18,11 +18,12 @@ $senha_crip = md5(sha1($senha));
 $tipo = $_POST['tipo'];
 
 // Verifica se pesquisaram alguma coisa.
+/*
 if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
     $artistas = $artistaDAO->buscar("id", $_GET['pesquisa']);
 } else {
     $artistas = $artistaDAO->listarTodos();
-}
+}*/
 
 if (isset($tipo)){
     $artista->setSenha($senha);
@@ -41,11 +42,19 @@ if (isset($tipo)){
         //$artista->setX($u['x']);
         //header("location: ../");
         $artistaDAO->inserir($artista);
+        return true;
 }
 
 if($tipo = "login_artista"){
 
 $artistaDAO->logar($artista);
+return true;
+}
+
+if($tipo = "atualizar_artista"){
+
+    $artistaDAO->atualizar($artista);
+    return true;
 }
 
 }
@@ -53,6 +62,7 @@ $artistaDAO->logar($artista);
 // Cadastrar
 
 // Editar
+/*
 else if (isset($_POST['editar'])) {
     $artista->setId($u['id']);
     $artista->setBiografia($u['biografia']);
@@ -75,4 +85,4 @@ else if (isset($_GET['deletar'])) {
     header("Location: ../../artista.php?msg=apagado");
 } else {
     header("Location: ../../artista.php?msg=erro");
-}
+}*/

@@ -42,7 +42,7 @@ session_start();
     <button type="submit">Enviar</button>
 </form>
 
-<form id="formulario">
+<form id="formulario" action="../Controller/ArtistaController.php">
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" class="input-field" value="<?php echo $_SESSION['nome']; ?>" disabled><br>
 
@@ -54,6 +54,9 @@ session_start();
         <input type="text" id="username" class="input-field" disabled><br>
 
         <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+        <input type="hidden" id="salvar" value="salvar">
+        <input type="hidden" value="atualizar_artista" name="tipo">
+
     </form>
 
     <script>
@@ -67,6 +70,14 @@ session_start();
                 campo.style.opacity = campo.disabled ? '0.7' : '1'; // Ajusta a opacidade
             });
         }
+
+        const form = document.getElementById('formulario');
+  let formularioAlterado = false;
+
+  // Marca como alterado se algum campo mudar
+  form.addEventListener('input', () => {
+    document.getElementById("salvar").type = "submit"
+  });
     </script>
 </body>
 </html>

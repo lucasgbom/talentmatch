@@ -18,6 +18,36 @@ class ArtistaDAO
         }
     }
 
+    public function inserir(Artista $artista)
+    {
+        try {
+            $sql = 'INSERT INTO artista (
+                        biografia, senha, nome, foto_perfil, endereco, disponivel, x, instagram, spotify, email
+                    ) VALUES (
+                        :biografia, :senha, :nome, :foto_perfil, :endereco, :disponivel, :x, :instagram, :spotify, :email
+                    )';
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(':biografia', $artista->getBiografia());
+            $consulta->bindValue(':senha', $artista->getSenha());
+            $consulta->bindValue(':nome', $artista->getNome());
+            $consulta->bindValue(':foto_perfil', $artista->getFotoPerfil());
+            $consulta->bindValue(':endereco', $artista->getEndereco());
+            $consulta->bindValue(':disponivel', $artista->getDisponivel(), PDO::PARAM_BOOL);
+            $consulta->bindValue(':x', $artista->getX());
+            $consulta->bindValue(':instagram', $artista->getInstagram());
+            $consulta->bindValue(':spotify', $artista->getSpotify());
+            $consulta->bindValue(':email', $artista->getEmail());
+            $consulta->execute();
+
+            header("location:../View/login.php");
+            return true;
+        } catch (Exception $e) {
+            print "Erro ao inserir Artista <br>" . $e . '<br>';
+            return false;
+        }
+    }
+
+
     public function logar(Artista $artista)
     {
         try {
@@ -32,12 +62,10 @@ class ArtistaDAO
                 session_start();
                 foreach ($usuario as $key => $value) {
                     $_SESSION[$key] = $value;
-                }
-              
-                var_dump($_SESSION);
-            } else {
-                return false;
             }
+              header("location:../View/perfil.php");
+            } 
+            return true;
         } catch (Exception $e) {
             print "Erro ao logar <br>" . $e . '<br>';
             return false;
@@ -81,31 +109,7 @@ class ArtistaDAO
         }
     }
 
-    public function inserir(Artista $artista)
-    {
-        try {
-            $sql = 'INSERT INTO artista (
-                        biografia, senha, nome, foto_perfil, endereco, disponivel, x, instagram, spotify, email
-                    ) VALUES (
-                        :biografia, :senha, :nome, :foto_perfil, :endereco, :disponivel, :x, :instagram, :spotify, :email
-                    )';
-            $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':biografia', $artista->getBiografia());
-            $consulta->bindValue(':senha', $artista->getSenha());
-            $consulta->bindValue(':nome', $artista->getNome());
-            $consulta->bindValue(':foto_perfil', $artista->getFotoPerfil());
-            $consulta->bindValue(':endereco', $artista->getEndereco());
-            $consulta->bindValue(':disponivel', $artista->getDisponivel(), PDO::PARAM_BOOL);
-            $consulta->bindValue(':x', $artista->getX());
-            $consulta->bindValue(':instagram', $artista->getInstagram());
-            $consulta->bindValue(':spotify', $artista->getSpotify());
-            $consulta->bindValue(':email', $artista->getEmail());
-            $consulta->execute();
-        } catch (Exception $e) {
-            print "Erro ao inserir Artista <br>" . $e . '<br>';
-        }
-    }
-
+    
     public function atualizar(Artista $artista)
     {
         try {
@@ -135,8 +139,12 @@ class ArtistaDAO
             $consulta->bindValue(':email', $artista->getEmail());
             $consulta->bindValue(':id', $artista->getId());
             $consulta->execute();
+
+            return true;
         } catch (Exception $e) {
             print "Erro ao atualizar Artista <br>" . $e . '<br>';
+
+            return false;
         }
     }
 }
