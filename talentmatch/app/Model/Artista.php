@@ -9,6 +9,7 @@ class Artista {
     private $biografia;
     private $senha;
     private $nome;
+    private $nome_usuario;
     private $foto_perfil;
     private $endereco;
     private $disponivel;
@@ -62,6 +63,10 @@ class Artista {
         return $this->email;
     }
 
+    public function getNomeUsuario() {
+        return $this->nome_usuario;
+    }
+
     // Setters
     public function setId($id) {
         $this->id = $id;
@@ -105,5 +110,9 @@ class Artista {
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function setNomeUsuario($nome_usuario) {
+        $this->nome_usuario = $nome_usuario;
     }
 }

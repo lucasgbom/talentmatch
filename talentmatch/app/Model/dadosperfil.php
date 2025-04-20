@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include("../conexao/conexao.php");
+include("../conexao/Conexao.php");
 
 $foto = $_FILES['foto'];
 $user = $_POST['username'];
@@ -25,7 +25,7 @@ if (move_uploaded_file($fileTmpPath, $targetpath)) {
    echo "Erro ao mover o arquivo para o diretório de uploads.";
 }
 
-$consulta = $conexao->prepare("INSERT INTO artista (usuario, foto) VALUES (:user, :foto)");
+$consulta = Conexao::getConexao()->prepare("INSERT INTO artista (usuario, foto) VALUES (:user, :foto)");
     $consulta->bindValue(':user', $user, PDO::PARAM_STR); // Corrigir a ordem dos parâmetros
     $consulta->bindValue(':foto', $encrypt, PDO::PARAM_STR); // Corrigir a ordem dos parâmetros
     $consulta->execute();

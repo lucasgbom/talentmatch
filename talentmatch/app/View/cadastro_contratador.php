@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -9,9 +9,9 @@
 
 <body>
     <h1>CADASTRO PARA CONTRATADORES</h1>
-    <form action="../Model/cadastrar.php" method="POST">
+    <form action="../Controller/ContratadorController.php" method="POST">
         <?php include('../../html/form_cadastro.html') ?>
-        <input type="hidden" value="contratador" name="tipo">
+        <input type="hidden" value="cadastro_contratador" name="tipo">
     </form> <br>
     <a href="login_contratador.php"><button>Login</button></a> <br> <br>
     <a href="pagina_inicial.php"><button>Página Inicial</button></a>

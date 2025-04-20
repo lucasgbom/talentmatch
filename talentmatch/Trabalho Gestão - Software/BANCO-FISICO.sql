@@ -25,7 +25,8 @@ CREATE TABLE artista (
     biografia VARCHAR(500),
     senha VARCHAR(256),
     nome VARCHAR(256),
-    foto_perfil BLOB,
+    nome_usuario VARCHAR(100);
+    foto_perfil VARCHAR(256),
     endereco VARCHAR(256),
     disponivel BOOLEAN,
     id INT AUTO_INCREMENT PRIMARY KEY,
