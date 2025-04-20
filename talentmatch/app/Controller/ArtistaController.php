@@ -1,22 +1,19 @@
 <?php
 
-/* @Autor: Adaptado por ChatGPT
-   Classe Controller para Artista */
-
 include_once "../conexao/Conexao.php";
-include_once "../model/Artista.php";
-include_once "../dao/ArtistaDAO.php";
+include_once "../Model/Artista.php";
+include_once "../DAO/ArtistaDAO.php";
 
 $artista = new Artista();
 $artistaDAO = new ArtistaDAO();
 
-$nome = $_POST['nome'];
-$senha = $_POST['senha'];
-$endereco = $_POST['endereco'];
-$email = $_POST['email'];
-$senha_crip = md5(sha1($senha));
-$tipo = $_POST['tipo'];
+$nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+$senha = isset($_POST['senha']) ? $_POST['senha'] : '';
+$endereco = isset($_POST['endereco']) ? $_POST['endereco'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$tipo = isset($_POST['tipo']) ? $_POST['tipo'] : '';
 
+$senha_crip = $senha;
 // Verifica se pesquisaram alguma coisa.
 /*
 if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
@@ -25,15 +22,31 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
     $artistas = $artistaDAO->listarTodos();
 }*/
 
-if (isset($tipo)){
+if (isset($tipo)) {
     $artista->setSenha($senha);
     $artista->setNome($nome);
     $artista->setEndereco($endereco);
     $artista->setEmail($email);
-
-    if ($tipo = "cadastro_artista") {
-    
-        
+    switch ($tipo) {
+        case 'cadastro_artista':
+            if (!$artistaDAO->artistaExiste($email, $senha)) {
+                $artistaDAO->inserir($artista);
+            }
+            else{
+                header('location: ../View/cadastro_artista.php?msg=emailIndisponivel');
+            }
+            break;
+        case 'login_artista':
+            if (!$artistaDAO->logar($artista)){
+                header('location: ../View/login.php?msg=emailSenhaIncorretos');
+            }
+            break;
+        case 'atualizar_artista':
+            $artistaDAO->atualizar($artista);
+            break;
+    }
+    /*
+    if ($tipo == "cadastro_artista") {
         //$artista->setInstagram($u['instagram']);
         //$artista->setSpotify($u['spotify']);
         //$artista->setBiografia($u['biografia']);
@@ -42,21 +55,11 @@ if (isset($tipo)){
         //$artista->setX($u['x']);
         //header("location: ../");
         $artistaDAO->inserir($artista);
-        return true;
-}
-
-if($tipo = "login_artista"){
-
-$artistaDAO->logar($artista);
-return true;
-}
-
-if($tipo = "atualizar_artista"){
-
-    $artistaDAO->atualizar($artista);
-    return true;
-}
-
+    } else if ($tipo == "login_artista") {
+        $artistaDAO->logar($artista);
+    } else if ($tipo == "atualizar_artista") {
+        $artistaDAO->atualizar($artista);
+    }*/
 }
 
 // Cadastrar

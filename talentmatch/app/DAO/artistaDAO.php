@@ -1,8 +1,4 @@
 <?php
-
-/* @Autor: Adaptado por ChatGPT
-   Classe DAO para Artista */
-
 class ArtistaDAO
 {
     public function carregar($id)
@@ -57,15 +53,15 @@ class ArtistaDAO
             $consulta->bindValue(":email", $artista->getEmail());
             $consulta->execute();
             $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-
             if ($usuario) {
                 session_start();
                 foreach ($usuario as $key => $value) {
                     $_SESSION[$key] = $value;
+                }
+                header("location:../View/perfil.php");
+                return true;
             }
-              header("location:../View/perfil.php");
-            } 
-            return true;
+            return false;
         } catch (Exception $e) {
             print "Erro ao logar <br>" . $e . '<br>';
             return false;
@@ -96,7 +92,21 @@ class ArtistaDAO
             print "Erro ao buscar Artista <br>" . $e . '<br>';
         }
     }
-
+    public function artistaExiste($email)
+    {
+        try {
+            $sql = "SELECT * FROM artista WHERE email = :email";
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(":email", $email);
+            $consulta->execute();
+            if ($consulta->fetchAll(PDO::FETCH_ASSOC)) {
+                return true;
+            }
+            return false;
+        } catch (Exception $e) {
+            print "Erro ao buscar Artista <br>" . $e . '<br>';
+        }
+    }
     public function deletar(Artista $artista)
     {
         try {
@@ -109,7 +119,7 @@ class ArtistaDAO
         }
     }
 
-    
+
     public function atualizar(Artista $artista)
     {
         try {
