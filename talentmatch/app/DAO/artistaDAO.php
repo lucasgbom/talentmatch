@@ -1,4 +1,6 @@
 <?php
+
+
 class ArtistaDAO
 {
     public function carregar($id)
@@ -8,7 +10,13 @@ class ArtistaDAO
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(":id", $id);
             $consulta->execute();
-            return $consulta->fetch(PDO::FETCH_ASSOC);
+            
+            $usuario =  $consulta->fetch(PDO::FETCH_ASSOC);
+
+            foreach ($usuario as $key => $value) {
+                $_SESSION[$key] = $value;
+            }
+
         } catch (Exception $e) {
             print "Erro ao carregar Artista <br>" . $e . '<br>';
         }
@@ -17,57 +25,81 @@ class ArtistaDAO
     public function inserir(Artista $artista)
     {
         try {
-            $sql = 'INSERT INTO artista (
-                        biografia, senha, nome, foto_perfil, endereco, disponivel, x, instagram, spotify, email
-                    ) VALUES (
-                        :biografia, :senha, :nome, :foto_perfil, :endereco, :disponivel, :x, :instagram, :spotify, :email
-                    )';
-            $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':biografia', $artista->getBiografia());
-            $consulta->bindValue(':senha', $artista->getSenha());
-            $consulta->bindValue(':nome', $artista->getNome());
-            $consulta->bindValue(':foto_perfil', $artista->getFotoPerfil());
-            $consulta->bindValue(':endereco', $artista->getEndereco());
-            $consulta->bindValue(':disponivel', $artista->getDisponivel(), PDO::PARAM_BOOL);
-            $consulta->bindValue(':x', $artista->getX());
-            $consulta->bindValue(':instagram', $artista->getInstagram());
-            $consulta->bindValue(':spotify', $artista->getSpotify());
-            $consulta->bindValue(':email', $artista->getEmail());
-            $consulta->execute();
+            
 
-            header("location:../View/login.php");
+            foreach ($_POST as $campo => $valor) {
+                $method  = "set". ucfirst($campo);
+                if(method_exists($artista, $method)){
+            
+                if (!empty($valor)) {     
+                    $artista->$method($valor);
+                }else{
+                    $artista->$method(null);
+                }
+            }
+            }
+
+            $metodos = get_class_methods($artista);
+
+            $dados = [];
+
+            foreach ($metodos as $metodo) {
+                if (str_starts_with($metodo, 'get')) {
+                    $campo = lcfirst(substr($metodo, 3)); // getNome → nome
+                    $dados[$campo] = $artista->$metodo();
+                }
+            }
+            
+            $campos = implode(', ', array_keys($dados));
+            $placeholders = ':' . implode(', :', array_keys($dados));
+
+            $sql = "INSERT INTO artista ($campos) VALUES ($placeholders)";
+            $conexao = Conexao::getConexao();
+            $consulta = $conexao->prepare($sql);
+
+            
+foreach ($dados as $campo => $valor) {
+    $consulta->bindValue(":$campo", $valor);
+}
+            
+            $consulta->execute();
+            
             return true;
         } catch (Exception $e) {
             print "Erro ao inserir Artista <br>" . $e . '<br>';
             return false;
         }
     }
-
+    
 
     public function logar(Artista $artista)
     {
         try {
-            $sql = 'SELECT * FROM artista WHERE senha = :senha AND email = :email';
+            $sql = 'SELECT * FROM artista WHERE email = :email AND senha = :senha';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(":senha", $artista->getSenha());
-            $consulta->bindValue(":email", $artista->getEmail());
+            $consulta->bindValue(":email", $_POST["email"]);
+            $consulta->bindValue(":senha", $_POST["senha"]);
             $consulta->execute();
+            
             $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-            if ($usuario) {
-                session_start();
-                foreach ($usuario as $key => $value) {
-                    $_SESSION[$key] = $value;
+        
+                foreach ($usuario as $campo => $valor) {
+                    $method = "set" . ucfirst($campo);
+                    if (method_exists($artista, $method)) {
+                        $artista->$method($valor);
+                    }
                 }
-                header("location:../View/perfil.php");
-                return true;
-            }
-            return false;
+
+                $_SESSION["usuario"] = $artista;
+ 
+                
+            return true;
         } catch (Exception $e) {
             print "Erro ao logar <br>" . $e . '<br>';
             return false;
         }
     }
-
+    
     public function listarTodos()
     {
         try {
@@ -121,40 +153,59 @@ class ArtistaDAO
 
 
     public function atualizar(Artista $artista)
-    {
-        try {
-            $sql = 'UPDATE artista SET 
-                        biografia = :biografia, 
-                        senha = :senha, 
-                        nome = :nome, 
-                        foto_perfil = :foto_perfil, 
-                        endereco = :endereco,
-                        disponivel = :disponivel,
-                        x = :x,
-                        instagram = :instagram,
-                        spotify = :spotify,
-                        email = :email
-                        
-                    WHERE id = :id';
-            $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':biografia', $artista->getBiografia());
-            $consulta->bindValue(':senha', $artista->getSenha());
-            $consulta->bindValue(':nome', $artista->getNome());
-            $consulta->bindValue(':foto_perfil', $artista->getFotoPerfil());
-            $consulta->bindValue(':endereco', $artista->getEndereco());
-            $consulta->bindValue(':disponivel', $artista->getDisponivel(), PDO::PARAM_BOOL);
-            $consulta->bindValue(':x', $artista->getX());
-            $consulta->bindValue(':instagram', $artista->getInstagram());
-            $consulta->bindValue(':spotify', $artista->getSpotify());
-            $consulta->bindValue(':email', $artista->getEmail());
-            $consulta->bindValue(':id', $artista->getId());
-            $consulta->execute();
+{
+    try {
+        $set = [];
 
-            return true;
-        } catch (Exception $e) {
-            print "Erro ao atualizar Artista <br>" . $e . '<br>';
-
-            return false;
+        // Preenche o objeto com os dados do POST
+        foreach ($_POST as $campo => $valor) {
+            $method = "set" . ucfirst($campo);
+            if (method_exists($artista, $method)) {
+                // Define valor ou null no objeto
+                $artista->$method(!empty($valor) ? $valor : null);
+        
+                // SEMPRE adiciona no SET, mesmo que valor seja null
+                $set[] = "$campo = :$campo";
+            }
         }
+        
+        // Extrai os dados do objeto com os getters
+        $metodos = get_class_methods($artista);
+        $dados = [];
+
+        foreach ($metodos as $metodo) {
+            if (str_starts_with($metodo, 'get')) {
+                $campo = lcfirst(substr($metodo, 3));
+                $dados[$campo] = $artista->$metodo();
+            }
+        }
+
+        $setString = implode(', ', $set);
+        $sql = "UPDATE artista SET $setString WHERE id = :id";
+
+        $conexao = Conexao::getConexao();
+        $consulta = $conexao->prepare($sql);
+
+        // Faz o bind para os campos atualizados
+        foreach ($dados as $campo => $valor) {
+            if (in_array("$campo = :$campo", $set)) {
+                
+                $consulta->bindValue(":$campo", $valor);
+            }
+        }
+
+        var_dump($setString);
+        
+        // Bind do ID (sempre obrigatório)
+        $consulta->bindValue(':id', $artista->getId());
+
+        $consulta->execute();
+
+        return true;
+    } catch (Exception $e) {
+        print "Erro ao atualizar Artista <br>" . $e->getMessage() . '<br>';
+        return false;
     }
+}
+
 }

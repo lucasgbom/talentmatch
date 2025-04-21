@@ -1,5 +1,8 @@
 <?php
+require_once("../Model/Artista.php");
 session_start();
+$artista = $_SESSION["usuario"];
+var_dump($artista);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,16 +45,16 @@ session_start();
     <button type="submit">Enviar</button>
 </form>
 
-<form id="formulario" action="../Controller/ArtistaController.php">
+<form id="formulario" action="../Controller/ArtistaController.php" method="post">
         <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" class="input-field" value="<?php echo $_SESSION['nome']; ?>" disabled><br>
+        <input type="text" name="nome" class="input-field" value="<?php echo $artista->getNome(); ?>" disabled><br>
 
 
         <label for="email">Email:</label><br>
-        <input type="email" id="email" class="input-field" value="<?php echo $_SESSION['email']; ?>" disabled><br>
+        <input type="email" name="email" class="input-field" value="<?php echo $artista->getEmail(); ?>" disabled><br>
 
         <label for="telefone">Nome de usuario:</label><br>
-        <input type="text" id="username" class="input-field" disabled><br>
+        <input type="text" name="nomeUsuario" class="input-field" disabled><br>
 
         <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
         <input type="hidden" id="salvar" value="salvar">

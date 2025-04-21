@@ -1,19 +1,20 @@
 <?php
 
+require_once("../Model/Artista.php");
 include_once "../conexao/Conexao.php";
-include_once "../Model/Artista.php";
 include_once "../DAO/ArtistaDAO.php";
 
 $artista = new Artista();
 $artistaDAO = new ArtistaDAO();
 
-$nome = isset($_POST['nome']) ? $_POST['nome'] : '';
-$senha = isset($_POST['senha']) ? $_POST['senha'] : '';
-$endereco = isset($_POST['endereco']) ? $_POST['endereco'] : '';
-$email = isset($_POST['email']) ? $_POST['email'] : '';
-$tipo = isset($_POST['tipo']) ? $_POST['tipo'] : '';
+session_start();
+if(isset($_SESSION["usuario"])){
+    $artista = $_SESSION["usuario"];
+    var_dump($artista);
+}
+    
 
-$senha_crip = $senha;
+$tipo = $_POST["tipo"];
 // Verifica se pesquisaram alguma coisa.
 /*
 if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
@@ -23,25 +24,25 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
 }*/
 
 if (isset($tipo)) {
-    $artista->setSenha($senha);
-    $artista->setNome($nome);
-    $artista->setEndereco($endereco);
-    $artista->setEmail($email);
+    
+    
     switch ($tipo) {
         case 'cadastro_artista':
             if (!$artistaDAO->artistaExiste($email, $senha)) {
                 $artistaDAO->inserir($artista);
+                
             }
             else{
                 header('location: ../View/cadastro_artista.php?msg=emailIndisponivel');
             }
             break;
         case 'login_artista':
-            if (!$artistaDAO->logar($artista)){
-                header('location: ../View/login.php?msg=emailSenhaIncorretos');
-            }
+                $artistaDAO->logar($artista);
+                header('location: ../View/perfil.php');
+            
             break;
         case 'atualizar_artista':
+          
             $artistaDAO->atualizar($artista);
             break;
     }
