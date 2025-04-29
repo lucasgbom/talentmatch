@@ -20,16 +20,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="projetoController.php" method="POST">
+                    <form action="projetoController.php" method="POST" enctype="multipart/form-data">
                         <div class="row">
-                            Título: <input type="text" name="nome" value="<?= $artista['nome'] ?>" class="form-control" />
-                            Descrição: <input type="text" name="senha" value="<?= $artista['senha'] ?>" class="form-control" />
-                            Vídeo:<input type="text" name="endereco" value="<?= $artista['endereco'] ?>" class="form-control" />
+                            Título: <input type="text" name="nome" value="" class="form-control" />
+                            Descrição: <input type="text" name="senha" value="" class="form-control" />
+                            Vídeo:<input type="file" name="endereco" value="" class="form-control" />
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-right">
                                 <br>
-                                <input type="hidden" name="id" value="<?= $artista['id'] ?>" />
+                                <input type="hidden" name="id" value="" />
                                 <button class="btn btn-primary float-end" type="submit" name="editar">Salvar</button>
                             </div>
                         </div>
