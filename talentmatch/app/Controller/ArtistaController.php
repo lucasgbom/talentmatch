@@ -24,17 +24,13 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
 }*/
 
 if (isset($tipo)) {
-    
+    $artistaDAO->preparar($artista);    
     
     switch ($tipo) {
         case 'cadastro_artista':
-            if (!$artistaDAO->artistaExiste($email, $senha)) {
+            
                 $artistaDAO->inserir($artista);
-                
-            }
-            else{
-                header('location: ../View/cadastro_artista.php?msg=emailIndisponivel');
-            }
+    
             break;
         case 'login_artista':
                 $artistaDAO->logar($artista);
