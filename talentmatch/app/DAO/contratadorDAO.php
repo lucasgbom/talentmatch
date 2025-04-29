@@ -1,8 +1,4 @@
 <?php
-
-/* @Autor: Adaptado por ChatGPT
-   Classe DAO para Contratador */
-
 class ContratadorDAO
 {
 

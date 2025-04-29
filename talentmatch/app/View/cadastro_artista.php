@@ -10,10 +10,14 @@
 <body>
     <h1>CADASTRO PARA ARTISTAS</h1>
     <form action="../Controller/ArtistaController.php" method="POST">
-        <?php include('../../html/form_cadastro.html') ?>
-        <input type="hidden" value="cadastro_artista" name="tipo">
+        <label for="nome">Nome: </label><input type="text" name="nome">
+        <label for="senha">Senha: </label><input type="password" name="senha">
+        <label for="email">Email: </label><input type="email" name="email">
+        <label for="endereco">Endereço: </label><input type="text" name="endereco">
+        <input type="submit" value="Enviar">
+    <input type="hidden" value="cadastro_artista" name="tipo">
     </form> <br>
-    <a href="login_artista.php"><button>Login</button></a> <br> <br>
+    <a href="login.php"><button>Login</button></a> <br> <br>
     <a href="pagina_inicial.php"><button>Página Inicial</button> </a>
 </body>
 
