@@ -33,31 +33,32 @@ class ArtistaDAO
                 }
             }
         }
+
+
+        foreach ($_FILES as $campo => $valor) {
+            $method = "set" . ucfirst($campo);
+            if (method_exists($artista, $method)) {
+                if (!empty($valor)) {
+                    $artista->$method($valor);
+                } else {
+                    $artista->$method(null);
+                } 
+            }
+        }
+        
     }
 
     public function inserir(Artista $artista)
     {
         try {
-            $metodos = get_class_methods($artista);
-            $dados = [];
 
-            foreach ($metodos as $metodo) {
-                if (str_starts_with($metodo, 'get')) {
-                    $campo = lcfirst(substr($metodo, 3));
-                    $dados[$campo] = $artista->$metodo();
-                }
-            }
-
-            $campos = implode(', ', array_keys($dados));
-            $placeholders = ':' . implode(', :', array_keys($dados));
-
-            $sql = "INSERT INTO artista ($campos) VALUES ($placeholders)";
+            $sql = "INSERT INTO artista (nome, email, senha) VALUES (:nome, :email, :senha)";
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
 
-            foreach ($dados as $campo => $valor) {
-                $consulta->bindValue(":$campo", $valor);
-            }
+            $consulta->bindValue(":nome", $artista->getNome());
+            $consulta->bindValue(":email", $artista->getEmail());
+            $consulta->bindValue(":senha", $artista->getSenha());
 
             $consulta->execute();
 
@@ -153,37 +154,62 @@ class ArtistaDAO
         try {
             $set = [];
 
-            foreach ($_POST as $campo => $valor) {
+            foreach ($_FILES as $campo => $arquivo) {
+
+                $info = pathinfo($arquivo['name']);
+
+                $filename = $info['filename'];
+                $extension = $info['extension'];
+
+                $cript = md5($filename);
+
+                $encrypt = $cript.'.'.$extension;
+
+                echo($encrypt);
+
+                $fileTmpPath = $arquivo['tmp_name'];
+                $targetpath = "../../data/".$encrypt;
+
+                if (move_uploaded_file($fileTmpPath, $targetpath)) {
+                echo "Arquivo enviado com sucesso para a pasta específica. Nome criptografado: " . $encrypt;
+                } else {
+                echo "Erro ao mover o arquivo para o diretório de uploads.";
+
+                $data = "../../data/$artista->getFotoPerfil()";
+
+
                 $method = "set" . ucfirst($campo);
                 if (method_exists($artista, $method)) {
-                    $artista->$method(!empty($valor) ? $valor : null);
-                    $set[] = "$campo = :$campo";
+                    if (!empty($valor)) {
+                        $artista->$method($valor);
+                    } else {
+                        $artista->$method(null);
+                    } 
                 }
             }
 
             $metodos = get_class_methods($artista);
-            $dados = [];
 
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
                     $campo = lcfirst(substr($metodo, 3));
-                    $dados[$campo] = $artista->$metodo();
+                    $set[] = "$campo = :$campo";
                 }
             }
 
             $setString = implode(', ', $set);
-            $sql = "UPDATE artista SET $setString WHERE id = :id";
 
+            $sql = "UPDATE artista SET $setString WHERE id = :id";
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
 
-            foreach ($dados as $campo => $valor) {
-                if (in_array("$campo = :$campo", $set)) {
+            foreach ($metodos as $metodo) {
+                if (str_starts_with($metodo, 'get')) {
+                    $campo = lcfirst(substr($metodo, 3));
+                    $valor = $artista->$metodo();
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
-
-            $consulta->bindValue(':id', $artista->getId());
 
             $consulta->execute();
 

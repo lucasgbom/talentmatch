@@ -46,6 +46,12 @@ var_dump($artista);
 </form>
 
 <form id="formulario" action="../Controller/ArtistaController.php" method="post">
+
+<img src="" alt="">
+input
+
+
+
         <label for="nome">Nome:</label><br>
         <input type="text" name="nome" class="input-field" value="<?php echo $artista->getNome(); ?>" disabled><br>
 

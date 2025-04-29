@@ -10,7 +10,6 @@ $artistaDAO = new ArtistaDAO();
 session_start();
 if(isset($_SESSION["usuario"])){
     $artista = $_SESSION["usuario"];
-    var_dump($artista);
 }
     
 
@@ -24,13 +23,11 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
 }*/
 
 if (isset($tipo)) {
-    $artistaDAO->preparar($artista);    
-    
+       
     switch ($tipo) {
         case 'cadastro_artista':
-            
+            $artistaDAO->preparar($artista);
                 $artistaDAO->inserir($artista);
-    
             break;
         case 'login_artista':
                 $artistaDAO->logar($artista);
@@ -38,7 +35,7 @@ if (isset($tipo)) {
             
             break;
         case 'atualizar_artista':
-          
+            $artistaDAO->preparar($artista);
             $artistaDAO->atualizar($artista);
             break;
     }

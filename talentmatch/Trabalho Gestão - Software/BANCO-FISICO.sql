@@ -42,6 +42,7 @@ CREATE TABLE habilidade (
 
 CREATE TABLE projeto (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
     arquivoCaminho VARCHAR(256),
     descricao VARCHAR(500),
     idArtista INT,
