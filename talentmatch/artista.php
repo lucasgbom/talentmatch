@@ -84,7 +84,7 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
                             <td><?= $artista['nome'] ?></td>
                             <td><?= $artista['senha'] ?></td>
                             <td><?= $artista['endereco'] ?></td>
-                            <td><?= $artista['foto_perfil'] ?></td>
+                            <td><?= $artista['fotoPerfil'] ?></td>
                             <td><?= $artista['biografia'] ?></td>
                             <td><?= $artista['email'] ?></td>
 
@@ -116,13 +116,12 @@ if (isset($_GET['pesquisa']) && !empty($_GET['pesquisa'])) {
                                     <div class="modal-body">
                                         <form action="app/controller/artistaController.php" method="POST">
                                             <div class="row">
-                                                <input type="text" name="nome" value="<?= $artista['nome'] ?>" class="form-control" />
-                                                <input type="text" name="senha" value="<?= $artista['senha'] ?>" class="form-control" />
-                                                <input type="text" name="endereco" value="<?= $artista['endereco'] ?>" class="form-control" />
-                                                <input type="text" name="foto" value="<?= $artista['foto'] ?>" class="form-control" />
-                                                <input type="text" name="descricao" value="<?= $artista['descricao'] ?>" class="form-control" />
-                                                <input type="email" name="email" value="<?= $artista['email'] ?>" class="form-control" />
-
+                                                Nome: <input type="text" name="nome" value="<?= $artista['nome'] ?>" class="form-control" />
+                                                Senha: <input type="text" name="senha" value="<?= $artista['senha'] ?>" class="form-control" />
+                                                Endereco:<input type="text" name="endereco" value="<?= $artista['endereco'] ?>" class="form-control" />
+                                                Foto do perfil: <input type="text" name="foto" value="<?= $artista['fotoPerfil'] ?>" class="form-control" />
+                                                Biografia: <input type="text" name="descricao" value="<?= $artista['biografia'] ?>" class="form-control" />
+                                                Email: <input type="email" name="email" value="<?= $artista['email'] ?>" class="form-control" />
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 text-right">
