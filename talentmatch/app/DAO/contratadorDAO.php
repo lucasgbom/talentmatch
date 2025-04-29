@@ -19,10 +19,12 @@ class ContratadorDAO
 		try {
 			$sql = 'SELECT * FROM artista WHERE senha = :senha AND email = :email';
 			$consulta = Conexao::getConexao()->prepare($sql);
-			$consulta->bindValue(":senha", $senha);
-			$consulta->bindValue(":email", $email);
+			$consulta->bindValue(":senha", $_POST['senha']);
+			$consulta->bindValue(":email", $_POST['email']);
 			$consulta->execute();
 			$usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+			
 			if ($usuario) {
 				session_start();
 				foreach ($usuario as $key => $value) {
