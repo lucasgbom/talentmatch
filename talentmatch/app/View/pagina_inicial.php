@@ -10,8 +10,8 @@
 <body>
     <a href="cadastro_artista.php"><button>Cadastrar artista</button></a> <br>
     <a href="cadastro_contratador.php"><button>Cadastrar contratador</button></a> <br>
-    <a href="login_artista.php"><button>Login artista</button></a> <br>
-    <a href="login_contratador.php"><button>Login contratador</button></a> <br>
+    <a href="login.php"><button>Login </button> </a>
+    
 </body>
 
 </html>
