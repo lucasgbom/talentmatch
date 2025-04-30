@@ -26,7 +26,6 @@ if (isset($tipo)) {
        
     switch ($tipo) {
         case 'cadastro_artista':
-            $artistaDAO->preparar($artista);
                 $artistaDAO->inserir($artista);
             break;
         case 'login_artista':
@@ -35,7 +34,6 @@ if (isset($tipo)) {
             
             break;
         case 'atualizar_artista':
-            $artistaDAO->preparar($artista);
             $artistaDAO->atualizar($artista);
             break;
     }

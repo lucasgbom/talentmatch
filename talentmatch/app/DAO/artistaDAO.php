@@ -21,36 +21,20 @@ class ArtistaDAO
         }
     }
 
-    public function preparar(Artista $artista)
-    {
-        foreach ($_POST as $campo => $valor) {
-            $method = "set" . ucfirst($campo);
-            if (method_exists($artista, $method)) {
-                if (!empty($valor)) {
-                    $artista->$method($valor);
-                } else {
-                    $artista->$method(null);
-                }
-            }
-        }
-
-
-        foreach ($_FILES as $campo => $valor) {
-            $method = "set" . ucfirst($campo);
-            if (method_exists($artista, $method)) {
-                if (!empty($valor)) {
-                    $artista->$method($valor);
-                } else {
-                    $artista->$method(null);
-                } 
-            }
-        }
-        
-    }
-
     public function inserir(Artista $artista)
     {
         try {
+
+            foreach ($_POST as $campo => $valor) {
+                $method = "set" . ucfirst($campo);
+                if (method_exists($artista, $method)) {
+                    if (!empty($valor)) {
+                        $artista->$method($valor);
+                    }
+                }
+            }
+
+            var_dump($artista);
 
             $sql = "INSERT INTO artista (nome, email, senha) VALUES (:nome, :email, :senha)";
             $conexao = Conexao::getConexao();
@@ -152,57 +136,56 @@ class ArtistaDAO
     public function atualizar(Artista $artista)
     {
         try {
-            $set = [];
-
+        
             foreach ($_FILES as $campo => $arquivo) {
+                if (!empty($arquivo['name'])) {
+                    $info = pathinfo($arquivo['name']);
+                    $filename = $info['filename'];
+                    $extension = $info['extension'];
+    
+                    $cript = md5($filename . time()); // tempo para evitar conflitos
+                    $encrypt = $cript . '.' . $extension;
+    
+                    $fileTmpPath = $arquivo['tmp_name'];
+                    $targetpath = "../../data/" . $encrypt;
+    
+                    if (move_uploaded_file($fileTmpPath, $targetpath)) {
+                        echo "Arquivo enviado com sucesso: $encrypt";
+                        
+    
+                        // Deleta a foto antiga, se houver
+                        $fotoAntiga = $artista->getFotoPerfil();
+                        if (isset($fotoAntiga)) {
+                            unlink("../../data/$fotoAntiga");
+                            var_dump($fotoAntiga);
+                        }
+    
+                        $artista->setFotoPerfil($encrypt);
 
-                $info = pathinfo($arquivo['name']);
-
-                $filename = $info['filename'];
-                $extension = $info['extension'];
-
-                $cript = md5($filename);
-
-                $encrypt = $cript.'.'.$extension;
-
-                echo($encrypt);
-
-                $fileTmpPath = $arquivo['tmp_name'];
-                $targetpath = "../../data/".$encrypt;
-
-                if (move_uploaded_file($fileTmpPath, $targetpath)) {
-                echo "Arquivo enviado com sucesso para a pasta específica. Nome criptografado: " . $encrypt;
-                } else {
-                echo "Erro ao mover o arquivo para o diretório de uploads.";
-
-                $data = "../../data/$artista->getFotoPerfil()";
-
-
-                $method = "set" . ucfirst($campo);
-                if (method_exists($artista, $method)) {
-                    if (!empty($valor)) {
-                        $artista->$method($valor);
                     } else {
-                        $artista->$method(null);
-                    } 
+                        echo "Erro ao mover o arquivo.";
+                    }
                 }
             }
 
+            $set = [];
+    
+            // Monta os campos SET dinamicamente
             $metodos = get_class_methods($artista);
-
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
                     $campo = lcfirst(substr($metodo, 3));
                     $set[] = "$campo = :$campo";
                 }
             }
-
+    
             $setString = implode(', ', $set);
-
             $sql = "UPDATE artista SET $setString WHERE id = :id";
+    
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
-
+    
+            // Bind dos valores
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
                     $campo = lcfirst(substr($metodo, 3));
@@ -210,13 +193,13 @@ class ArtistaDAO
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
-
+    
             $consulta->execute();
-
             return true;
+    
         } catch (Exception $e) {
             print "Erro ao atualizar Artista <br>" . $e->getMessage() . '<br>';
             return false;
         }
     }
-}
+}    

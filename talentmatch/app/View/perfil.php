@@ -39,17 +39,11 @@ var_dump($artista);
     </style>
 </head>
 <body>
-<form action="../Model/dadosperfil.php" method="post" enctype="multipart/form-data">
-  <input type="text" name="username">
-  <input type="file" name="foto">
-    <button type="submit">Enviar</button>
-</form>
 
-<form id="formulario" action="../Controller/ArtistaController.php" method="post">
+<form id="formulario" action="../Controller/ArtistaController.php" method="post" enctype="multipart/form-data">
 
-<img src="" alt="">
-input
 
+<input type="file" name="foto">
 
 
         <label for="nome">Nome:</label><br>
