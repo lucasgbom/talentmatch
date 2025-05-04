@@ -24,6 +24,8 @@ var_dump($artista);
             opacity: 0.3; /* Opacidade quando desabilitado */
         }
 
+        .hide{display: none;}
+
         .btn-editar {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -36,14 +38,22 @@ var_dump($artista);
         .btn-editar:hover {
             background-color: #45a049;
         }
+
+        #perf{width: 100px;
+        height: 100px;
+    border-radius: 50%;
+    object-fit: cover;}
     </style>
 </head>
 <body>
 
 <form id="formulario" action="../Controller/ArtistaController.php" method="post" enctype="multipart/form-data">
 
+<label for="foto">
+  <img id="perf" src="../../data/<?php echo $artista->getFotoPerfil(); ?>" alt="">
+</label>
 
-<input type="file" name="foto">
+<input type="file" name="foto" class="hide input-field" id="foto" disabled>
 
 
         <label for="nome">Nome:</label><br>
@@ -53,7 +63,7 @@ var_dump($artista);
         <label for="email">Email:</label><br>
         <input type="email" name="email" class="input-field" value="<?php echo $artista->getEmail(); ?>" disabled><br>
 
-        <label for="telefone">Nome de usuario:</label><br>
+        <label for="nomeUsuario">Nome de usuario:</label><br>
         <input type="text" name="nomeUsuario" class="input-field" disabled><br>
 
         <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
@@ -81,6 +91,20 @@ var_dump($artista);
   form.addEventListener('input', () => {
     document.getElementById("salvar").type = "submit"
   });
+
+  const fileInput = document.querySelector('#foto');
+    const profilePic = document.querySelector('#perf');
+
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profilePic.src = e.target.result;  // muda a imagem no frontend
+        }
+        reader.readAsDataURL(file);
+      }
+    });
     </script>
 </body>
 </html>
