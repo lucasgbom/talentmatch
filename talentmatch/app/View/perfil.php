@@ -1,8 +1,11 @@
 <?php
 require_once("../Model/Artista.php");
+require_once("../Model/Projeto.php");
 session_start();
 $artista = $_SESSION["usuario"];
-var_dump($artista);
+$projetos = $_SESSION["projetos"];
+
+var_dump($projetos);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,40 +13,7 @@ var_dump($artista);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Círculo com metade fora</title>
-  <style>
-        .input-field {
-            background-color: #f0f0f0;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            opacity: 0.7; /* Opacidade inicial */
-        }
-
-        .input-field[disabled] {
-            opacity: 0.3; /* Opacidade quando desabilitado */
-        }
-
-        .hide{display: none;}
-
-        .btn-editar {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn-editar:hover {
-            background-color: #45a049;
-        }
-
-        #perf{width: 100px;
-        height: 100px;
-    border-radius: 50%;
-    object-fit: cover;}
-    </style>
+  <?php include("perfilCss.php"); ?>
 </head>
 <body>
 
@@ -70,41 +40,46 @@ var_dump($artista);
         <input type="hidden" id="salvar" value="salvar">
         <input type="hidden" value="atualizar_artista" name="tipo">
 
+      
     </form>
 
-    <script>
-        function editarFormulario() {
-            // Seleciona todos os campos de entrada
-            const campos = document.querySelectorAll('.input-field');
-            
-            // Alterna entre habilitar/desabilitar os campos
-            campos.forEach(campo => {
-                campo.disabled = !campo.disabled;
-                campo.style.opacity = campo.disabled ? '0.7' : '1'; // Ajusta a opacidade
-            });
-        }
+   
+    <button class="btn-abrir" onclick="abrirModal(0)"> </button>
+    <button class="btn-abrir" onclick="abrirModal(1)"> </button>
+    <button class="btn-abrir" onclick="abrirModal(2)"> </button>
 
-        const form = document.getElementById('formulario');
-  let formularioAlterado = false;
 
-  // Marca como alterado se algum campo mudar
-  form.addEventListener('input', () => {
-    document.getElementById("salvar").type = "submit"
-  });
 
-  const fileInput = document.querySelector('#foto');
-    const profilePic = document.querySelector('#perf');
 
-    fileInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          profilePic.src = e.target.result;  // muda a imagem no frontend
-        }
-        reader.readAsDataURL(file);
-      }
-    });
-    </script>
+<!-- Estrutura do modal -->
+<div id="meuModal" class="modal">
+  <div class="modal-content" id="unsetted">
+  <form action="../Controller/ProjetoController.php" method="post" enctype="multipart/form-data">
+
+<input type="text" name="titulo">
+     
+  <input type="text" name="projDesc">
+
+  <input type="file" name="projeto" />
+
+  <input type="hidden" name="tipo" value="inserir">
+
+  <input type="submit" value="opan">
+
+</form>
+    
+    <button class="close-btn" onclick="fecharModal()">Fechar</button>
+  </div> 
+  <div class="modal-content" id="setted">
+
+  <h2 id="progTitle"></h2>
+<p id="progDesc"></p>
+
+<img id="progFile" src="" alt="Arquivo do projeto" style="max-width: 200px;">
+
+  </div>
+</div>
+
+<?php include("perfilJs.php"); ?>
 </body>
 </html>

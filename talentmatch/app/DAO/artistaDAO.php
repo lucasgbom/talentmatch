@@ -73,7 +73,32 @@ class ArtistaDAO
                 }
 
                 $_SESSION["usuario"] = $artista;
-                return true;
+
+
+                $sql = 'SELECT * FROM projeto WHERE idArtista = :id';
+        $consulta = Conexao::getConexao()->prepare($sql);
+        $consulta->bindValue(":id", $artista->GetId());
+        $consulta->execute();
+
+        $dadosProjetos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+        $projetos = [];
+
+            foreach ($dadosProjetos as $linha) {
+                $projeto = new Projeto();
+
+                foreach ($linha as $campo => $valor) {
+                    $metodo = "set" . ucfirst($campo); // Ex: setTitulo, setId
+                    if (method_exists($projeto, $metodo)) {
+                        $projeto->$metodo($valor);
+                    }
+                }
+
+                $projetos[] = $projeto;
+            }
+
+        $_SESSION["projetos"] = $projetos;
+
             }
 
             return false;

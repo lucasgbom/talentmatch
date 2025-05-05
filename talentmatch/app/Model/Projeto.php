@@ -1,5 +1,5 @@
 <?php
-class Projeto {
+class Projeto implements JsonSerializable {
     // Atributos
     private $id;
     private $arquivoCaminho;
@@ -43,4 +43,15 @@ class Projeto {
     public function setIdArtista($idArtista) {
         $this->idArtista = $idArtista;
     }
+
+    public function jsonSerialize(): mixed {
+        return [
+            'id' => $this->id,
+            'titulo' => $this->titulo,
+            'descricao' => $this->descricao,
+            'idArtista' => $this->idArtista,
+            'arquivoCaminho' => $this->arquivoCaminho
+        ];
+    }
+    
 }

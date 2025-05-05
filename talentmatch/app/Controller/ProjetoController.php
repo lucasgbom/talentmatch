@@ -3,24 +3,38 @@
 require_once "../Model/Projeto.php";
 include_once "../conexao/Conexao.php";
 include_once "../DAO/ProjetoDAO.php";
+
+
+include_once "../DAO/ArtistaDAO.php";
+
+require_once("../Model/Artista.php");
 session_start();
+$artista = $_SESSION["usuario"];
+var_dump($artista);
+
+
 //PEGANDO VARIAVEL
 $projeto = new Projeto();
 $projetoDAO = new ProjetoDAO();
 
 $tipoAcao = $_POST['tipo'];
 $titulo = $_POST['titulo'];
-$descricao = $_POST['descricao'];
-$idArtista = $_SESSION['idArtista'];
-$arquivo = $_FILES['arquivo'];
+$descricao = $_POST['projDesc'];
+$idArtista= $artista->GetId();
+
+$arquivo = $_FILES['projeto'];
+var_dump($arquivo);
 //SETANDO
-$projeto->setTitulo($titulo);
-$projeto->setDescricao($descricao);
-$projeto->setArquivoCaminho(arquivoCriacao($arquivo));
-$projeto->setIdArtista($idArtista);
+
 
 //ESCOLHENDO ENTRE INSERIR E ATUALIZAR
 if ($tipoAcao == 'inserir') {
+    $projeto->setTitulo($titulo);
+    $projeto->setDescricao($descricao);
+    $projeto->setArquivoCaminho(arquivoCriacao($arquivo));
+    $projeto->setIdArtista($idArtista);
+
+    
     $projetoDAO->inserir($projeto);
 } else if ($tipoAcao == 'atualizar') {
     $projetoDAO->atualizar($projeto);

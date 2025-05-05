@@ -1,8 +1,13 @@
 <?php
 
-require_once("../Model/Artista.php");
 include_once "../conexao/Conexao.php";
+
+require_once("../Model/Artista.php");
 include_once "../DAO/ArtistaDAO.php";
+
+require_once "../Model/Projeto.php";
+include_once "../DAO/ProjetoDAO.php";
+
 
 $artista = new Artista();
 $artistaDAO = new ArtistaDAO();
