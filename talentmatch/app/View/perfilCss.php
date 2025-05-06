@@ -1,4 +1,9 @@
 <style>
+
+  html, body{
+    height: 100%;
+    width: 100%;
+  }
         .input-field {
             background-color: #f0f0f0;
             padding: 10px;
@@ -88,4 +93,23 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
+    .grid-container {
+    display: grid;
+    width: 90%;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;   
+  }
+
+  .grid-item {
+    background-color: #ddd;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    height: 200px;
+    width: 200px;
+  }
+
     </style>

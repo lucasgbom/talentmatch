@@ -19,7 +19,7 @@ $projetoDAO = new ProjetoDAO();
 
 $tipoAcao = $_POST['tipo'];
 $titulo = $_POST['titulo'];
-$descricao = $_POST['projDesc'];
+$descricao = $_POST['descricao'];
 $idArtista= $artista->GetId();
 
 $arquivo = $_FILES['projeto'];
@@ -33,8 +33,6 @@ if ($tipoAcao == 'inserir') {
     $projeto->setDescricao($descricao);
     $projeto->setArquivoCaminho(arquivoCriacao($arquivo));
     $projeto->setIdArtista($idArtista);
-
-    
     $projetoDAO->inserir($projeto);
 } else if ($tipoAcao == 'atualizar') {
     $projetoDAO->atualizar($projeto);

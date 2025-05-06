@@ -5,21 +5,6 @@ class ProjetoDAO
     public function inserir($projeto)
     {
         try {
-            // Define limite máximo de projetos por artista
-            $LIMITE_PROJETOS = 3;
-    
-            // Verifica quantos projetos o artista já possui
-            $sql = 'SELECT COUNT(*) FROM projeto WHERE idArtista = :idArtista';
-            $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':idArtista', $projeto->getIdArtista());
-            $consulta->execute();
-            $totalProjetos = (int)$consulta->fetchColumn();
-    
-            if ($totalProjetos >= $LIMITE_PROJETOS) {
-                echo "Limite de $LIMITE_PROJETOS projetos atingido.";
-                return false;
-            }
-    
             // Insere novo projeto
             $sql = 'INSERT INTO projeto (titulo, descricao, idArtista, arquivoCaminho)
                     VALUES (:titulo, :descricao, :idArtista, :arquivoCaminho)';
@@ -29,26 +14,13 @@ class ProjetoDAO
             $consulta->bindValue(':idArtista', $projeto->getIdArtista());
             $consulta->bindValue(':arquivoCaminho', $projeto->getArquivoCaminho());
             $consulta->execute();
-    
-            // Seta ID recém-inserido no objeto
             $projeto->setId(Conexao::getConexao()->lastInsertId());
-    
-            // Adiciona na sessão, se estiver ativa
-            if (session_status() === PHP_SESSION_ACTIVE) {
-               
-                $_SESSION["projetos"][] = $projeto;
-            }
-    
             return true;
-    
         } catch (Exception $e) {
             echo "Erro ao inserir projeto: " . $e->getMessage();
             return false;
         }
     }
-
-    
-    
     public function atualizar($projeto)
     {
         try {
@@ -70,6 +42,30 @@ class ProjetoDAO
             return false;
         }
     }
+	public function listarTodos()
+	{
+        
+		try {
+			$sql = 'SELECT * FROM projeto';
+            $consulta = Conexao::getConexao()->prepare($sql);
+			$consulta->execute();
+			return $consulta->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			print "Erro ao listar Projetos <br>" . $e . '<br>';
+		}
+	}
+    public function listar($artista)
+	{
+		try {
+			$sql = 'SELECT * FROM projeto WHERE idArtista = :id';
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(':id', $artista->getId());
+			$consulta->execute();
+			return $consulta->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			print "Erro ao listar Projetos <br>" . $e . '<br>';
+		}
+	}
 
     
 }
