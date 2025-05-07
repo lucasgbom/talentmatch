@@ -15,7 +15,6 @@ class ArtistaDAO
             foreach ($usuario as $key => $value) {
                 $_SESSION[$key] = $value;
             }
-
         } catch (Exception $e) {
             print "Erro ao carregar Artista <br>" . $e->getMessage() . '<br>';
         }
@@ -71,34 +70,8 @@ class ArtistaDAO
                         $artista->$method($valor);
                     }
                 }
-
                 $_SESSION["usuario"] = $artista;
-
-
-                $sql = 'SELECT * FROM projeto WHERE idArtista = :id';
-        $consulta = Conexao::getConexao()->prepare($sql);
-        $consulta->bindValue(":id", $artista->GetId());
-        $consulta->execute();
-
-        $dadosProjetos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-
-        $projetos = [];
-
-            foreach ($dadosProjetos as $linha) {
-                $projeto = new Projeto();
-
-                foreach ($linha as $campo => $valor) {
-                    $metodo = "set" . ucfirst($campo); // Ex: setTitulo, setId
-                    if (method_exists($projeto, $metodo)) {
-                        $projeto->$metodo($valor);
-                    }
-                }
-
-                $projetos[] = $projeto;
-            }
-
-        $_SESSION["projetos"] = $projetos;
-
+                return true;
             }
 
             return false;
@@ -161,32 +134,31 @@ class ArtistaDAO
     public function atualizar(Artista $artista)
     {
         try {
-        
+
             foreach ($_FILES as $campo => $arquivo) {
                 if (!empty($arquivo['name'])) {
                     $info = pathinfo($arquivo['name']);
                     $filename = $info['filename'];
                     $extension = $info['extension'];
-    
+
                     $cript = md5($filename . time()); // tempo para evitar conflitos
                     $encrypt = $cript . '.' . $extension;
-    
+
                     $fileTmpPath = $arquivo['tmp_name'];
                     $targetpath = "../../data/" . $encrypt;
-    
+
                     if (move_uploaded_file($fileTmpPath, $targetpath)) {
                         echo "Arquivo enviado com sucesso: $encrypt";
-                        
-    
+
+
                         // Deleta a foto antiga, se houver
                         $fotoAntiga = $artista->getFotoPerfil();
                         if (isset($fotoAntiga)) {
                             unlink("../../data/$fotoAntiga");
                             var_dump($fotoAntiga);
                         }
-    
-                        $artista->setFotoPerfil($encrypt);
 
+                        $artista->setFotoPerfil($encrypt);
                     } else {
                         echo "Erro ao mover o arquivo.";
                     }
@@ -194,7 +166,7 @@ class ArtistaDAO
             }
 
             $set = [];
-    
+
             // Monta os campos SET dinamicamente
             $metodos = get_class_methods($artista);
             foreach ($metodos as $metodo) {
@@ -203,13 +175,13 @@ class ArtistaDAO
                     $set[] = "$campo = :$campo";
                 }
             }
-    
+
             $setString = implode(', ', $set);
             $sql = "UPDATE artista SET $setString WHERE id = :id";
-    
+
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
-    
+
             // Bind dos valores
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
@@ -218,13 +190,12 @@ class ArtistaDAO
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
-    
+
             $consulta->execute();
             return true;
-    
         } catch (Exception $e) {
             print "Erro ao atualizar Artista <br>" . $e->getMessage() . '<br>';
             return false;
         }
     }
-}    
+}
