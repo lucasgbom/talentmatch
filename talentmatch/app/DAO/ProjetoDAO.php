@@ -35,6 +35,7 @@ class ProjetoDAO
             $consulta->bindValue(':descricao', $projeto->getDescricao());
             $consulta->bindValue(':idArtista', $projeto->getIdArtista());
             $consulta->bindValue(':arquivoCaminho', $projeto->getArquivoCaminho());
+            $consulta->bindValue(':arquivoCaminho', $projeto->getId());
             $consulta->execute();
             return true;
         } catch (Exception $e) {
