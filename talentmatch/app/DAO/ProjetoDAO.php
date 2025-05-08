@@ -35,7 +35,7 @@ class ProjetoDAO
             $consulta->bindValue(':descricao', $projeto->getDescricao());
             $consulta->bindValue(':idArtista', $projeto->getIdArtista());
             $consulta->bindValue(':arquivoCaminho', $projeto->getArquivoCaminho());
-            $consulta->bindValue(':arquivoCaminho', $projeto->getId());
+            $consulta->bindValue(':id', $projeto->getId());
             $consulta->execute();
             return true;
         } catch (Exception $e) {
@@ -43,30 +43,28 @@ class ProjetoDAO
             return false;
         }
     }
-	public function listarTodos()
-	{
-        
-		try {
-			$sql = 'SELECT * FROM projeto';
+    public function listarTodos()
+    {
+
+        try {
+            $sql = 'SELECT * FROM projeto';
             $consulta = Conexao::getConexao()->prepare($sql);
-			$consulta->execute();
-			return $consulta->fetchAll(PDO::FETCH_ASSOC);
-		} catch (Exception $e) {
-			print "Erro ao listar Projetos <br>" . $e . '<br>';
-		}
-	}
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            print "Erro ao listar Projetos <br>" . $e . '<br>';
+        }
+    }
     public function listar($artista)
-	{
-		try {
-			$sql = 'SELECT * FROM projeto WHERE idArtista = :id';
+    {
+        try {
+            $sql = 'SELECT * FROM projeto WHERE idArtista = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':id', $artista->getId());
-			$consulta->execute();
-			return $consulta->fetchAll(PDO::FETCH_ASSOC);
-		} catch (Exception $e) {
-			print "Erro ao listar Projetos <br>" . $e . '<br>';
-		}
-	}
-
-    
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            print "Erro ao listar Projetos <br>" . $e . '<br>';
+        }
+    }
 }

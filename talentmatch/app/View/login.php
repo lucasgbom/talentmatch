@@ -9,7 +9,7 @@
 
 <body>
     <h1>LOGIN</h1>
-    <form action="../Controller/ArtistaController.php" method="POST">
+    <form action="../Controller/UsuarioController.php" method="POST">
         <label for="email">Email: </label><input type="email" name="email">
         <label for="senha">Senha: </label><input type="password" name="senha">
         <input type="submit" value="Enviar">

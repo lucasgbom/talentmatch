@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['nome'])) {
-    header('Location: pagina_inicial.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -112,4 +112,9 @@
     width: 200px;
   }
 
+  video{
+  width: 640px;
+  height: 360px;
+}
+
     </style>

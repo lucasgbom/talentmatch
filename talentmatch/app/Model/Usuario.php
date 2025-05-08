@@ -3,7 +3,7 @@
 /* @Autor: Adaptado por ChatGPT
    Atributos e métodos da classe Artista */
 
-class Artista {
+class Usuario {
     // Atributos
     private $id;
     private $biografia;
@@ -13,9 +13,6 @@ class Artista {
     private $foto_perfil;
     private $endereco;
     private $disponivel;
-    private $x;
-    private $instagram;
-    private $spotify;
     private $email;
 
     // Getters
@@ -46,19 +43,6 @@ class Artista {
     public function getDisponivel() {
         return $this->disponivel;
     }
-
-    public function getX() {
-        return $this->x;
-    }
-
-    public function getInstagram() {
-        return $this->instagram;
-    }
-
-    public function getSpotify() {
-        return $this->spotify;
-    }
-
     public function getEmail() {
         return $this->email;
     }
@@ -95,19 +79,6 @@ class Artista {
     public function setDisponivel($disponivel) {
         $this->disponivel = $disponivel;
     }
-
-    public function setX($x) {
-        $this->x = $x;
-    }
-
-    public function setInstagram($instagram) {
-        $this->instagram = $instagram;
-    }
-
-    public function setSpotify($spotify) {
-        $this->spotify = $spotify;
-    }
-
     public function setEmail($email) {
         $this->email = $email;
     }

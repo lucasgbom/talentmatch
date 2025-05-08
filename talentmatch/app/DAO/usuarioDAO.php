@@ -1,11 +1,11 @@
 <?php
 
-class ArtistaDAO
+class UsuarioDAO
 {
     public function carregar($id)
     {
         try {
-            $sql = 'SELECT * FROM artista WHERE id = :id';
+            $sql = 'SELECT * FROM usuario WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(":id", $id);
             $consulta->execute();
@@ -16,49 +16,35 @@ class ArtistaDAO
                 $_SESSION[$key] = $value;
             }
         } catch (Exception $e) {
-            print "Erro ao carregar Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
         }
     }
 
-    public function inserir(Artista $artista)
+    public function inserir($email, $senha)
     {
         try {
-
-            foreach ($_POST as $campo => $valor) {
-                $method = "set" . ucfirst($campo);
-                if (method_exists($artista, $method)) {
-                    if (!empty($valor)) {
-                        $artista->$method($valor);
-                    }
-                }
-            }
-
-            var_dump($artista);
-
-            $sql = "INSERT INTO artista (nome, email, senha) VALUES (:nome, :email, :senha)";
+            $sql = "INSERT INTO usuario (email, senha) VALUES (:email, :senha)";
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
-
-            $consulta->bindValue(":nome", $artista->getNome());
-            $consulta->bindValue(":email", $artista->getEmail());
-            $consulta->bindValue(":senha", $artista->getSenha());
-
+            $consulta->bindValue(":email", $email);
+            $consulta->bindValue(":senha", $senha);
             $consulta->execute();
 
             return true;
         } catch (Exception $e) {
-            print "Erro ao inserir Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao inserir usuario <br>" . $e->getMessage() . '<br>';
             return false;
         }
     }
 
-    public function logar(Artista $artista)
+    public function logar($email, $senha)
     {
+        $usuario = new Usuario();
         try {
-            $sql = 'SELECT * FROM artista WHERE email = :email AND senha = :senha';
+            $sql = 'SELECT * FROM usuario WHERE email = :email AND senha = :senha';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(":email", $_POST["email"]);
-            $consulta->bindValue(":senha", $_POST["senha"]);
+            $consulta->bindValue(":email", $email);
+            $consulta->bindValue(":senha", $senha);
             $consulta->execute();
 
             $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -66,14 +52,14 @@ class ArtistaDAO
             if ($usuario) {
                 foreach ($usuario as $campo => $valor) {
                     $method = "set" . ucfirst($campo);
-                    if (method_exists($artista, $method)) {
-                        $artista->$method($valor);
+                    if (method_exists($usuario, $method)) {
+                        $usuario->$method($valor);
                     }
                 }
-                $_SESSION["usuario"] = $artista;
+                $_SESSION["usuario"] = $usuario;
                 return true;
             }
-
+            
             return false;
         } catch (Exception $e) {
             print "Erro ao logar <br>" . $e->getMessage() . '<br>';
@@ -84,57 +70,56 @@ class ArtistaDAO
     public function listarTodos()
     {
         try {
-            $sql = 'SELECT * FROM artista';
+            $sql = 'SELECT * FROM usuario';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            print "Erro ao listar Artistas <br>" . $e->getMessage() . '<br>';
+            print "Erro ao listar usuarios <br>" . $e->getMessage() . '<br>';
         }
     }
 
     public function buscar($coluna, $valor)
     {
         try {
-            $sql = "SELECT * FROM artista WHERE $coluna LIKE :valor";
+            $sql = "SELECT * FROM usuario WHERE $coluna LIKE :valor";
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(":valor", "%$valor%");
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            print "Erro ao buscar Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao buscar usuario <br>" . $e->getMessage() . '<br>';
         }
     }
 
-    public function artistaExiste($email)
+    public function usuarioExiste($email)
     {
         try {
-            $sql = "SELECT * FROM artista WHERE email = :email";
+            $sql = "SELECT * FROM usuario WHERE email = :email";
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(":email", $email);
             $consulta->execute();
             return $consulta->fetch(PDO::FETCH_ASSOC) ? true : false;
         } catch (Exception $e) {
-            print "Erro ao verificar existência do Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao verificar existência do usuario <br>" . $e->getMessage() . '<br>';
         }
     }
 
-    public function deletar(Artista $artista)
+    public function deletar(Usuario $usuario)
     {
         try {
-            $sql = 'DELETE FROM artista WHERE id = :id';
+            $sql = 'DELETE FROM usuario WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(":id", $artista->getId());
+            $consulta->bindValue(":id", $usuario->getId());
             $consulta->execute();
         } catch (Exception $e) {
-            print "Erro ao deletar Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao deletar usuario <br>" . $e->getMessage() . '<br>';
         }
     }
 
-    public function atualizar(Artista $artista)
+    public function atualizar(Usuario $usuario)
     {
         try {
-
             foreach ($_FILES as $campo => $arquivo) {
                 if (!empty($arquivo['name'])) {
                     $info = pathinfo($arquivo['name']);
@@ -152,13 +137,13 @@ class ArtistaDAO
 
 
                         // Deleta a foto antiga, se houver
-                        $fotoAntiga = $artista->getFotoPerfil();
+                        $fotoAntiga = $usuario->getFotoPerfil();
                         if (isset($fotoAntiga)) {
                             unlink("../../data/$fotoAntiga");
                             var_dump($fotoAntiga);
                         }
 
-                        $artista->setFotoPerfil($encrypt);
+                        $usuario->setFotoPerfil($encrypt);
                     } else {
                         echo "Erro ao mover o arquivo.";
                     }
@@ -168,7 +153,7 @@ class ArtistaDAO
             $set = [];
 
             // Monta os campos SET dinamicamente
-            $metodos = get_class_methods($artista);
+            $metodos = get_class_methods($usuario);
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
                     $campo = lcfirst(substr($metodo, 3));
@@ -177,7 +162,7 @@ class ArtistaDAO
             }
 
             $setString = implode(', ', $set);
-            $sql = "UPDATE artista SET $setString WHERE id = :id";
+            $sql = "UPDATE usuario SET $setString WHERE id = :id";
 
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
@@ -186,7 +171,7 @@ class ArtistaDAO
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
                     $campo = lcfirst(substr($metodo, 3));
-                    $valor = $artista->$metodo();
+                    $valor = $usuario->$metodo();
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
@@ -194,7 +179,7 @@ class ArtistaDAO
             $consulta->execute();
             return true;
         } catch (Exception $e) {
-            print "Erro ao atualizar Artista <br>" . $e->getMessage() . '<br>';
+            print "Erro ao atualizar usuario <br>" . $e->getMessage() . '<br>';
             return false;
         }
     }
