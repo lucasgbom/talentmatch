@@ -4,7 +4,7 @@ class Projeto implements JsonSerializable {
     private $id;
     private $arquivoCaminho;
     private $descricao;
-    private $idArtista;
+    private $idUsuario;
     private $titulo;
     // Getters
     public function getTitulo() {
@@ -21,8 +21,8 @@ class Projeto implements JsonSerializable {
         return $this->descricao;
     }
 
-    public function getIdArtista() {
-        return $this->idArtista;
+    public function getIdUsuario() {
+        return $this->idUsuario;
     }
 
     // Setters
@@ -40,8 +40,8 @@ class Projeto implements JsonSerializable {
         $this->descricao = $descricao;
     }
 
-    public function setIdArtista($idArtista) {
-        $this->idArtista = $idArtista;
+    public function setIdUsuario($idUsuario) {
+        $this->idUsuario = $idUsuario;
     }
 
     public function jsonSerialize(): mixed {
@@ -49,7 +49,7 @@ class Projeto implements JsonSerializable {
             'id' => $this->id,
             'titulo' => $this->titulo,
             'descricao' => $this->descricao,
-            'idArtista' => $this->idArtista,
+            'idUsuario' => $this->idUsuario,
             'arquivoCaminho' => $this->arquivoCaminho
         ];
     }

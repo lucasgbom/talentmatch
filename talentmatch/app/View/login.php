@@ -12,8 +12,9 @@
     <form action="../Controller/UsuarioController.php" method="POST">
         <label for="email">Email: </label><input type="email" name="email">
         <label for="senha">Senha: </label><input type="password" name="senha">
+        <input type="hidden" value="logar" name="tipo">
         <input type="submit" value="Enviar">
-        <input type="hidden" value="login" name="tipo">
+        
     </form> <br>
 </body>
 <?php include('../../php/emailSenhaIncorretos.php') ?>

@@ -5,30 +5,30 @@ include_once "../conexao/Conexao.php";
 include_once "../DAO/ProjetoDAO.php";
 
 
-include_once "../DAO/ArtistaDAO.php";
+include_once "../DAO/usuarioDAO.php";
 
-require_once("../Model/Artista.php");
+require_once("../Model/usuario.php");
 session_start();
-$artista = $_SESSION["usuario"];
+$usuario = $_SESSION["usuario"];
 
 //PEGANDO VARIAVEL
 $projeto = new Projeto();
 $projetoDAO = new ProjetoDAO();
-
+var_dump($_POST);
 $id = $_POST['id'];
-echo(var_dump($_POST));
 $tipoAcao = $_POST['tipo'];
 $titulo = $_POST['titulo'];
 $descricao = $_POST['descricao'];
-$idArtista = $artista->GetId();
+$idUsuario = $usuario->GetId();
 
 $arquivo = $_FILES['video'];
 //SETANDO
 $projeto->setTitulo($titulo);
 $projeto->setDescricao($descricao);
 $projeto->setArquivoCaminho(arquivoCriacao($arquivo));
-$projeto->setIdArtista($idArtista);
+$projeto->setIdUsuario($idUsuario);
 $projeto->setId($id);
+var_dump($projeto);
 //ESCOLHENDO ENTRE INSERIR E ATUALIZAR
 if ($tipoAcao == 'inserir') {
     $projetoDAO->inserir($projeto);
@@ -47,7 +47,6 @@ function arquivoCriacao($arquivo)
     $fileTmpPath = $arquivo['tmp_name'];
     $targetpath = "../../data/" . $encrypt;
     if (move_uploaded_file($fileTmpPath, $targetpath)) {
-        //echo "Arquivo enviado com sucesso para a pasta específica. Nome criptografado: " . $encrypt;
     } else {
         echo "Erro ao mover o arquivo para o diretório de uploads.";
     }

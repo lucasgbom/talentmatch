@@ -1,10 +1,5 @@
 <?php
-
-/* @Autor: Adaptado por ChatGPT
-   Atributos e métodos da classe Artista */
-
 class Usuario {
-    // Atributos
     private $id;
     private $biografia;
     private $senha;
@@ -15,7 +10,6 @@ class Usuario {
     private $disponivel;
     private $email;
 
-    // Getters
     public function getId() {
         return $this->id;
     }

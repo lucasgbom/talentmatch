@@ -6,12 +6,12 @@ class ProjetoDAO
     {
         try {
             // Insere novo projeto
-            $sql = 'INSERT INTO projeto (titulo, descricao, idArtista, arquivoCaminho)
-                    VALUES (:titulo, :descricao, :idArtista, :arquivoCaminho)';
+            $sql = 'INSERT INTO projeto (titulo, descricao, idUsuario, arquivoCaminho)
+                    VALUES (:titulo, :descricao, :idUsuario, :arquivoCaminho)';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':titulo', $projeto->getTitulo());
             $consulta->bindValue(':descricao', $projeto->getDescricao());
-            $consulta->bindValue(':idArtista', $projeto->getIdArtista());
+            $consulta->bindValue(':idUsuario', $projeto->getIdUsuario());
             $consulta->bindValue(':arquivoCaminho', $projeto->getArquivoCaminho());
             $consulta->execute();
             $projeto->setId(Conexao::getConexao()->lastInsertId());
@@ -27,13 +27,13 @@ class ProjetoDAO
             $sql = 'UPDATE projeto SET 
                 titulo=:titulo,
                 descricao = :descricao,
-                idArtista = :idArtista,
+                idUsuario = :idUsuario,
                 arquivoCaminho = :arquivoCaminho
-            WHERE id=:id';
+            WHERE id=:id';  
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':titulo', $projeto->getTitulo());
             $consulta->bindValue(':descricao', $projeto->getDescricao());
-            $consulta->bindValue(':idArtista', $projeto->getIdArtista());
+            $consulta->bindValue(':idUsuario', $projeto->getIdUsuario());
             $consulta->bindValue(':arquivoCaminho', $projeto->getArquivoCaminho());
             $consulta->bindValue(':id', $projeto->getId());
             $consulta->execute();
@@ -55,12 +55,12 @@ class ProjetoDAO
             print "Erro ao listar Projetos <br>" . $e . '<br>';
         }
     }
-    public function listar($artista)
+    public function listar($usuario)
     {
         try {
-            $sql = 'SELECT * FROM projeto WHERE idArtista = :id';
+            $sql = 'SELECT * FROM projeto WHERE idUsuario = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':id', $artista->getId());
+            $consulta->bindValue(':id', $usuario->getId());
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {

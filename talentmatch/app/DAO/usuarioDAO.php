@@ -20,14 +20,15 @@ class UsuarioDAO
         }
     }
 
-    public function inserir($email, $senha)
+    public function inserir($email, $senha, $nome)
     {
         try {
-            $sql = "INSERT INTO usuario (email, senha) VALUES (:email, :senha)";
+            $sql = "INSERT INTO usuario (email, senha, nome) VALUES (:email, :senha, :nome)";
             $conexao = Conexao::getConexao();
             $consulta = $conexao->prepare($sql);
             $consulta->bindValue(":email", $email);
             $consulta->bindValue(":senha", $senha);
+            $consulta->bindValue(":nome", $nome);
             $consulta->execute();
 
             return true;
@@ -39,7 +40,6 @@ class UsuarioDAO
 
     public function logar($email, $senha)
     {
-        $usuario = new Usuario();
         try {
             $sql = 'SELECT * FROM usuario WHERE email = :email AND senha = :senha';
             $consulta = Conexao::getConexao()->prepare($sql);
@@ -47,10 +47,11 @@ class UsuarioDAO
             $consulta->bindValue(":senha", $senha);
             $consulta->execute();
 
-            $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-
-            if ($usuario) {
-                foreach ($usuario as $campo => $valor) {
+            $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+            var_dump($dados);
+            if ($dados) {
+                $usuario = new Usuario();
+                foreach ($dados as $campo => $valor) {
                     $method = "set" . ucfirst($campo);
                     if (method_exists($usuario, $method)) {
                         $usuario->$method($valor);
@@ -59,13 +60,14 @@ class UsuarioDAO
                 $_SESSION["usuario"] = $usuario;
                 return true;
             }
-            
+
             return false;
         } catch (Exception $e) {
             print "Erro ao logar <br>" . $e->getMessage() . '<br>';
             return false;
         }
     }
+
 
     public function listarTodos()
     {
@@ -126,7 +128,7 @@ class UsuarioDAO
                     $filename = $info['filename'];
                     $extension = $info['extension'];
 
-                    $cript = md5($filename . time()); // tempo para evitar conflitos
+                    $cript = md5($filename . time());
                     $encrypt = $cript . '.' . $extension;
 
                     $fileTmpPath = $arquivo['tmp_name'];
