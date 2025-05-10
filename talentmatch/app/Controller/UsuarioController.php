@@ -15,9 +15,11 @@
             if ($usuarioDAO->logar($_POST['email'], $_POST['senha'])) {
                 header('location: ../View/perfil.php');
             } else {
-                header('location: ../View/login.php?msg=emailSenhaIncorretos');
+                header('location: ../View/pagina_inicial.php?msg=emailSenhaIncorretos');
             }
         }
         else if ($_POST['tipo'] == 'cadastrar'){
             $usuarioDAO->inserir($_POST['email'], $_POST['senha'], $_POST['nome']);
+            header('location: ../View/pagina_inicial.php');
         }
+?>

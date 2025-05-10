@@ -48,7 +48,6 @@ class UsuarioDAO
             $consulta->execute();
 
             $dados = $consulta->fetch(PDO::FETCH_ASSOC);
-            var_dump($dados);
             if ($dados) {
                 $usuario = new Usuario();
                 foreach ($dados as $campo => $valor) {
@@ -58,6 +57,8 @@ class UsuarioDAO
                     }
                 }
                 $_SESSION["usuario"] = $usuario;
+                $_SESSION['nome'] = $usuario->getNome();
+                var_dump($_SESSION['nome']);
                 return true;
             }
 
