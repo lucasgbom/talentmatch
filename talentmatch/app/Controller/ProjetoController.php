@@ -15,7 +15,7 @@ $usuario = $_SESSION["usuario"];
 $projeto = new Projeto();
 $projetoDAO = new ProjetoDAO();
 var_dump($_POST);
-$id = $_POST['id'];
+$id = isset($_POST['id'])? $_POST['id']: '';
 $tipoAcao = $_POST['tipo'];
 $titulo = $_POST['titulo'];
 $descricao = $_POST['descricao'];
@@ -27,12 +27,11 @@ $projeto->setTitulo($titulo);
 $projeto->setDescricao($descricao);
 $projeto->setArquivoCaminho(arquivoCriacao($arquivo));
 $projeto->setIdUsuario($idUsuario);
-$projeto->setId($id);
-var_dump($projeto);
 //ESCOLHENDO ENTRE INSERIR E ATUALIZAR
 if ($tipoAcao == 'inserir') {
     $projetoDAO->inserir($projeto);
 } else if ($tipoAcao == 'editar') {
+    $projeto->setId($id);
     $projetoDAO->atualizar($projeto);
 }
 

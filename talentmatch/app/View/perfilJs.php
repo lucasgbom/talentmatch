@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function detalhesModal(id, titulo, descricao, arquivo) {
     document.getElementById("detalhesId").value = id;
-    console.log(document.getElementById("detalhesId").value);
     document.getElementById("detalhesTitle").value = titulo;
     document.getElementById("detalhesDesc").value = descricao;
     document.getElementById("detalhesFile").src = "../../data/" + arquivo;
@@ -58,4 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
     */
+
+   function viewModal(titulo, descricao, arquivo){
+    placehold =  document.querySelector("#viewProjeto").children
+
+    placehold[0].textContent = titulo
+        placehold[1].textContent = descricao
+            placehold[2].src = arquivo
+   }
 </script>
