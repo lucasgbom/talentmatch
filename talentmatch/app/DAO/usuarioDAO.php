@@ -58,7 +58,6 @@ class UsuarioDAO
                 }
                 $_SESSION["usuario"] = $usuario;
                 $_SESSION['nome'] = $usuario->getNome();
-                var_dump($_SESSION['nome']);
                 return true;
             }
 
@@ -137,15 +136,14 @@ class UsuarioDAO
 
                     if (move_uploaded_file($fileTmpPath, $targetpath)) {
                         echo "Arquivo enviado com sucesso: $encrypt";
-
-
                         // Deleta a foto antiga, se houver
                         $fotoAntiga = $usuario->getFotoPerfil();
                         if (isset($fotoAntiga)) {
-                            unlink("../../data/$fotoAntiga");
-                            var_dump($fotoAntiga);
+                            $caminhoAntigo = "../../data/$fotoAntiga";
+                            if (file_exists($caminhoAntigo)) {
+                                unlink($caminhoAntigo);
+                            }
                         }
-
                         $usuario->setFotoPerfil($encrypt);
                     } else {
                         echo "Erro ao mover o arquivo.";
@@ -178,8 +176,8 @@ class UsuarioDAO
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
-
             $consulta->execute();
+            $_SESSION['usuario'] = $usuario;
             return true;
         } catch (Exception $e) {
             print "Erro ao atualizar usuario <br>" . $e->getMessage() . '<br>';

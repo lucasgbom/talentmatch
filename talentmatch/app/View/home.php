@@ -1,6 +1,9 @@
 <?php
 //session_start();
 include_once('../Model/Usuario.php');
+if(!isset($_SESSION['usuario'])){
+    header('location: pagina_inicial.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

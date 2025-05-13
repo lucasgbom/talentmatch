@@ -30,7 +30,7 @@ $projetoDAO = new ProjetoDAO();
 
     <div class="specialInput">
       <img class="place" id="perf" src="../../data/<?php echo $usuario->getFotoPerfil(); ?>" alt="">
-      <input type="file" name="foto" class="hide input-field" id="foto">
+      <input type="file" name="foto" class="hide input-field" id="foto" disabled>
     </div>
     <label for="nome">Nome:</label><br>
     <input type="text" name="nome" class="input-field" value="<?php echo $usuario->getNome(); ?>" disabled><br>
@@ -44,7 +44,7 @@ $projetoDAO = new ProjetoDAO();
     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
     <input type="submit" id="salvar" value="salvar">
 
-    <input type="hidden" value="atualizar_usuario" name="tipo">
+    <input type="hidden" value="atualizar" name="tipo">
   </form>
 
 
@@ -58,8 +58,7 @@ $projetoDAO = new ProjetoDAO();
     Criar Projeto
   </button>
 
-  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewProjeto" onclick="viewModal('<?= $projeto['titulo'] ?>','<?= $projeto['descricao'] ?>', '<?= $projeto['arquivoCaminho'] ?>')" value="projeto">
-
+  
     <script src="../../bootstrap/bootstrap.js"></script>
     <?php include("perfilJs.php"); ?>
 
@@ -131,24 +130,26 @@ $projetoDAO = new ProjetoDAO();
 
 
 
-
-
-
-    <div class="modal fade" id="viewProjeto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade"  data-id =""  id="viewProjeto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Editar projeto</h5>
+            <h5 class="modal-title">projeto</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
 
-            <h1></h1>
-            <h6></h6>
+            <h1 id="titulo"></h1>
+            <h6 id="descricao"></h6>
 
-            <video src=""></video>
+            <video id="projeto" src="" controls></video>
+
+           
 
           </div>
+
+          <button class="grid-item" data-bs-toggle="modal" data-bs-target="#detalhesProjeto" onclick="detalhesModal()">
+
 
         </div>
       </div>
@@ -163,7 +164,7 @@ $projetoDAO = new ProjetoDAO();
     $projetos = $projetoDAO->listar($usuario);
     foreach ($projetos as $projeto) {
     ?>
-      <button class="grid-item" data-bs-toggle="modal" data-bs-target="#detalhesProjeto" onclick="detalhesModal(<?= $projeto['id'] ?>,'<?= $projeto['titulo'] ?>','<?= $projeto['descricao'] ?>', '<?= $projeto['arquivoCaminho'] ?>') ">
+      <button class="grid-item" data-bs-toggle="modal" data-bs-target="#viewProjeto" onclick="viewModal('<?= $projeto['id'] ?>', '<?= $projeto['titulo'] ?>','<?= $projeto['descricao'] ?>', '<?= $projeto['arquivoCaminho'] ?>') ">
 
         <?= $projeto['titulo'] ?>
       </button>

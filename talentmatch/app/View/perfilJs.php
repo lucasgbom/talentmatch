@@ -36,12 +36,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+ const view =  document.querySelector("#viewProjeto")
 
-  function detalhesModal(id, titulo, descricao, arquivo) {
-    document.getElementById("detalhesId").value = id;
+
+  function detalhesModal() {
+    const id = document.getElementById("titulo").textContent;
+    const titulo =  view.querySelector("#titulo").textContent;
+    const descricao = view.querySelector("#descricao").textContent;
+    const arquivo = view.querySelector("#projeto").getAttribute("src");
+
+
+    document.getElementById("detalhesId").value = view.dataset.id;
     document.getElementById("detalhesTitle").value = titulo;
     document.getElementById("detalhesDesc").value = descricao;
     document.getElementById("detalhesFile").src = "../../data/" + arquivo;
+
+
+
+    
   }
 //a
   /*function fecharModal() {
@@ -58,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
     */
 
-   function viewModal(titulo, descricao, arquivo){
-    placehold =  document.querySelector("#viewProjeto").children
-
-    placehold[0].textContent = titulo
-        placehold[1].textContent = descricao
-            placehold[2].src = arquivo
+   function viewModal(id, titulo, descricao, arquivo){
+   
+    view.querySelector("#titulo").textContent = titulo;
+    view.querySelector("#descricao").textContent = descricao;
+    view.querySelector("#projeto").src = "../../data/" + arquivo;
+    view.dataset.id = id
    }
 </script>
