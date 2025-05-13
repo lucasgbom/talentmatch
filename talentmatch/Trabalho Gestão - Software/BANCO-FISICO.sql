@@ -5,6 +5,7 @@ CREATE TABLE usuario (
     nome VARCHAR(256),
     nomeUsuario VARCHAR(100),
     senha VARCHAR(256),
+    biografia VARCHAR(512),
     fotoPerfil VARCHAR(256),
     endereco VARCHAR(256),
     disponivel BOOLEAN,
@@ -38,6 +39,7 @@ CREATE TABLE projeto (
 
 CREATE TABLE post (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
     dataInicio DATE,
     dataFim DATE,
     requisitos VARCHAR(500),

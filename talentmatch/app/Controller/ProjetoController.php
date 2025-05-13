@@ -7,7 +7,7 @@ include_once "../DAO/ProjetoDAO.php";
 
 include_once "../DAO/usuarioDAO.php";
 
-require_once("../Model/usuario.php");
+require_once "../Model/usuario.php";
 session_start();
 $usuario = $_SESSION["usuario"];
 

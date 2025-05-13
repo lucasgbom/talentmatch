@@ -10,52 +10,38 @@
   const form = document.getElementById('formulario');
   let formularioAlterado = false;
 
- 
-  
-document.addEventListener('DOMContentLoaded', function () {
-  const specials = document.querySelectorAll('.specialInput');
 
-  specials.forEach(special => {
-    const placehold = special.children[0];
-    const fileInput = special.children[1];
 
-    placehold.addEventListener('click', function () {
+  document.addEventListener('DOMContentLoaded', function() {
+    const specials = document.querySelectorAll('.specialInput');
+
+    specials.forEach(special => {
+      const placehold = special.children[0];
+      const fileInput = special.children[1];
+
+      placehold.addEventListener('click', function() {
 
         fileInput.click()
-       fileInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            placehold.src = e.target.result; // muda a imagem no frontend
+        fileInput.addEventListener('change', function() {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              placehold.src = e.target.result; // muda a imagem no frontend
+            }
+            reader.readAsDataURL(file);
           }
-          reader.readAsDataURL(file);
-        }})
+        })
 
+      });
     });
   });
-});
-
- const view =  document.querySelector("#viewProjeto")
-
-
-  function detalhesModal() {
-    const id = document.getElementById("titulo").textContent;
-    const titulo =  view.querySelector("#titulo").textContent;
-    const descricao = view.querySelector("#descricao").textContent;
-    const arquivo = view.querySelector("#projeto").getAttribute("src");
-
-
-    document.getElementById("detalhesId").value = view.dataset.id;
-    document.getElementById("detalhesTitle").value = titulo;
-    document.getElementById("detalhesDesc").value = descricao;
-    document.getElementById("detalhesFile").src = "../../data/" + arquivo;
 
 
 
-    
-  }
-//a
+
+  
+  //a
   /*function fecharModal() {
     document.getElementById("meuModal").style.display = "none";
   }*/
@@ -69,12 +55,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
     */
+ 
+  var view = null;
+  var edit = null;
 
-   function viewModal(id, titulo, descricao, arquivo){
-   
-    view.querySelector("#titulo").textContent = titulo;
-    view.querySelector("#descricao").textContent = descricao;
-    view.querySelector("#projeto").src = "../../data/" + arquivo;
+  document.addEventListener('DOMContentLoaded', function() {
+    view = document.querySelector("#visualizarProjeto");
+    edit = document.querySelector("#editarProjeto");
+  });
+    
+ 
+  function visualizarModal(id,titulo,descricao,arquivo){
+
     view.dataset.id = id
-   }
+    view.dataset.titulo = titulo
+    view.dataset.descricao = descricao
+    view.dataset.arquivo = arquivo
+
+    view.querySelector(".titulo").textContent = titulo
+    view.querySelector(".descricao").textContent = descricao
+    view.querySelector(".arquivo").src = "../../data/" + arquivo
+
+  }
+
+  function editarModal() {
+    id = view.dataset.id
+    titulo = view.dataset.titulo
+    descricao = view.dataset.descricao
+    arquivo = view.dataset.arquivo
+
+    console.log(id,arquivo,descricao,titulo)
+
+    edit.querySelector(".id").value = id
+    edit.querySelector(".titulo").value = titulo
+    edit.querySelector(".descricao").value = descricao
+    edit.querySelector(".arquivo").src = "../../data/" + arquivo
+
+  }
+
+
+ 
+
+
+
 </script>

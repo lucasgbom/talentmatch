@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include_once(__DIR__ . '/../app/Model/Usuario.php');
 ?>
 
@@ -16,7 +15,7 @@ include_once(__DIR__ . '/../app/Model/Usuario.php');
                     <a class="nav-link" href="perfil.php">Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../Model/sair.php">Sair</a>
+                    <a class="nav-link" href="../View/sair.php">Sair</a>
                 </li>
             </ul>
         </div>
