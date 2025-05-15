@@ -51,6 +51,7 @@ class PostDAO
         }
     }
 
+    
     public function listarTodos()
     {
         try {

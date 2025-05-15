@@ -1,10 +1,11 @@
 <?php
 
-
+include('../../php/conversao.php');
 require_once("../Model/Usuario.php");
 include_once("../DAO/UsuarioDAO.php");
 include_once("../Model/Projeto.php");
 include_once("../DAO/ProjetoDAO.php");
+include_once("../DAO/PostDAO.php");
 include_once("../conexao/Conexao.php");
 session_start();
 if (isset($_SESSION["usuario"])) {
@@ -12,6 +13,7 @@ if (isset($_SESSION["usuario"])) {
 }
 
 $projetoDAO = new ProjetoDAO();
+$postDAO = new PostDAO();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,7 +31,11 @@ $projetoDAO = new ProjetoDAO();
   <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
 
     <div class="specialInput">
-      <img class="place" id="perf" src="../../data/<?php echo $usuario->getFotoPerfil(); ?>" alt="">
+      <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                                                      echo $usuario->getFotoPerfil();
+                                                    } else {
+                                                      echo 'perfil_padrao.png';
+                                                    } ?>" alt="">
       <input type="file" name="foto" class="hide input-field" id="foto" disabled>
     </div>
     <label for="nome">Nome:</label><br>
@@ -175,25 +181,23 @@ $projetoDAO = new ProjetoDAO();
     <?php } ?>
   </div>
   <div>
-    <h1>Post</h1>
+    <h1>Post Criar</h1>
     <main class="d-flex justify-content-center">
       <div class="container posts" style="background-color: #E2E2E2; padding: 2em; border-radius: 2em; border-style: solid; width: 60em">
         <div class="header_post row align-items-center" style="padding-left: 1em;">
           <div class="col-auto d-flex flex-wrap align-items-center" style="width: 30px; height: 30px; padding: 0;">
-            <img src="../../data/<?php echo $usuario->getFotoPerfil(); ?>" alt="foto_perfil"
+            <img src="../../data/<?php include('../../php/fotoPerfil.php'); ?>" alt="foto_perfil"
               class="d-inline-block align-text-top"
               style="width: 100%; height: 100%; object-fit: fill;">
           </div>
-
           <div class="col justify-content-start align-items-center">
-            <div class="row"><b style="padding-left: 1em;">Empresa não sei oque</b></div>
-            <div class="row"><span style="padding-left: 1em;">de tal area</span> </div>
-          </div>
-          <form action="../Controller/PostController.php" style="padding: 0" method="POST">
+             <b><?php echo $usuario->getNome()?></b>
+            </div> 
+          <form action="../Controller/PostController.php" style="padding: 0" method="POST"> <br>
             <label for="titulo" class="fw-bold"> Título:</label> <br><input type="text" name="titulo" class="form-control"> <br>
             <label for="descricao" class="fw-bold">Descrição: </label><br><textarea class="form-control" aria-label="With textarea" name="descricao"></textarea> <br>
             <label for="data" class="fw-bold">Data:</label><br><input type="date" name="date"> <br>
-            <label for="pagamento" class="fw-bold"> Pagamento:</label> <br><input type="text" id="pagamento" name="pagamento"  placeholder="R$ 0,00"> <br>
+            <label for="pagamento" class="fw-bold"> Pagamento:</label> <br><input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00"> <br>
             <label for="habilidades" class="fw-bold">Habilidade:</label><br>
             <input type="hidden" name="acao" value="inserir">
             <select name="habilidade" id="habilidades">
@@ -206,6 +210,32 @@ $projetoDAO = new ProjetoDAO();
         </div>
       </div>
     </main>
+    <h1>Posts</h1>
+    <?php
+    $posts = $postDAO->listarPorUsuario($usuario);
+    foreach ($posts as $post) {
+    ?>
+      <main class="d-flex justify-content-center">
+        <div class="container posts" style="background-color: #E2E2E2; padding: 2em; border-radius: 2em; border-style: solid; width: 60em">
+          <div class="header_post row align-items-center" style="padding-left: 1em;">
+            <div class="col-auto d-flex flex-wrap align-items-center" style="width: 30px; height: 30px; padding: 0;">
+              <img src="../../data/<?php include('../../php/fotoPerfil.php'); ?>" alt="foto_perfil" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
+            </div>
+            <div class="col justify-content-start align-items-center">
+             <b><?php echo $usuario->getNome()?></b>
+            </div> 
+            <form  style="padding: 0"><br>
+              <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>
+              <p> <?= $post['descricao'] ?> </p>
+              <span class="fw-bold"><?= formatarData($post['data_'])?></span><br>
+              <span class="fw-bold"> Pagamento: <?= formatarParaReal($post['pagamento'])?></span> <br>
+              <input type="hidden" name="acao" value="inserir"> 
+              Habilidade necessária: <i><?= $post['habilidade']?></i>
+            </form>
+          </div>
+        </div>
+      </main>
+    <?php } ?>
 
   </div>
 
@@ -213,4 +243,4 @@ $projetoDAO = new ProjetoDAO();
 
 <?php include("perfilJs.php"); ?>
 
-</html>
+</html>/

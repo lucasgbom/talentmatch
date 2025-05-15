@@ -1,0 +1,1 @@
+<?php if ($usuario->getFotoPerfil()) {echo $usuario->getFotoPerfil(); } else {echo 'perfil_padrao.png';}?>

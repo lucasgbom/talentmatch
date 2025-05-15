@@ -25,9 +25,8 @@ CREATE TABLE post (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100),
     data_ DATE,
-    requisitos VARCHAR(500),
     pagamento INT,
-    descricao VARCHAR(256),
+    descricao VARCHAR(1280),
     idUsuario INT,
     habilidade VARCHAR(100),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)

@@ -17,7 +17,7 @@ include_once('../Model/Usuario.php');
     <main class="d-flex justify-content-center" style="margin-top: 4em">
         <div class="container posts" style="background-color: white;">
             <div class="header_post row">
-                <div class="col-auto d-flex flex-wrap align-items-center" style="width: auto; padding: 0;"><img src="../../data/perfil_padrao.png" width="30" height="30" alt="foto_perfil" class="d-inline-block align-text-top"></div>
+                <div class="col-auto d-flex flex-wrap align-items-center" style="width: auto; padding: 0;"><img src="../../data/<?php include('../../php/fotoPerfil.php')?>" width="30" height="30" alt="foto_perfil" class="d-inline-block align-text-top"></div>
                 <div class="col justify-content-start align-items-center">
                     <div class="row"><b style="padding-left: 1em;">Empresa não sei oque</b></div>
                     <div class="row"><span style="padding-left: 1em;">de tal area</span> </div>
