@@ -3,8 +3,10 @@
   html, body{
     height: 100%;
     width: 100%;
+    margin: 0;
   }
-        .input-field {
+
+      .input-field {
             background-color: #f0f0f0;
             padding: 10px;
             margin: 10px 0;
@@ -38,61 +40,61 @@
     object-fit: cover;}
 
 
+    #criarProjeto{
 
-
-   
-    .btn-abrir {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      margin: 50px;
+      
     }
 
-    /* Fundo escuro do modal */
-    .modal {
-      display: none; /* escondido por padrão */
+
+     /* Fundo escuro com blur */
+    .modal-overlay {
       position: fixed;
-      z-index: 1;
-      left: 0;
       top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-      justify-content: center;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
       align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    /* Conteúdo do modal */
-    .modal-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease-in-out;
-      display: none;
+    
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    /* Estilo do modal */
+    .modal {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transform: scale(0.95);
+      opacity: 0;
+      transition: all 0.3s ease;
     }
 
-    /* Botão de fechar */
-    .close-btn {
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin-top: 10px;
-      border-radius: 5px;
-      cursor: pointer;
+    .modal-overlay.active .modal {
+      transform: scale(1);
+      opacity: 1;
     }
+
+    .open-btn {
+      margin: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+
+
+
+
 
     .grid-container {
     display: grid;

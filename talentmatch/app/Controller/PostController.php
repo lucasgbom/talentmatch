@@ -7,10 +7,18 @@ include_once "../DAO/PostDAO.php";
 
 require_once "../Model/Post.php";
 
-$post = new Post();
-$post->setTitulo($_POST['titulo']);
+$valor = preg_replace('/[^\d]/', '', $_POST['pagamento']);
+$_POST['pagamento'] = intval($valor);
 
-if($_POST['acao'] == "inserir"){
+$Post = new Post();
+$PostDAO = new PostDAO();
+$Post->setTitulo($_POST['titulo']);
+$Post->setDescricao($_POST['descricao']);
+$Post->setData($_POST['date']);
+$Post->setHabilidade($_POST['habilidade']);
+$Post->setIdUsuario($_POST['idUsuario']);
+$Post->setPagamento($_POST['pagamento']);
 
+if ($_POST['acao'] == "inserir") {
+    $PostDAO->inserir($Post);
 }
-?>

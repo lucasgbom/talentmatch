@@ -4,17 +4,18 @@ class PostDAO
 {
     public function inserir($post)
     {
+        echo('<br>');
+        var_dump($post);
         try {
-            $sql = 'INSERT INTO post (dataInicio, dataFim, requisitos, cache, descricao, idUsuario, idHabilidade)
-                    VALUES (:dataInicio, :dataFim, :requisitos, :cache, :descricao, :idUsuario, :idHabilidade)';
+            $sql = 'INSERT INTO post (data_, pagamento, descricao, idUsuario, habilidade, titulo)
+                    VALUES (:data_, :pagamento, :descricao, :idUsuario, :habilidade, :titulo)';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':dataInicio', $post->getDataInicio());
-            $consulta->bindValue(':dataFim', $post->getDataFim());
-            $consulta->bindValue(':requisitos', $post->getRequisitos());
-            $consulta->bindValue(':cache', $post->getCache());
+            $consulta->bindValue(':data_', $post->getData());
+            $consulta->bindValue(':titulo', $post->getTitulo());
+            $consulta->bindValue(':pagamento', $post->getPagamento());
             $consulta->bindValue(':descricao', $post->getDescricao());
             $consulta->bindValue(':idUsuario', $post->getIdUsuario());
-            $consulta->bindValue(':idHabilidade', $post->getIdHabilidade());
+            $consulta->bindValue(':habilidade', $post->getHabilidade());
             $consulta->execute();
             $post->setId(Conexao::getConexao()->lastInsertId());
             return true;
@@ -28,18 +29,15 @@ class PostDAO
     {
         try {
             $sql = 'UPDATE post SET 
-                dataInicio = :dataInicio,
-                dataFim = :dataFim,
-                requisitos = :requisitos,
+                data_ = :data_
                 cache = :cache,
                 descricao = :descricao,
                 idUsuario = :idUsuario,
                 idHabilidade = :idHabilidade
+                
             WHERE id = :id';
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(':dataInicio', $post->getDataInicio());
-            $consulta->bindValue(':dataFim', $post->getDataFim());
-            $consulta->bindValue(':requisitos', $post->getRequisitos());
+            $consulta->bindValue(':data', $post->getData());
             $consulta->bindValue(':cache', $post->getCache());
             $consulta->bindValue(':descricao', $post->getDescricao());
             $consulta->bindValue(':idUsuario', $post->getIdUsuario());

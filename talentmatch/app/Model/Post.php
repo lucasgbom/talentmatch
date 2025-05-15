@@ -3,13 +3,11 @@
 class Post
 {
     private $id;
-    private $dataInicio;
-    private $dataFim;
-    private $requisitos;
-    private $cache;
+    private $data;
+    private $pagamento;
     private $descricao;
     private $idUsuario;
-    private $idHabilidade;
+    private $habilidade;
     private $titulo;
 
     // Getters
@@ -18,24 +16,14 @@ class Post
         return $this->id;
     }
 
-    public function getDataInicio()
+    public function getData()
     {
-        return $this->dataInicio;
+        return $this->data;
     }
 
-    public function getDataFim()
+    public function getPagamento()
     {
-        return $this->dataFim;
-    }
-
-    public function getRequisitos()
-    {
-        return $this->requisitos;
-    }
-
-    public function getCache()
-    {
-        return $this->cache;
+        return $this->pagamento;
     }
 
     public function getDescricao()
@@ -48,9 +36,9 @@ class Post
         return $this->idUsuario;
     }
 
-    public function getIdHabilidade()
+    public function getHabilidade()
     {
-        return $this->idHabilidade;
+        return $this->habilidade;
     }
      public function getTitulo()
     {
@@ -64,24 +52,14 @@ class Post
         $this->id = $id;
     }
 
-    public function setDataInicio($dataInicio)
+    public function setData($data)
     {
-        $this->dataInicio = $dataInicio;
+        $this->data = $data;
     }
 
-    public function setDataFim($dataFim)
+    public function setPagamento($pagamento)
     {
-        $this->dataFim = $dataFim;
-    }
-
-    public function setRequisitos($requisitos)
-    {
-        $this->requisitos = $requisitos;
-    }
-
-    public function setCache($cache)
-    {
-        $this->cache = $cache;
+        $this->pagamento = $pagamento;
     }
 
     public function setDescricao($descricao)
@@ -94,9 +72,9 @@ class Post
         $this->idUsuario = $idUsuario;
     }
 
-    public function setIdHabilidade($idHabilidade)
+    public function setHabilidade($habilidade)
     {
-        $this->idHabilidade = $idHabilidade;
+        $this->habilidade = $habilidade;
     }
     public function setTitulo($titulo)
     {

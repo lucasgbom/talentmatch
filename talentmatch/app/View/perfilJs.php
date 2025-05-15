@@ -1,4 +1,30 @@
 <script>
+  const input = document.getElementById('pagamento');
+
+  input.addEventListener('input', () => {
+    let v = input.value.replace(/\D/g, '');
+    if (v === '') v = '0';
+
+    v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+
+    input.value = v;
+  });
+
+  input.addEventListener('focus', () => {
+    if (input.value.trim() === '') {
+      input.value = 'R$ 0,00';
+    }
+  });
+
+  input.addEventListener('blur', () => {
+    if (input.value === 'R$ 0,00') {
+      input.value = '';
+    }
+  });
+
   function editarFormulario() {
     const campos = document.querySelectorAll('.input-field');
     campos.forEach(campo => {
@@ -40,7 +66,7 @@
 
 
 
-  
+
   //a
   /*function fecharModal() {
     document.getElementById("meuModal").style.display = "none";
@@ -55,17 +81,27 @@
     }
   }
     */
- 
+
   var view = null;
   var edit = null;
 
   document.addEventListener('DOMContentLoaded', function() {
     view = document.querySelector("#visualizarProjeto");
     edit = document.querySelector("#editarProjeto");
+
+
+    document.querySelector(".open-btn").addEventListener("click", () => {
+      document.querySelector('#criarProjeto').classList.add('active');
+
+    })
+
+
+
+
   });
-    
- 
-  function visualizarModal(id,titulo,descricao,arquivo){
+
+
+  function visualizarModal(id, titulo, descricao, arquivo) {
 
     view.dataset.id = id
     view.dataset.titulo = titulo
@@ -84,7 +120,7 @@
     descricao = view.dataset.descricao
     arquivo = view.dataset.arquivo
 
-    console.log(id,arquivo,descricao,titulo)
+    console.log(id, arquivo, descricao, titulo)
 
     edit.querySelector(".id").value = id
     edit.querySelector(".titulo").value = titulo
@@ -92,10 +128,4 @@
     edit.querySelector(".arquivo").src = "../../data/" + arquivo
 
   }
-
-
- 
-
-
-
 </script>

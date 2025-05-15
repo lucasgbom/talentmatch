@@ -19,13 +19,13 @@ $projetoDAO = new ProjetoDAO();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Círculo com metade fora</title>
+  <title>TalentMatch</title>
   <?php include("perfilCss.php"); ?>
   <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
 </head>
 
 <body>
-<?php include_once('../../php/navbar.php') ?>
+  <?php include_once('../../php/navbar.php') ?>
   <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
 
     <div class="specialInput">
@@ -49,8 +49,7 @@ $projetoDAO = new ProjetoDAO();
 
 
 
-
-
+  <button class="open-btn">Abrir Modal</button>
 
 
 
@@ -159,6 +158,8 @@ $projetoDAO = new ProjetoDAO();
   </div>
   </div>
 
+
+
 </body>
 <footer>
   <h1>Projetos</h1>
@@ -190,15 +191,17 @@ $projetoDAO = new ProjetoDAO();
           </div>
           <form action="../Controller/PostController.php" style="padding: 0" method="POST">
             <label for="titulo" class="fw-bold"> Título:</label> <br><input type="text" name="titulo" class="form-control"> <br>
-            <label for="descricao" class="fw-bold">Descrição: </label><br><textarea class="form-control" aria-label="With textarea" name="descrição"></textarea> <br>
-            <label for="data" class="fw-bold">Data:</label><br><input type="date" name="data"> <br>
-            <label for="habilidades" class="fw-bold">Habilidades:</label><br>
+            <label for="descricao" class="fw-bold">Descrição: </label><br><textarea class="form-control" aria-label="With textarea" name="descricao"></textarea> <br>
+            <label for="data" class="fw-bold">Data:</label><br><input type="date" name="date"> <br>
+            <label for="pagamento" class="fw-bold"> Pagamento:</label> <br><input type="text" id="pagamento" name="pagamento"  placeholder="R$ 0,00"> <br>
+            <label for="habilidades" class="fw-bold">Habilidade:</label><br>
             <input type="hidden" name="acao" value="inserir">
-            <select name="habilidades" id="habilidades">
+            <select name="habilidade" id="habilidades">
               <option value="violao">Violão</option>
               <option value="piano">Piano</option>
               <option value="baixo">Baixo</option>
             </select> <button class="btn btn-primary float-end" type="submit" name="editar">Salvar</button>
+            <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
           </form>
         </div>
       </div>

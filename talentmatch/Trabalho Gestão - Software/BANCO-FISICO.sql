@@ -12,22 +12,6 @@ CREATE TABLE usuario (
     email VARCHAR(256)
 );
 
-
-CREATE TABLE generoMusical (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(256),
-    idUsuario INT,
-    FOREIGN KEY (idUsuario) REFERENCES usuario(id)
-);
-
-CREATE TABLE habilidade (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(256),
-    experiencia VARCHAR(256),
-    idUsuario INT,
-    FOREIGN KEY (idUsuario) REFERENCES usuario(id)
-);
-
 CREATE TABLE projeto (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100),
@@ -40,15 +24,13 @@ CREATE TABLE projeto (
 CREATE TABLE post (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100),
-    dataInicio DATE,
-    dataFim DATE,
+    data_ DATE,
     requisitos VARCHAR(500),
-    cache DOUBLE,
+    pagamento INT,
     descricao VARCHAR(256),
     idUsuario INT,
-    idHabilidade INT,
-    FOREIGN KEY (idUsuario) REFERENCES usuario(id),
-    FOREIGN KEY (idHabilidade) REFERENCES habilidade(id)
+    habilidade VARCHAR(100),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id)
 );
 
 COMMIT;
