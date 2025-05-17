@@ -1,16 +1,20 @@
 <?php 
 include_once(__DIR__ . '/../app/Model/Usuario.php');
+$usuario = $_SESSION['usuario'];
 ?>
 
 <body style="background-color: #f5f5f5;">
     <nav class="navbar navbar-expand-lg ">
     <div class="container-fluid">
         <a class="navbar-brand" href="#" style="margin-left: 1em">
-            <img src="../../data/perfil_padrao.png" width="30" height="30" alt="foto_perfil" class="d-inline-block align-text-top">
+            <img src="../../data/<?php if ($usuario->getFotoPerfil()) {echo $usuario->getFotoPerfil(); } else {echo 'perfil_padrao.png';}?>;" width="30" height="30" alt="" class="d-inline-block align-text-top">
             <?php echo($_SESSION['nome']);?>
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.php">Home</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="perfil.php">Perfil</a>
                 </li>
