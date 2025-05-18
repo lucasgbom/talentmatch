@@ -94,12 +94,16 @@ function openModal(element) {
 
     id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; arquivo = element.dataset.arquivo;
     console.log(id,titulo,descricao)
+
     edit.querySelector(".id").value = id
     edit.querySelector(".titulo").value = titulo
     edit.querySelector(".descricao").value = descricao
+    edit.querySelector(".projeto").src = "../../data/" + arquivo;
+
 
     view.querySelector(".titulo").textContent = titulo
     view.querySelector(".descricao").textContent = descricao
+    view.querySelector(".projeto").src = "../../data/" + arquivo;
 
   }
 

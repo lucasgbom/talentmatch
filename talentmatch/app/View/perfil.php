@@ -80,9 +80,9 @@ $postDAO = new PostDAO();
             <input type="text" name="titulo" class="titulo" />
             <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-            <div class="specialInput">
-              <video src="" class="arquivo"></video>
-              <input type="file" name="video" class="file" />
+            <div class="special-input">
+              <video src="" class="projeto"></video>
+              <input type="file" name="video" class="arquivo" />
             </div>
 
               <input type="hidden" name="tipo" value="inserir">
@@ -102,7 +102,7 @@ $postDAO = new PostDAO();
         <p class="descricao"></p>
 
         <div class="post-video"> 
-          <video src="" class="arquivo" controls></video>   
+          <video src="" class="projeto" controls></video>   
         </div>
       
       </div>
@@ -114,9 +114,9 @@ $postDAO = new PostDAO();
             <input type="text" name="titulo" class="titulo" />
             <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-            <div class="specialInput">
-              <video src="" class="arquivo"></video>
-              <input type="file" name="video" class="file" />
+            <div class="special-input">
+              <video src="" class="projeto"></video>
+              <input type="file" name="video" class="arquivo" />
             </div>
 
               <input type="hidden" name="tipo" value="editar">
@@ -140,7 +140,7 @@ $postDAO = new PostDAO();
     $projetos = $projetoDAO->listar($usuario);
     foreach ($projetos as $projeto) {
     ?>
-      <button class="grid-item projeto open-btn" data-mdl="visualizar editar" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
+      <button class="grid-item open-btn" data-mdl="visualizar editar" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
 
         <?= $projeto['titulo'] ?>
       </button>

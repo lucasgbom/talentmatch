@@ -207,5 +207,15 @@
     width: 200px;
   }
 
+  .projeto{
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arquivo{
+    display: none;
+  }
+
 
     </style>
