@@ -23,7 +23,6 @@ $postDAO = new PostDAO();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TalentMatch</title>
   <?php include("perfilCss.php"); ?>
-  <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
 </head>
 
 <body>
@@ -55,116 +54,83 @@ $postDAO = new PostDAO();
 
 
 
-  <button class="open-btn">Abrir Modal</button>
-
-
-
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#criarProjeto">
-    Criar Projeto
-  </button>
 
 
   <script src="../../bootstrap/bootstrap.js"></script>
 
 
+<button class="open-modal-btn" data-mdl="criar" onclick="openModal(this)">criar projeto</button>
 
 
-  <div class="modal fade" id="criarProjeto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Criar projeto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-            <div class="row">
-              Título: <input type="text" name="titulo" class="form-control" id="progTitle" />
-              Descrição: <input type="text" name="descricao" class="form-control" id="progDesc" />
-              <input type="hidden" id="detalhesId" name="id" value="200">
-              <div class="specialInput">
-                <video src="" class="place"></video>
-                <input type="file" name="video" class="hide" id="progFile" />
-              </div>
+<div class="modal" id="myModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+
+    <!-- Abas -->
+    <div class="tabs">
+      <button class="tab active" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+      <button class="tab" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+      <button class="tab" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+    </div>
+
+  
+    <!-- Conteúdo das abas -->
+    <div class="tab-content" id="criar-projeto">
+      <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
+            <input type="text" name="titulo" class="titulo" />
+            <textarea name="descricao" rows="4" class="descricao"></textarea>
+
+            <div class="specialInput">
+              <video src="" class="arquivo"></video>
+              <input type="file" name="video" class="file" />
+            </div>
+
               <input type="hidden" name="tipo" value="inserir">
-            </div>
-            <div class="row">
-              <div class="col-md-12 text-right">
-                <br>
-                <button class="btn btn-primary float-end" type="submit" name="editar">Salvar</button>
-              </div>
-            </div>
-          </form>
+              <input type="hidden" class="id" name="id">
+          
+                      
+            <button type="submit" name="editar">Salvar</button>
+      </form>
+
+      
+    </div>
+
+    <div class="tab-content" id="visualizar-projeto">
+
+      <div class="post-container">
+        <h2 class="titulo"></h2>
+        <p class="descricao"></p>
+
+        <div class="post-video"> 
+          <video src="" class="arquivo" controls></video>   
         </div>
+      
       </div>
     </div>
-  </div>
 
 
+    <div class="tab-content" id="editar-projeto">
+      <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
+            <input type="text" name="titulo" class="titulo" />
+            <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-
-
-  <div class="modal fade" id="editarProjeto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Editar projeto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-            <div class="row">
-
-              <input type="text" name="titulo" class="titulo" />
-              <input type="text" name="descricao" class="descricao" />
-
-              <div class="specialInput">
-                <video src="" class="arquivo"></video>
-                <input type="file" name="video" class="file" />
-              </div>
+            <div class="specialInput">
+              <video src="" class="arquivo"></video>
+              <input type="file" name="video" class="file" />
+            </div>
 
               <input type="hidden" name="tipo" value="editar">
               <input type="hidden" class="id" name="id">
-            </div>
-            <div class="row">
-              <div class="col-md-12 text-right">
-                <br>
-                <button class="btn btn-primary float-end" type="submit" name="editar">Salvar</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+          
+                      
+            <button type="submit" name="editar">Salvar</button>
+      </form>
     </div>
+
+
   </div>
 
-
-
-  <div class="modal fade" id="visualizarProjeto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-id="" data-titulo="" data-descricao="" data-arquivo="">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">projeto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <h1 class="titulo"></h1>
-          <h6 class="descricao"></h6>
-
-          <video class="arquivo" src="" controls></video>
-
-        </div>
-
-        <button class="grid-item" data-bs-toggle="modal" data-bs-target="#editarProjeto" onclick="editarModal()">
-
-      </div>
-    </div>
-  </div>
-  </div>
-
-
+</div>
 
 </body>
 <footer>
@@ -174,7 +140,7 @@ $postDAO = new PostDAO();
     $projetos = $projetoDAO->listar($usuario);
     foreach ($projetos as $projeto) {
     ?>
-      <button class="grid-item projeto" data-bs-toggle="modal" data-bs-target="#visualizarProjeto" onclick="visualizarModal('<?= $projeto['id'] ?>','<?= $projeto['titulo'] ?>','<?= $projeto['descricao'] ?>', '<?= $projeto['arquivoCaminho'] ?>') ">
+      <button class="grid-item projeto open-btn" data-mdl="visualizar editar" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
 
         <?= $projeto['titulo'] ?>
       </button>

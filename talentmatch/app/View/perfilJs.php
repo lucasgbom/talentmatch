@@ -39,7 +39,7 @@
 
 
   document.addEventListener('DOMContentLoaded', function() {
-    const specials = document.querySelectorAll('.specialInput');
+    const specials = document.querySelectorAll('.special-input');
 
     specials.forEach(special => {
       const placehold = special.children[0];
@@ -82,50 +82,70 @@
   }
     */
 
-  var view = null;
-  var edit = null;
 
-  document.addEventListener('DOMContentLoaded', function() {
-    view = document.querySelector("#visualizarProjeto");
-    edit = document.querySelector("#editarProjeto");
+function openModal(element) {
+  document.getElementById("myModal").style.display = "block";  
 
+  const mdls = element.dataset.mdl.split(" ");
 
-    document.querySelector(".open-btn").addEventListener("click", () => {
-      document.querySelector('#criarProjeto').classList.add('active');
+  if(element.dataset.mdl == "visualizar editar"){
+    edit = document.querySelector("#editar-projeto");
+    view = document.querySelector("#visualizar-projeto")
 
-    })
-
-
-
-
-  });
-
-
-  function visualizarModal(id, titulo, descricao, arquivo) {
-
-    view.dataset.id = id
-    view.dataset.titulo = titulo
-    view.dataset.descricao = descricao
-    view.dataset.arquivo = arquivo
-
-    view.querySelector(".titulo").textContent = titulo
-    view.querySelector(".descricao").textContent = descricao
-    view.querySelector(".arquivo").src = "../../data/" + arquivo
-
-  }
-
-  function editarModal() {
-    id = view.dataset.id
-    titulo = view.dataset.titulo
-    descricao = view.dataset.descricao
-    arquivo = view.dataset.arquivo
-
-    console.log(id, arquivo, descricao, titulo)
-
+    id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; arquivo = element.dataset.arquivo;
+    console.log(id,titulo,descricao)
     edit.querySelector(".id").value = id
     edit.querySelector(".titulo").value = titulo
     edit.querySelector(".descricao").value = descricao
-    edit.querySelector(".arquivo").src = "../../data/" + arquivo
+
+    view.querySelector(".titulo").textContent = titulo
+    view.querySelector(".descricao").textContent = descricao
 
   }
+
+  // Limpa abas e conteúdos
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+  // Ativa abas permitidas
+  let firstTab;
+  document.querySelectorAll('.tab').forEach(tab => {
+    if (mdls.includes(tab.dataset.mdl)) {
+      tab.classList.add('permit');
+      if (!firstTab) firstTab = tab;
+    }
+  });
+
+  // Ativa a primeira aba visível
+  if (firstTab) {
+    firstTab.classList.add('active');
+    document.getElementById(firstTab.dataset.target).classList.add('active');
+  }
+}
+
+
+
+  function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+  }
+function switchTab(element) {
+  const tabId = element.dataset.target;
+
+  // Remove classes 'active' de todas as abas e conteúdos
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+  // Ativa a aba clicada e o conteúdo correspondente
+  element.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+  // Fecha o modal ao clicar fora do conteúdo
+  window.onclick = function(event) {
+    const modal = document.getElementById("myModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+
 </script>

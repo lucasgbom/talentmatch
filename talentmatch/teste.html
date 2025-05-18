@@ -1,38 +1,274 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Modal com Animação e Desfoque</title>
-  <style>
-   
-  </style>
-</head>
-<body>
-
-</body>
-</html>
-a<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Modal com Blur e Animação</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modal com Abas e Formulário</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
     }
 
-  
+    .open-modal-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 8px;
+      width: 60vw;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ccc;
+    }
+
+   .tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-weight: bold;
+  outline: none;
+  display: none; /* Oculta completamente */
+}
+
+.tab.permit {
+  display: inline-block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+    .tab.active {
+      border-bottom: 2px solid #007BFF;
+      color: #007BFF;
+    }
+
+    .tab-content {
+      display: none;
+      flex-grow: 1;
+      padding: 20px;
+      margin: 10px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Estilo do formulário na Aba 1 */
+   /* Estilo do formulário em qualquer aba */
+.tab-content form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 15px;
+}
+
+.tab-content input,
+.tab-content textarea,
+.tab-content button {
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+}
+
+.tab-content button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.tab-content button:hover {
+  background-color: #0056b3;
+}
+
+
+
+      .post-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    .post-title {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .post-description {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .post-video {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .post-video iframe,
+    .post-video video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
 
+<button class="open-modal-btn" data-mdl="criar" onclick="openModal(this)">Abrir Modal</button>
+<button class="open-modal-btn" data-mdl="visualizar editar" onclick="openModal(this)">Abrir Modal</button>
+
+
+<div class="modal" id="myModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+
+    <!-- Abas -->
+    <div class="tabs">
+      <button class="tab active" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+      <button class="tab" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+      <button class="tab" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+    </div>
+
   
-  <script>
+    <!-- Conteúdo das abas -->
+    <div class="tab-content active" id="criar-projeto">
+      <form>
+        <input type="text" placeholder="Nome" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Mensagem" rows="4" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+
+    <div class="tab-content" id="visualizar-projeto">
+
+      <div class="post-container">
+  <h2 class="post-title">Título do Post</h2>
+  <p class="post-description">Esta é uma descrição breve e clara do conteúdo do post. Pode incluir detalhes sobre o vídeo abaixo.</p>
+
+  <div class="post-video">
+  
+  
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo HTML5.
+    </video>
+    
+  </div>
+</div>
+
+     
+    </div>
+
+    <div class="tab-content" id="editar-projeto">
+      <form>
+        <input type="text" placeholder="Nome" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Mensagem" rows="4" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>    </div>
+
+  </div>
+</div>
+
+<script>
+  function openModal(element) {
+  document.getElementById("myModal").style.display = "block";
+
+  const mdls = element.dataset.mdl.split(" ");
+
+  // Limpa abas e conteúdos
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+  // Ativa abas permitidas
+  let firstTab;
+  document.querySelectorAll('.tab').forEach(tab => {
+    if (mdls.includes(tab.dataset.mdl)) {
+      tab.classList.add('permit');
+      if (!firstTab) firstTab = tab;
+    }
+  });
+
+  // Ativa a primeira aba visível
+  if (firstTab) {
+    firstTab.classList.add('active');
+    document.getElementById(firstTab.dataset.target).classList.add('active');
+  }
+}
 
 
-   
-  </script>
+
+  function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+  }
+function switchTab(element) {
+  const tabId = element.dataset.target;
+
+  // Remove classes 'active' de todas as abas e conteúdos
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+  // Ativa a aba clicada e o conteúdo correspondente
+  element.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+  // Fecha o modal ao clicar fora do conteúdo
+  window.onclick = function(event) {
+    const modal = document.getElementById("myModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+</script>
 
 </body>
 </html>
