@@ -170,7 +170,7 @@ $postDAO = new PostDAO();
               <option value="violao">Violão</option>
               <option value="piano">Piano</option>
               <option value="baixo">Baixo</option>
-            </select> <button class="btn btn-primary float-end" type="submit" name="editar">Salvar</button>
+            </select> <button class="btn btn-primary float-end" type="submit" name="editar">Compartilhar</button>
             <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
           </form>
         </div>
@@ -209,4 +209,4 @@ $postDAO = new PostDAO();
 
 <?php include("perfilJs.php"); ?>
 
-</html>/
+</html>

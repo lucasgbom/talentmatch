@@ -76,4 +76,16 @@ class PostDAO
             echo "Erro ao listar posts do usuário: " . $e->getMessage();
         }
     }
+    public function listarHome($usuario)
+    {
+        try {
+            $sql = 'SELECT * FROM post WHERE idUsuario != :id';
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(':id', $usuario->getId());
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            print "Erro ao listar Projetos <br>" . $e . '<br>';
+        }
+    }
 }

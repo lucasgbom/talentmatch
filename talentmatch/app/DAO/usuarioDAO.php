@@ -88,7 +88,12 @@ class UsuarioDAO
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(":valor", "%$valor%");
             $consulta->execute();
-            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            if ($coluna == "id"){
+                return $consulta->fetch(PDO::FETCH_ASSOC);
+            }
+            else{
+                return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            }
         } catch (Exception $e) {
             print "Erro ao buscar usuario <br>" . $e->getMessage() . '<br>';
         }

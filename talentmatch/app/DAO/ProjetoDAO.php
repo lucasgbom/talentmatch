@@ -67,7 +67,7 @@ class ProjetoDAO
             print "Erro ao listar Projetos <br>" . $e . '<br>';
         }
     }
-
+    
     public function deletar($projeto){
          $sql = 'DELETE * FROM projeto WHERE idUsuario = :id';
     }
