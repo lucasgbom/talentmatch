@@ -21,24 +21,34 @@ $usuarioDAO = new UsuarioDAO();
     <title>Home</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
     <script src="../../bootstrap/bootstrap.js"></script>
+    <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
 </head>
 
 <?php include_once('../../php/navbar.php');
 $posts = $postDAO->listarHome($_SESSION['usuario']);
 foreach ($posts as $post) {
-   
     $usuario = $usuarioDAO->buscar('id', $post['idUsuario']);
-    var_dump($usuario);
-?> 
+?>
 
     <main class="d-flex justify-content-center">
         <div class="container posts" style="background-color: #E2E2E2; padding: 2em; border-radius: 2em; border-style: solid; width: 60em">
-            <div class="header_post row align-items-center" style="padding-left: 1em;"> 
+            <div class="header_post row align-items-center" style="padding-left: 1em;">
                 <div class="col-auto d-flex flex-wrap align-items-center" style="width: 30px; height: 30px; padding: 0;">
-                    <img src="../../data/" alt="" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
+                    <img src="../../data/<?php
+                                            if (isset($usuario['fotoPerfil'])) {
+                                                echo ($usuario['fotoPerfil']);
+                                            } else {
+                                                echo ('perfil_padrao.png');
+                                            }
+                                            ?>" alt="" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
                 </div>
-                <div class="col justify-content-start align-items-center"> 
-                    <b><?php  echo($usuario['nome']);?></b>
+                <div class="col justify-content-start align-items-center">
+                    <b><?php echo ($usuario['nome']); ?></b>
                 </div>
                 <form style="padding: 0"><br>
                     <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>
@@ -46,7 +56,8 @@ foreach ($posts as $post) {
                     <span class="fw-bold"><?= formatarData($post['data_']) ?></span><br>
                     <span class="fw-bold"> Pagamento: <?= formatarParaReal($post['pagamento']) ?></span> <br>
                     <input type="hidden" name="acao" value="inserir">
-                    Habilidade necessária: <i><?= $post['habilidade'] ?></i>
+                    <span>Habilidade necessária: <i><?= $post['habilidade'] ?></i> </span>
+                    <button class="btn btn-lg btn-success float-end" type="submit" name="editar" style="margin-right: 1em;">Aceitar</button>
                 </form>
             </div>
         </div>

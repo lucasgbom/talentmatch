@@ -1,5 +1,8 @@
 <style>
-
+  p{
+    word-wrap: break-word; 
+    white-space: normal;
+  }
   html, body{
     height: 100%;
     width: 100%;
