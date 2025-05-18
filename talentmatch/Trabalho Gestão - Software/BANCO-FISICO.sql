@@ -32,4 +32,13 @@ CREATE TABLE post (
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
 );
 
+CREATE TABLE usuario_post (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT NOT NULL,
+    idPost INT NOT NULL,
+    UNIQUE KEY unique_usuario_post (idUsuario, idPost),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id),
+    FOREIGN KEY (idPost) REFERENCES post(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 COMMIT;

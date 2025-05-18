@@ -48,9 +48,9 @@ $postDAO = new PostDAO();
     <input type="text" name="nomeUsuario" class="input-field" value="<?php echo $usuario->getNomeUsuario(); ?>" disabled><br>
 
     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-    <input type="submit" id="salvar" value="salvar">
+    <input type="submit" id="salvar" value="salvar" disabled>
 
-    <input type="hidden" value="atualizar" name="tipo">
+    <input type="hidden" value="atualizar" name="tipo" disabled>
   </form>
 
 
@@ -77,6 +77,7 @@ $postDAO = new PostDAO();
 
       <!-- Conteúdo das abas -->
       <div class="tab-content" id="criar-projeto">
+        
         <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
           <input type="text" name="titulo" class="titulo" />
           <textarea name="descricao" rows="4" class="descricao"></textarea>
@@ -181,8 +182,9 @@ $postDAO = new PostDAO();
     <?php
     $posts = $postDAO->listarPorUsuario($usuario);
     foreach ($posts as $post) {
+
     ?>
-      <main class="d-flex justify-content-center">
+      <main class="d-flex justify-content-center" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id'])))?>" onclick="match(this)">
         <div class="container posts" style="background-color: #E2E2E2; padding: 2em; border-radius: 2em; border-style: solid; width: 60em">
           <div class="header_post row align-items-center" style="padding-left: 1em;">
             <div class="col-auto d-flex flex-wrap align-items-center" style="width: 30px; height: 30px; padding: 0;">

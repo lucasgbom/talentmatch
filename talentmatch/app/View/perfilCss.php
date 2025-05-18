@@ -3,6 +3,8 @@
     word-wrap: break-word; 
     white-space: normal;
   }
+
+  
   html, body{
     height: 100%;
     width: 100%;
@@ -49,14 +51,13 @@
       cursor: pointer;
     }
 
-    .modal {
+    .modal{
       display: none;
       position: fixed;
       z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
       background-color: rgba(0, 0, 0, 0.5);
     }
 
@@ -85,7 +86,7 @@
       border-bottom: 1px solid #ccc;
     }
 
-   .tab {
+  .tab{
   padding: 10px 20px;
   cursor: pointer;
   background: none;
@@ -125,9 +126,9 @@
 .tab-content form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
-  gap: 15px;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .tab-content input,
@@ -149,9 +150,7 @@
   background-color: #0056b3;
 }
 
-
-
-      .post-container {
+    .post-container {
       max-width: 800px;
       margin: 40px auto;
       padding: 20px;
@@ -159,25 +158,27 @@
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       background-color: #fff;
+      overflow-y: auto;
     }
 
     .post-title {
       font-size: 28px;
       margin-bottom: 10px;
       color: #333;
+      height: auto;
     }
 
     .post-description {
       font-size: 16px;
       margin-bottom: 20px;
       color: #555;
+      height: auto;
     }
 
     .post-video {
       position: relative;
       padding-bottom: 56.25%; /* 16:9 ratio */
       height: 0;
-      overflow: hidden;
       border-radius: 8px;
     }
 
@@ -220,5 +221,15 @@
     display: none;
   }
 
+
+  body, html {
+  user-select: none;
+  caret-color: transparent;
+}
+
+input, textarea {
+  user-select: text;
+  caret-color: auto;
+}
 
     </style>

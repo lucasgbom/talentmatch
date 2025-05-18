@@ -1,7 +1,7 @@
 <?php
 
 include_once('../conexao/conexao.php');
-include_once('../Model/Usuario.php');
+require_once('../Model/Usuario.php');
 include_once('../DAO/UsuarioDAO.php');
 include_once('../Model/Post.php');
 include_once('../DAO/PostDAO.php');
@@ -11,6 +11,7 @@ include_once('../../php/conversao.php');
 session_start();
 $postDAO = new PostDAO();
 $usuarioDAO = new UsuarioDAO();
+$usuario2 = $_SESSION["usuario"];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,13 +51,16 @@ foreach ($posts as $post) {
                 <div class="col justify-content-start align-items-center">
                     <b><?php echo ($usuario['nome']); ?></b>
                 </div>
-                <form style="padding: 0"><br>
+                <form style="padding: 0" action="match.php" method="POST"><br>
                     <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>
                     <p> <?= $post['descricao'] ?> </p>
                     <span class="fw-bold"><?= formatarData($post['data_']) ?></span><br>
                     <span class="fw-bold"> Pagamento: <?= formatarParaReal($post['pagamento']) ?></span> <br>
                     <input type="hidden" name="acao" value="inserir">
                     <span>Habilidade necessária: <i><?= $post['habilidade'] ?></i> </span>
+                    <input type="hidden" name="idUsuario" value="<?= $usuario2->getId() ?>">
+                    <input type="hidden" name="idPost" value="<?= $post['id'] ?>">
+
                     <button class="btn btn-lg btn-success float-end" type="submit" name="editar" style="margin-right: 1em;">Aceitar</button>
                 </form>
             </div>

@@ -152,4 +152,9 @@ function switchTab(element) {
     }
   };
 
+  function match(element){
+    matchs = JSON.parse(element.dataset.matchs);
+    console.log(matchs);
+  }
+
 </script>

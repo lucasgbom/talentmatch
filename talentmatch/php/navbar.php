@@ -31,7 +31,7 @@ $foto = $usuario->getFotoPerfil();
                 </li>
             </ul>
         </div>
-        <form class="d-flex" action = "usuariosLista.php" role="search" style="margin-right: 1em">
+        <form class="d-flex" action = "usuariosLista.php" role="search" style="margin-right: 1em" method="GET">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="nome">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
