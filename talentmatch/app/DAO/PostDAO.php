@@ -4,7 +4,7 @@ class PostDAO
 {
     public function inserir($post)
     {
-        echo('<br>');
+        echo ('<br>');
         var_dump($post);
         try {
             $sql = 'INSERT INTO post (data_, pagamento, descricao, idUsuario, habilidade, titulo)
@@ -51,7 +51,7 @@ class PostDAO
         }
     }
 
-    
+
     public function listarTodos()
     {
         try {
@@ -88,8 +88,24 @@ class PostDAO
             print "Erro ao listar Projetos <br>" . $e . '<br>';
         }
     }
-
-    public function listarMatch($post){
+    public function buscar($coluna, $valor)
+    {
+        try {
+            $sql = "SELECT * FROM post WHERE $coluna LIKE :valor";
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(":valor", "%$valor%");
+            $consulta->execute();
+            if ($coluna == "id") {
+                return $consulta->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (Exception $e) {
+            print "Erro ao buscar usuario <br>" . $e->getMessage() . '<br>';
+        }
+    }
+    public function listarMatch($post)
+    {
         try {
             $sql = 'SELECT * FROM usuario_post WHERE idPost = :id';
             $consulta = Conexao::getConexao()->prepare($sql);

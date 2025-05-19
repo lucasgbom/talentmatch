@@ -29,7 +29,7 @@ class ProjetoDAO
                 descricao = :descricao,
                 idUsuario = :idUsuario,
                 arquivoCaminho = :arquivoCaminho
-            WHERE id=:id';  
+            WHERE id=:id';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':titulo', $projeto->getTitulo());
             $consulta->bindValue(':descricao', $projeto->getDescricao());
@@ -67,8 +67,24 @@ class ProjetoDAO
             print "Erro ao listar Projetos <br>" . $e . '<br>';
         }
     }
-    
-    public function deletar($projeto){
-         $sql = 'DELETE * FROM projeto WHERE idUsuario = :id';
+    public function buscar($coluna, $valor)
+    {
+        try {
+            $sql = "SELECT * FROM projeto WHERE $coluna LIKE :valor";
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(":valor", "%$valor%");
+            $consulta->execute();
+            if ($coluna == "id") {
+                return $consulta->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (Exception $e) {
+            print "Erro ao buscar usuario <br>" . $e->getMessage() . '<br>';
+        }
+    }
+    public function deletar($projeto)
+    {
+        $sql = 'DELETE * FROM projeto WHERE id = :id';
     }
 }

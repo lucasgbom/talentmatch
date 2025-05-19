@@ -29,7 +29,7 @@ $postDAO = new PostDAO();
 <body>
   <?php include_once('../../php/navbar.php') ?>
   <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
-
+    
     <div class="specialInput">
       <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
                                                       echo $usuario->getFotoPerfil();

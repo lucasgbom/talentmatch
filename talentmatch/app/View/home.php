@@ -49,7 +49,7 @@ foreach ($posts as $post) {
                                             ?>" alt="" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
                 </div>
                 <div class="col justify-content-start align-items-center">
-                    <b><?php echo ($usuario['nome']); ?></b>
+                    <a href="perfil_.php?idPost=<?=$post['id']?>"><b><?php echo ($usuario['nome']); ?></b></a>
                 </div>
                 <form style="padding: 0" action="match.php" method="POST"><br>
                     <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>
