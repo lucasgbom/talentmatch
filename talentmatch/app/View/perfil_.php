@@ -13,6 +13,9 @@ if (isset($_GET['idPost'])) {
     $post = $postDAO->buscar('id', $_GET['idPost']);
     $id = $post['idUsuario'];
 }
+else if (isset($_GET['id'])){
+    $id = $_GET['id'];
+}
 $usuario = $usuarioDAO->buscar('id', $id);
 ?>
 <!DOCTYPE html>
@@ -40,7 +43,7 @@ $usuario = $usuarioDAO->buscar('id', $id);
         <p>Data: <?= formatarData($post['data_']) ?></p>
         <p>Pagamento: <?= formatarParaReal($post['pagamento']) ?></p>
     <?php } ?>
-    <h1>Projetos</h1>
+    <h1>Projetos: </h1>
     <?php
     $projetoDAO = new ProjetoDAO();
     $projetos = $projetoDAO->buscar('idUsuario', $usuario['id']);

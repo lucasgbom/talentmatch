@@ -5,8 +5,7 @@
     $usuarioDAO = new UsuarioDAO();
     $nome = $_GET['nome'];
     $usuarios = $usuarioDAO->buscar('nome', $nome);
-    //var_dump($usuarios);
     foreach($usuarios as $usuario){
-        echo($usuario['nome'].'<br>');
-    }
-?>
+        ?> 
+        <a href="perfil_.php?id=<?=$usuario['id']?>"><h2><?=$usuario['nome']?></h2></a> <br>
+    <?php } ?>
