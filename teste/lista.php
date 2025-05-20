@@ -8,6 +8,7 @@ $usuarios = $usuarioDAO->listarTodos();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <title>Mapa de Localizações</title>
@@ -21,34 +22,38 @@ $usuarios = $usuarioDAO->listarTodos();
     }
   </style>
 </head>
+
 <body>
 
-<h2>Localizações registradas</h2>
-<div id="map"></div>
+  <h2>Localizações registradas</h2>
+  <div id="map"></div>
 
-<script>
-  var map = L.map('map').setView([0, 0], 2);
+  <script>
+    var map = L.map('map').setView([0, 0], 2);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-  var usuarios = <?php echo json_encode($usuarios); ?>;
-  usuarios.forEach(function(usuario) {
-    
-    if (usuario.latitude && usuario.longitude) {
-      var marker = L.marker([parseFloat(usuario.latitude), parseFloat(usuario.longitude)]).addTo(map);
-      // Tooltip permanente com o ID do usuário
-      marker.bindTooltip("Usuário: " + usuario.nome, {
-        permanent: true,
-        direction: "top",
-        offset: [-15, -10], // deslocamento para cima
-        className: "custom-tooltip"
-      });
-      
-    }
-  });
-</script>
+    var usuarios = <?php echo json_encode($usuarios); ?>;
+    usuarios.forEach(function(usuario) {
+
+      if (usuario.latitude && usuario.longitude) {
+        var marker = L.marker([parseFloat(usuario.latitude), parseFloat(usuario.longitude)]).addTo(map);
+        // Tooltip permanente com o ID do usuário
+        marker.bindTooltip("Nome: " + usuario.nome, {
+          permanent: true,
+          direction: "top",
+          offset: [-15, -10], // deslocamento
+          className: "custom-tooltip"
+        });
+        marker.on('click', function() {
+          window.location.href = "../talentmatch/app/View/perfil.php?id=" + usuario.id;
+        });
+      }
+    });
+  </script>
 
 </body>
+
 </html>
