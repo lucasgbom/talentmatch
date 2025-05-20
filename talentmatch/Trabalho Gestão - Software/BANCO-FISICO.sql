@@ -31,7 +31,7 @@ CREATE TABLE post (
     habilidade VARCHAR(100),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
 );
-CREATE TABLE localizacoes (
+CREATE TABLE localizacao (
     id INT AUTO_INCREMENT PRIMARY KEY,            
     latitude DECIMAL(10, 8) NOT NULL,  
     longitude DECIMAL(11, 8) NOT NULL,

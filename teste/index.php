@@ -12,15 +12,15 @@
 <body>
   <div id="map" style="height: 400px;"></div>
   <script>
-    // Inicializa o mapa com uma visão inicial
     var map = L.map('map').setView([0, 0], 13);
 
-    // Camada de tile (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Função para pegar a localização exata
+    // Variável para armazenar o marcador atual
+    var currentMarker = null;
+
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -30,41 +30,57 @@
           document.getElementById('lat').value = lat;
           document.getElementById('lon').value = lon;
 
-          // Atualiza a vista do mapa para a localização exata do usuário
           map.setView([lat, lon], 13);
 
-          // Adiciona um marcador na localização exata
-          var marker = L.marker([lat, lon]).addTo(map);
-          marker.bindPopup("<b>Você está aqui!</b>").openPopup();
+          // Remove marcador anterior se existir
+          if (currentMarker) {
+            map.removeLayer(currentMarker);
+          }
+
+          // Cria novo marcador
+          currentMarker = L.marker([lat, lon]).addTo(map);
+          currentMarker.bindPopup("<b>Você está aqui!</b>").openPopup();
         }, function() {
           alert("Não foi possível obter sua localização.");
         }, {
-          enableHighAccuracy: true, // Habilita precisão alta
-          timeout: 10000, // Tempo de espera
-          maximumAge: 0 // Não usa uma localização armazenada
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         });
       } else {
         alert("Geolocalização não é suportada pelo seu navegador.");
       }
     }
 
-    // Chama a função para pegar a localização
     getLocation();
 
-    // Adiciona um ouvinte de evento para clicar no mapa e adicionar um marcador
+    // Evento de clique para atualizar marcador
     map.on('click', function(e) {
       var lat = e.latlng.lat;
       var lon = e.latlng.lng;
 
-      var marker = L.marker([lat, lon]).addTo(map);
-      marker.bindPopup("<b>Marcador escolhido!</b>").openPopup();
+      // Atualiza os inputs escondidos
+      document.getElementById('lat').value = lat;
+      document.getElementById('lon').value = lon;
+
+      // Remove marcador anterior se existir
+      if (currentMarker) {
+        map.removeLayer(currentMarker);
+      }
+
+      // Cria novo marcador
+      currentMarker = L.marker([lat, lon]).addTo(map);
+      currentMarker.bindPopup("<b>Localização atualizada!</b>").openPopup();
     });
   </script>
-  <form action="localizacao.php" method="POST">
+
+  <form action="../talentmatch/app/Controller/LocalizacaoController.php" method="POST">
     <input type="submit" value="enviar">
     <input type="hidden" name="lat" id='lat' value="">
     <input type="hidden" name="lon" id='lon' value="">
+    <input type="hidden" name="acao" id='acao' value="inserir">
   </form>
+  <a href="lista.php"><button>Listar</button></a>
 </body>
 
 </html>

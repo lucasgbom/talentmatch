@@ -85,62 +85,72 @@
 const wrapper = document.getElementById('myModal');
 
 function openModal(element) {
-  var modal = element.dataset.modal;
-  const create = document.querySelector(`#editar-${modal}projeto`);
+  let target = element.dataset.modal;
+  const modal = document.getElementById(target);
+  modal.classList.add('active');
+
+  const create = document.querySelector(`#criar-${target}`); const create_tab = modal.querySelector('.criar');
+
+  const view = document.querySelector(`#visualizar-${target}`); const view_tab = modal.querySelector('.visualizar');
+
+  const edit = document.querySelector(`#editar-${target}`); const edit_tab = modal.querySelector('.editar');
+
   wrapper.style.display = "block";  
 
   tab = element.dataset.tb
 
+
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
   switch (tab){
     case 'criar':
+      create.classList.add('active'); create_tab.classList.add('active','permit');
+      break;
+    case 'visualizar':
+      view.classList.add('active'); view_tab.classList.add('active','permit');
+      edit_tab.classList.add('permit');
 
-  }
-  const mdls = element.dataset.mdl.split(" ");
+      if(target == 'projeto'){
+      id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; arquivo = element.dataset.arquivo;
 
-  if(element.dataset.mdl == "visualizar editar"){
-    edit = document.querySelector("#editar-projeto");
-    view = document.querySelector("#visualizar-projeto")
 
-    id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; arquivo = element.dataset.arquivo;
-    console.log(id,titulo,descricao)
-
-    edit.querySelector(".id").value = id
+      edit.querySelector(".id").value = id
     edit.querySelector(".titulo").value = titulo
     edit.querySelector(".descricao").value = descricao
     edit.querySelector(".projeto").src = "../../data/" + arquivo;
 
-
-    view.querySelector(".titulo").textContent = titulo
+     view.querySelector(".titulo").textContent = titulo
     view.querySelector(".descricao").textContent = descricao
     view.querySelector(".projeto").src = "../../data/" + arquivo;
+      }
 
+      if(target == 'post'){
+      id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; data = element.dataset.data_; habilidade = element.dataset.habilidade; pagamento = element.dataset.pagamento;
+      console.log(id,titulo,descricao,data,habilidade,pagamento);
+
+       view.querySelector(".titulo").textContent = titulo
+    view.querySelector(".descricao").textContent = descricao
+    view.querySelector(".data").textContent = data
+      view.querySelector(".pagamento").textContent = pagamento
+        view.querySelector(".habilidade").textContent = habilidade
+    
+        match(element);
+      }
+      break;
   }
 
-  // Limpa abas e conteúdos
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-  // Ativa abas permitidas
-  let firstTab;
-  document.querySelectorAll('.tab').forEach(tab => {
-    if (mdls.includes(tab.dataset.mdl)) {
-      tab.classList.add('permit');
-      if (!firstTab) firstTab = tab;
-    }
-  });
-
-  // Ativa a primeira aba visível
-  if (firstTab) {
-    firstTab.classList.add('active');
-    document.getElementById(firstTab.dataset.target).classList.add('active');
-  }
 }
 
 
+ function closeModal() {
+  wrapper.style.display = "none";
 
-  function closeModal() {
-    document.getElementById("myModal").style.display = "none";
-  }
+  Array.from(wrapper.children).forEach(child => {
+    child.classList.remove('active');
+  });
+}
+
 function switchTab(element) {
   const tabId = element.dataset.target;
 

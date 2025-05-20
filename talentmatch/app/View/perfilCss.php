@@ -68,9 +68,12 @@
       border-radius: 8px;
       width: 60vw;
       height: 80vh;
-      display: flex;
+      display: none;
       flex-direction: column;
       position: relative;
+    }
+    .modal-content.active{
+      display: flex;
     }
 
     .close-btn {
