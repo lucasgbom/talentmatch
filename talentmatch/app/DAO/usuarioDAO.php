@@ -181,6 +181,7 @@ class UsuarioDAO
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
+            var_dump($setString);
             $consulta->execute();
             $_SESSION['usuario'] = $usuario;
             return true;

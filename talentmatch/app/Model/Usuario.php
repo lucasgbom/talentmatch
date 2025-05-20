@@ -7,13 +7,19 @@ class Usuario {
     private $nome_usuario;
     private $foto_perfil;
     private $endereco;
-    private $disponivel;
+    private $latitude;
+    private $longitude;
     private $email;
 
     public function getId() {
         return $this->id;
     }
-
+      public function getLatitude(){
+        return $this->latitude;
+    }
+    public function getLongitude(){
+        return $this->longitude;
+    }
     public function getBiografia() {
         return $this->biografia;
     }
@@ -32,10 +38,6 @@ class Usuario {
 
     public function getEndereco() {
         return $this->endereco;
-    }
-
-    public function getDisponivel() {
-        return $this->disponivel;
     }
     public function getEmail() {
         return $this->email;
@@ -69,15 +71,17 @@ class Usuario {
     public function setEndereco($endereco) {
         $this->endereco = $endereco;
     }
-
-    public function setDisponivel($disponivel) {
-        $this->disponivel = $disponivel;
-    }
     public function setEmail($email) {
         $this->email = $email;
     }
 
     public function setNomeUsuario($nome_usuario) {
         $this->nome_usuario = $nome_usuario;
+    }
+     public function setLatitude($lat){
+        $this->latitude = $lat;
+    }
+    public function setLongitude($lon){
+        $this->longitude = $lon;
     }
 }

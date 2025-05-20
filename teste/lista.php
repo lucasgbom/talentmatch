@@ -2,18 +2,8 @@
 include('../talentmatch/app/conexao/Conexao.php');
 include('../talentmatch/app/Model/Usuario.php');
 include('../talentmatch/app/DAO/UsuarioDAO.php');
-include('../talentmatch/app/Model/Localizacao.php');
-include('../talentmatch/app/DAO/LocalizacaoDAO.php');
 $usuarioDAO = new UsuarioDAO();
-$localizacaoDAO = new LocalizacaoDAO();
-$localizacoes = $localizacaoDAO->listarTodos();
-$nomes = array();
-foreach($localizacoes as $localizacao){
-    $id = $localizacao['idUsuario'];
-    $usuario = $usuarioDAO->buscar('id', $id);
-    array_push($nomes, $usuario['nome']);
-}
-$localizacoesJSON = json_encode($localizacoes);
+$usuarios = $usuarioDAO->listarTodos();
 ?>
 
 <!DOCTYPE html>
@@ -43,16 +33,13 @@ $localizacoesJSON = json_encode($localizacoes);
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  var localizacoes = <?php echo $localizacoesJSON; ?>;
-  var nomes = <?php echo json_encode($nomes);?>;
-  var i = 0;
-  localizacoes.forEach(function(loc) {
+  var usuarios = <?php echo json_encode($usuarios); ?>;
+  usuarios.forEach(function(usuario) {
     
-    if (loc.latitude && loc.longitude) {
-      var marker = L.marker([parseFloat(loc.latitude), parseFloat(loc.longitude)]).addTo(map);
-      
+    if (usuario.latitude && usuario.longitude) {
+      var marker = L.marker([parseFloat(usuario.latitude), parseFloat(usuario.longitude)]).addTo(map);
       // Tooltip permanente com o ID do usuário
-      marker.bindTooltip("Usuário: " + nomes[i], {
+      marker.bindTooltip("Usuário: " + usuario.nome, {
         permanent: true,
         direction: "top",
         offset: [-15, -10], // deslocamento para cima

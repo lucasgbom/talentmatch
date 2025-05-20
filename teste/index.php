@@ -74,11 +74,12 @@
     });
   </script>
 
+
   <form action="../talentmatch/app/Controller/LocalizacaoController.php" method="POST">
-    <input type="submit" value="enviar">
+    <input type="submit" value="atualizar">
     <input type="hidden" name="lat" id='lat' value="">
     <input type="hidden" name="lon" id='lon' value="">
-    <input type="hidden" name="acao" id='acao' value="inserir">
+    <input type="hidden" name="acao" id='acao' value="atualizar">
   </form>
   <a href="lista.php"><button>Listar</button></a>
 </body>
