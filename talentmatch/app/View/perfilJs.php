@@ -82,10 +82,19 @@
   }
     */
 
+const wrapper = document.getElementById('myModal');
 
 function openModal(element) {
-  document.getElementById("myModal").style.display = "block";  
+  var modal = element.dataset.modal;
+  const create = document.querySelector(`#editar-${modal}projeto`);
+  wrapper.style.display = "block";  
 
+  tab = element.dataset.tb
+
+  switch (tab){
+    case 'criar':
+
+  }
   const mdls = element.dataset.mdl.split(" ");
 
   if(element.dataset.mdl == "visualizar editar"){

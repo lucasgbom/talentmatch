@@ -19,7 +19,7 @@ isset($_POST['nomeUsuario']) ?   $usuario->setNomeUsuario($_POST['nomeUsuario'])
 isset($arquivo['name']) ?        $usuario->setFotoPerfil($arquivo['name'])       : '';
 if ($_POST['tipo'] == 'logar') {
     if ($usuarioDAO->logar($_POST['email'], $_POST['senha'])) {
-        header('location: ../View/perfil.php');
+        header('location: ../View/home.php');
     } else {
         header('location: ../View/pagina_inicial.php?msg=emailSenhaIncorretos');
     }

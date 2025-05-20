@@ -7,5 +7,5 @@
     $usuarios = $usuarioDAO->buscar('nome', $nome);
     foreach($usuarios as $usuario){
         ?> 
-        <a href="perfil_.php?id=<?=$usuario['id']?>"><h2><?=$usuario['nome']?></h2></a> <br>
+        <a href="perfil.php?id=<?=$usuario['id']?>"><h2><?=$usuario['nome']?></h2></a> <br>
     <?php } ?>
