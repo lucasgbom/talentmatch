@@ -38,14 +38,16 @@ $postDAO = new PostDAO();
                                                     } ?>" alt="">
       <input type="file" name="foto" class="hide input-field" id="foto" disabled>
     </div>
+
+
     <label for="nome">Nome:</label><br>
-    <input type="text" name="nome" class="input-field" value="<?php echo $usuario->getNome(); ?>" disabled><br>
+    <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
 
     <label for="email">Email:</label><br>
-    <input type="email" name="email" class="input-field" value="<?php echo $usuario->getEmail(); ?>" disabled><br>
+    <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
 
     <label for="nomeUsuario">Nome de usuario:</label><br>
-    <input type="text" name="nomeUsuario" class="input-field" value="<?php echo $usuario->getNomeUsuario(); ?>" disabled><br>
+    <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
 
     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
     <input type="submit" id="salvar" value="salvar" disabled>
@@ -223,7 +225,7 @@ $postDAO = new PostDAO();
     $posts = $postDAO->listarPorUsuario($usuario);
     foreach ($posts as $post){
     ?>
-      <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode( $postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>'  data-habilidade='<?= $post['habilidade'] ?>'  data-pagamento='<?= $post['pagamento'] ?>'>
+      <button class="grid-item open-btn" data-tb="visualizar"  data-matchs="<?= htmlspecialchars(json_encode( $postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>'  data-habilidade='<?= $post['habilidade'] ?>'  data-pagamento='<?= $post['pagamento'] ?>'>
 
         <?= $post['titulo'] ?>
       </button>

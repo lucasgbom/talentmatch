@@ -10,11 +10,8 @@ class UsuarioDAO
             $consulta->bindValue(":id", $id);
             $consulta->execute();
 
-            $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($usuario as $key => $value) {
-                $_SESSION[$key] = $value;
-            }
         } catch (Exception $e) {
             print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
         }
