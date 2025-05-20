@@ -8,7 +8,8 @@ CREATE TABLE usuario (
     biografia VARCHAR(512),
     fotoPerfil VARCHAR(256),
     endereco VARCHAR(256),
-    disponivel BOOLEAN,
+    latitude DECIMAL(10, 8) NOT NULL,  
+    longitude DECIMAL(11, 8) NOT NULL,
     email VARCHAR(256)
 );
 
@@ -31,13 +32,7 @@ CREATE TABLE post (
     habilidade VARCHAR(100),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
 );
-CREATE TABLE localizacao (
-    id INT AUTO_INCREMENT PRIMARY KEY,            
-    latitude DECIMAL(10, 8) NOT NULL,  
-    longitude DECIMAL(11, 8) NOT NULL,
-    idUsuario INT,
-    FOREIGN KEY (idUsuario) REFERENCES usuario(id)
-);
+
 CREATE TABLE usuario_post (
     id INT AUTO_INCREMENT PRIMARY KEY,
     idUsuario INT NOT NULL,

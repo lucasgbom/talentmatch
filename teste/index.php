@@ -1,3 +1,16 @@
+<?php
+include('../talentmatch/app/Model/Usuario.php');
+session_start();
+$usuario = $_SESSION['usuario'];
+$temLocalizacao = false;
+
+if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
+  $temLocalizacao = true;
+  $latitude = $usuario->getLatitude();
+  $longitude = $usuario->getLongitude();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,16 +23,44 @@
 </head>
 
 <body>
+
+  <h2>Mapa de Localização</h2>
   <div id="map" style="height: 400px;"></div>
+  <button onclick="getLocation()">Usar localização atual</button>
+
+  <form action="../talentmatch/app/Controller/LocalizacaoController.php" method="POST">
+    <input type="submit" value="Atualizar">
+    <input type="hidden" name="lat" id='lat' value="">
+    <input type="hidden" name="lon" id='lon' value="">
+    <input type="hidden" name="acao" id='acao' value="atualizar">
+  </form>
+
+  <a href="lista.php"><button type="button">Listar</button></a>
   <script>
-    var map = L.map('map').setView([0, 0], 13);
+    var map;
+    var currentMarker = null;
+
+    // Coordenadas vindas do PHP
+    var temLocalizacao = <?php echo $temLocalizacao ? 'true' : 'false'; ?>;
+    var latitude = <?php echo $temLocalizacao ? $latitude : 'null'; ?>;
+    var longitude = <?php echo $temLocalizacao ? $longitude : 'null'; ?>;
+
+    // Inicializa o mapa
+    if (temLocalizacao && latitude !== null && longitude !== null) {
+      map = L.map('map').setView([latitude, longitude], 13);
+      currentMarker = L.marker([latitude, longitude]).addTo(map)
+        .bindPopup("<b>Localização salva!</b>").openPopup();
+
+      document.getElementById('lat').value = latitude;
+      document.getElementById('lon').value = longitude;
+    } else {
+      map = L.map('map').setView([0, 0], 2); // padrão até obter localização
+      getLocation(); // tenta pegar automaticamente se não tem
+    }
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-
-    // Variável para armazenar o marcador atual
-    var currentMarker = null;
 
     function getLocation() {
       if (navigator.geolocation) {
@@ -27,19 +68,18 @@
           var lat = position.coords.latitude;
           var lon = position.coords.longitude;
 
-          document.getElementById('lat').value = lat;
-          document.getElementById('lon').value = lon;
-
           map.setView([lat, lon], 13);
 
-          // Remove marcador anterior se existir
           if (currentMarker) {
             map.removeLayer(currentMarker);
           }
 
-          // Cria novo marcador
-          currentMarker = L.marker([lat, lon]).addTo(map);
-          currentMarker.bindPopup("<b>Você está aqui!</b>").openPopup();
+          currentMarker = L.marker([lat, lon]).addTo(map)
+            .bindPopup("<b>Você está aqui!</b>").openPopup();
+
+          document.getElementById('lat').value = lat;
+          document.getElementById('lon').value = lon;
+
         }, function() {
           alert("Não foi possível obter sua localização.");
         }, {
@@ -52,35 +92,23 @@
       }
     }
 
-    getLocation();
-
-    // Evento de clique para atualizar marcador
+    // Clica no mapa para mover marcador
     map.on('click', function(e) {
       var lat = e.latlng.lat;
       var lon = e.latlng.lng;
 
-      // Atualiza os inputs escondidos
-      document.getElementById('lat').value = lat;
-      document.getElementById('lon').value = lon;
-
-      // Remove marcador anterior se existir
       if (currentMarker) {
         map.removeLayer(currentMarker);
       }
 
-      // Cria novo marcador
-      currentMarker = L.marker([lat, lon]).addTo(map);
-      currentMarker.bindPopup("<b>Localização atualizada!</b>").openPopup();
+      currentMarker = L.marker([lat, lon]).addTo(map)
+        .bindPopup("<b>Localização atualizada!</b>").openPopup();
+
+      document.getElementById('lat').value = lat;
+      document.getElementById('lon').value = lon;
     });
   </script>
 
-  <form action="../talentmatch/app/Controller/LocalizacaoController.php" method="POST">
-    <input type="submit" value="enviar">
-    <input type="hidden" name="lat" id='lat' value="">
-    <input type="hidden" name="lon" id='lon' value="">
-    <input type="hidden" name="acao" id='acao' value="inserir">
-  </form>
-  <a href="lista.php"><button>Listar</button></a>
 </body>
 
 </html>
