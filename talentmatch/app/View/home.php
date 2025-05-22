@@ -7,7 +7,7 @@ include_once('../Model/Post.php');
 include_once('../DAO/PostDAO.php');
 include_once('../Model/Projeto.php');
 include_once('../DAO/ProjetoDAO.php');
-include_once('../../php/conversao.php');
+include_once('../../php/funcoes.php');
 session_start();
 $postDAO = new PostDAO();
 $usuarioDAO = new UsuarioDAO();
@@ -49,7 +49,7 @@ foreach ($posts as $post) {
                                             ?>" alt="" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
                 </div>
                 <div class="col justify-content-start align-items-center">
-                    <a href="perfil.php?id=<?=$post['idUsuario']?>"><b><?php echo ($usuario['nome']); ?></b></a>
+                    <a href="perfil.php?id=<?= $post['idUsuario'] ?>"><b><?php echo ($usuario['nome']); ?></b></a>
                 </div>
                 <form style="padding: 0" action="match.php" method="POST"><br>
                     <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>

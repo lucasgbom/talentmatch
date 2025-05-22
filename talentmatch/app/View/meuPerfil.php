@@ -1,6 +1,6 @@
 <?php
 
-include('../../php/conversao.php');
+include('../../php/funcoes.php');
 require_once("../Model/Usuario.php");
 include_once("../DAO/UsuarioDAO.php");
 include_once("../Model/Projeto.php");
@@ -29,7 +29,7 @@ $postDAO = new PostDAO();
 <body>
   <?php include_once('../../php/navbar.php') ?>
   <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
-    
+
     <div class="specialInput">
       <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
                                                       echo $usuario->getFotoPerfil();
@@ -63,7 +63,7 @@ $postDAO = new PostDAO();
 
 
   <button class="open-modal-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)">criar projeto</button>
-    <button class="open-modal-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
+  <button class="open-modal-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
 
 
 
@@ -82,7 +82,7 @@ $postDAO = new PostDAO();
 
       <!-- Conteúdo das abas -->
       <div class="tab-content" id="criar-projeto">
-        
+
         <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
           <input type="text" name="titulo" class="titulo" />
           <textarea name="descricao" rows="4" class="descricao"></textarea>
@@ -152,7 +152,7 @@ $postDAO = new PostDAO();
 
       <!-- Conteúdo das abas -->
       <div class="tab-content" id="criar-post">
-        
+
         <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
           <input type="text" name="titulo" class="titulo" />
           <textarea name="descricao" rows="4" class="descricao"></textarea>
@@ -160,14 +160,14 @@ $postDAO = new PostDAO();
           <input type="date" name="date">
           <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
 
-           <input type="hidden" name="acao" value="inserir">
-            <select name="habilidade" id="habilidades">
-              <option value="violao">Violão</option>
-              <option value="piano">Piano</option>
-              <option value="baixo">Baixo</option>
-            </select>
+          <input type="hidden" name="acao" value="inserir">
+          <select name="habilidade" id="habilidades">
+            <option value="violao">Violão</option>
+            <option value="piano">Piano</option>
+            <option value="baixo">Baixo</option>
+          </select>
 
-             <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
+          <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
 
           <input type="hidden" class="id" name="id">
 
@@ -194,14 +194,14 @@ $postDAO = new PostDAO();
 
       <div class="tab-content" id="editar-post">
 
-        
+
       </div>
 
 
     </div>
 
   </div>
-  
+
 
 </body>
 <footer>
@@ -217,20 +217,20 @@ $postDAO = new PostDAO();
       </button>
     <?php } ?>
   </div>
- 
-    <h1>Posts</h1>
-   
-<div class="grid-container">
+
+  <h1>Posts</h1>
+
+  <div class="grid-container">
     <?php
     $posts = $postDAO->listarPorUsuario($usuario);
-    foreach ($posts as $post){
+    foreach ($posts as $post) {
     ?>
-      <button class="grid-item open-btn" data-tb="visualizar"  data-matchs="<?= htmlspecialchars(json_encode( $postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>'  data-habilidade='<?= $post['habilidade'] ?>'  data-pagamento='<?= $post['pagamento'] ?>'>
+      <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
 
         <?= $post['titulo'] ?>
       </button>
     <?php } ?>
-</div>
+  </div>
 
 </footer>
 

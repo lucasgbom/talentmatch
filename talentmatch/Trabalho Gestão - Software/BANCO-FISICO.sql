@@ -8,8 +8,8 @@ CREATE TABLE usuario (
     biografia VARCHAR(512),
     fotoPerfil VARCHAR(256),
     endereco VARCHAR(256),
-    latitude DECIMAL(10, 8) NOT NULL,  
-    longitude DECIMAL(11, 8) NOT NULL,
+    latitude DECIMAL(10, 8),  
+    longitude DECIMAL(11, 8) ,
     email VARCHAR(256)
 );
 
