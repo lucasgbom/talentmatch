@@ -8,7 +8,7 @@ $nome = isset($_GET['nome']) ? $_GET['nome'] : '';
 $usuarios = $usuarioDAO->buscar('nome', $nome);
 session_start();
 $usuario = $_SESSION['usuario'];
-var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
+$usuarios = procurarDistancia($usuario, intval($_GET['distancia']));
 
 ?>
 <!DOCTYPE html>
@@ -22,15 +22,17 @@ var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
 
 <body>
     <form action="usuariosLista.php">
+        Titulo: <input type="text" name="titutlo"> <br>
         Habilidade desejada: <select name="habilidade" id="">
-            <option value="Violão">Violão</option>
-            <option value="Violão">Baixo</option>
-            <option value="Violão">Piano</option>
+            <option value="violao">Violão</option>
+            <option value="baixo">Baixo</option>
+            <option value="piano">Piano</option>
         </select> <br>
         Distancia: <input type="range" min="0" max="1000" id="inputD" name="distancia"> <span id="distancia">500</span> km <br>
         Pagamento minimo: <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00"> <br>
         <input type="submit" value="Enviar" name="enviar">
     </form>
+    <h1>Usuarios: </h1>
     <?php
     foreach ($usuarios as $usuario) {
     ?>
@@ -38,6 +40,7 @@ var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
             <h2><?= $usuario['nome'] ?></h2>
         </a> <br>
     <?php } ?>
+    <h1>Posts: </h1>
     <script>
         var $range = document.querySelector('#inputD'),
             $value = document.querySelector('#distancia');
