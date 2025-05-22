@@ -81,9 +81,22 @@ class UsuarioDAO
     public function buscar($coluna, $valor)
     {
         try {
-            $sql = "SELECT * FROM usuario WHERE $coluna LIKE :valor";
+            $sql = "SELECT * FROM usuario WHERE $coluna";
+
+            if (is_string($valor)){
+                $sql .=" LIKE :valor";
+                $valor = "%$valor%";
+            }
+            if (is_int($valor)){
+                $sql .=" = :valor";
+            }
+
             $consulta = Conexao::getConexao()->prepare($sql);
-            $consulta->bindValue(":valor", "%$valor%");
+
+            $consulta->bindValue(":valor", "$valor");
+
+            
+
             $consulta->execute();
             if ($coluna == "id"){
                 return $consulta->fetch(PDO::FETCH_ASSOC);

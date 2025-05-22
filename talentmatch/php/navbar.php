@@ -33,6 +33,10 @@ $foto = $usuario->getFotoPerfil();
         </div>
         <form class="d-flex" action = "usuariosLista.php" role="search" style="margin-right: 1em" method="GET">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="nome">
+            <input type="checkbox" name="opcoes[]" value="opcao1"> 
+            <input type="checkbox" name="opcoes[]" value="opcao2"> 
+            <input type="checkbox" name="opcoes[]" value="opcao3"> 
+
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
