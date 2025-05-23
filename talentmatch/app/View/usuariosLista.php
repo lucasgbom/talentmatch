@@ -10,6 +10,25 @@ session_start();
 $usuario = $_SESSION['usuario'];
 var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
 
+
+
+$pesquisas = [];
+foreach ($_GET as $chave => $valor) {
+    if (!empty($valor)) {
+        $pesquisas[$chave] = $valor;
+    }
+}
+
+foreach ($pesquisas as $chave => $valor) {
+    $funcao = 'post' . ucfirst($chave);
+
+    echo($funcao);
+    if (function_exists($funcao)) {
+        var_dump($funcao($valor));
+        
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,11 +40,13 @@ var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
 </head>
 
 <body>
-    <form action="usuariosLista.php">
-        Habilidade desejada: <select name="habilidade" id="">
+    <form action="usuariosLista.php" method="GET">
+        <input type="text" name="titulo">
+        Habilidade desejada: <select name="talento">
+            
             <option value="Violão">Violão</option>
-            <option value="Violão">Baixo</option>
-            <option value="Violão">Piano</option>
+            <option value="Baixo">Baixo</option>
+            <option value="Piano">Piano</option>
         </select> <br>
         Distancia: <input type="range" min="0" max="1000" id="inputD" name="distancia"> <span id="distancia">500</span> km <br>
         Pagamento minimo: <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00"> <br>

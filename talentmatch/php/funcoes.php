@@ -10,6 +10,7 @@ function formatarData($dataCompleta)
     return $data ? $data->format('d/m/y') : '';
 }
 
+
 function procurarDistancia($usuario, $raio)
 {
 
@@ -39,3 +40,16 @@ ORDER BY distancia_km ASC;
         print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
     }
 }
+
+function postTalento($habilidade){
+    $sql = "SELECT * FROM post WHERE habilidade = :talento";
+    $consulta = Conexao::getConexao()->prepare($sql);
+    $consulta->bindValue(':talento',$habilidade);
+    $consulta->execute();
+
+    $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultado;
+
+}
+

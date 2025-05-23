@@ -57,8 +57,6 @@ $postDAO = new PostDAO();
 
 
 
-
-
   <script src="../../bootstrap/bootstrap.js"></script>
 
 
