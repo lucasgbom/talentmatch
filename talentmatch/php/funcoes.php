@@ -11,9 +11,9 @@ function formatarData($dataCompleta)
 }
 
 
-function procurarDistancia($usuario, $raio)
+function procurarDistancia($usuario, $raio, $tabela)
 {
-
+    
     $sqlDistancia = "
 SELECT 
    *,
@@ -24,7 +24,7 @@ SELECT
             SIN(RADIANS(:lat_ref)) * SIN(RADIANS(latitude))
         )
     ) AS distancia_km
-FROM usuario
+FROM $tabela
 HAVING distancia_km <= :raio_km
 ORDER BY distancia_km ASC;
 ";
@@ -41,14 +41,12 @@ ORDER BY distancia_km ASC;
     }
 }
 function postPesquisa($array, $pesquisas){
-    $resultado = [];
+    $resultado = $array;
     foreach ($pesquisas as $chave => $valor) {
-        array_filter($array, )
+        
     }
-
-    
     return $resultado;
-} /*
+} 
 function postTalento($habilidade){
     $sql = "SELECT * FROM post WHERE habilidade = :talento";
     $consulta = Conexao::getConexao()->prepare($sql);
@@ -58,5 +56,5 @@ function postTalento($habilidade){
     $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
     return $resultado;
-} */
+} 
 

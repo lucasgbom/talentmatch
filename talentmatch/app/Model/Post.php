@@ -1,13 +1,18 @@
 <?php
-
 class Post
 {
+    public function getNameOfClass()
+   {
+      return static::class;
+   }
     private $id;
     private $data;
     private $pagamento;
     private $descricao;
     private $idUsuario;
     private $habilidade;
+    private $latitude;
+    private $longitude;
     private $titulo;
 
     // Getters
@@ -15,6 +20,16 @@ class Post
     {
         return $this->id;
     }
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
 
     public function getData()
     {
@@ -51,7 +66,14 @@ class Post
     {
         $this->id = $id;
     }
-
+     public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+     public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
     public function setData($data)
     {
         $this->data = $data;

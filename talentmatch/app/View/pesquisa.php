@@ -1,14 +1,14 @@
 <?php
-include('../../php/funcoes.php');
-include_once('../Model/Usuario.php');
+require_once('../Model/Usuario.php');
 include_once('../DAO/UsuarioDAO.php');
 include_once('../conexao/Conexao.php');
+include('../../php/funcoes.php');
+session_start();
 $usuarioDAO = new UsuarioDAO();
 $nome = isset($_GET['nome']) ? $_GET['nome'] : '';
 $usuarios = $usuarioDAO->buscar('nome', $nome);
-session_start();
+$_GET['distancia'] = isset($_GET['distancia'])? $_GET['distancia'] : 0;
 $usuario = $_SESSION['usuario'];
-
 
 if(isset($_SESSION['retorno'])){
     $retorno = $_SESSION['retorno'];
@@ -21,10 +21,14 @@ foreach ($_GET as $chave => $valor) {
         $pesquisas[$chave] = $valor;
     }
 }
-$usuariosDistancia = procurarDistancia($usuario, intval($_GET['distancia']));
-$resultadoPesquisa = postPesquisa($resultadoDistancia, $pesquisas);
+$usuariosDistancia = procurarDistancia($usuario , intval($_GET['distancia']), $_GET['tabela']);
+var_dump($usuariosDistancia);
+if(!empty($usuariosDistancia)){
+postPesquisa($usuariosDistancia, $pesquisas);
+}
+//$resultadoPesquisa = postPesquisa($resultadoDistancia, $pesquisas);
 
-var_dump($resultadoPesquisa);
+var_dump($usuariosDistancia);
 
 ?>
 <!DOCTYPE html>
@@ -37,7 +41,7 @@ var_dump($resultadoPesquisa);
 </head>
 
 <body>
-    <form action="usuariosLista.php" method="GET">
+    <form action="pesquisa.php" method="GET">
         <input type="text" name="titulo">
         Habilidade desejada: <select name="talento">
             
@@ -47,6 +51,7 @@ var_dump($resultadoPesquisa);
         </select> <br>
         Distancia: <input type="range" min="0" max="1000" id="inputD" name="distancia"> <span id="distancia">500</span> km <br>
         Pagamento minimo: <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00"> <br>
+        <input type="hidden" name="tabela" value="post">
         <input type="submit" value="Enviar" name="enviar">
     </form>
     <?php

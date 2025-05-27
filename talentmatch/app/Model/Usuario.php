@@ -1,5 +1,9 @@
 <?php
 class Usuario {
+    public function getNameOfClass()
+   {
+      return static::class;
+   }
     private $id;
     private $biografia;
     private $senha;
