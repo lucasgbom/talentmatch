@@ -7,10 +7,12 @@ class PostDAO
         echo ('<br>');
         var_dump($post);
         try {
-            $sql = 'INSERT INTO post (data_, pagamento, descricao, idUsuario, habilidade, titulo)
-                    VALUES (:data_, :pagamento, :descricao, :idUsuario, :habilidade, :titulo)';
+            $sql = 'INSERT INTO post (data_, pagamento, descricao, idUsuario, habilidade, titulo, latitude, longitude)
+                    VALUES (:data_, :pagamento, :descricao, :idUsuario, :habilidade, :titulo, :latitude, :longitude)';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':data_', $post->getData());
+            $consulta->bindValue(':latitude', $post->getLatitude());
+            $consulta->bindValue(':longitude', $post->getLongitude());
             $consulta->bindValue(':titulo', $post->getTitulo());
             $consulta->bindValue(':pagamento', $post->getPagamento());
             $consulta->bindValue(':descricao', $post->getDescricao());

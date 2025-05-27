@@ -1,5 +1,9 @@
 <?php
 class Projeto implements JsonSerializable {
+    public function getNameOfClass()
+   {
+      return static::class;
+   }
     // Atributos
     private $id;
     private $arquivoCaminho;

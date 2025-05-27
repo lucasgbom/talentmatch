@@ -23,7 +23,6 @@ $postDAO = new PostDAO();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TalentMatch</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <?php include("perfilCss.php"); ?>
 </head>
@@ -151,6 +150,7 @@ $postDAO = new PostDAO();
 
       <!-- Conteúdo das abas -->
       <div class="tab-content" id="criar-post">
+
         <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
           <input type="text" name="titulo" class="titulo" />
           <textarea name="descricao" rows="4" class="descricao"></textarea>
@@ -164,8 +164,9 @@ $postDAO = new PostDAO();
             <option value="piano">Piano</option>
             <option value="baixo">Baixo</option>
           </select>
-         <?php include("../../../teste/criar.php");?>
+          <?php include("../../../teste/criar.php");?>                                          
           <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
+
           <input type="hidden" class="id" name="id">
 
 

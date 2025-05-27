@@ -10,9 +10,10 @@ function formatarData($dataCompleta)
     return $data ? $data->format('d/m/y') : '';
 }
 
-function procurarDistancia($usuario, $raio)
-{
 
+function procurarDistancia($usuario, $raio, $tabela)
+{
+    
     $sqlDistancia = "
 SELECT 
    *,
@@ -23,7 +24,7 @@ SELECT
             SIN(RADIANS(:lat_ref)) * SIN(RADIANS(latitude))
         )
     ) AS distancia_km
-FROM usuario
+FROM $tabela
 HAVING distancia_km <= :raio_km
 ORDER BY distancia_km ASC;
 ";
@@ -39,3 +40,21 @@ ORDER BY distancia_km ASC;
         print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
     }
 }
+function postPesquisa($array, $pesquisas){
+    $resultado = $array;
+    foreach ($pesquisas as $chave => $valor) {
+        
+    }
+    return $resultado;
+} 
+function postTalento($habilidade){
+    $sql = "SELECT * FROM post WHERE habilidade = :talento";
+    $consulta = Conexao::getConexao()->prepare($sql);
+    $consulta->bindValue(':talento',$habilidade);
+    $consulta->execute();
+
+    $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultado;
+} 
+

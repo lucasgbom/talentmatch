@@ -12,6 +12,8 @@ $_POST['pagamento'] = intval($valor);
 
 $Post = new Post();
 $PostDAO = new PostDAO();
+$Post->setLongitude($_POST['longitude']);
+$Post->setLatitude($_POST['latitude']);
 $Post->setTitulo($_POST['titulo']);
 $Post->setDescricao($_POST['descricao']);
 $Post->setData($_POST['date']);

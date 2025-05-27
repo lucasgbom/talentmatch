@@ -143,6 +143,10 @@
     overflow: auto;
   }
 
+  .tab-content #map{
+    height: 100%;
+  }
+
   .tab-content input,
   .tab-content textarea,
   .tab-content button {
@@ -170,6 +174,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    display: flex;
     overflow-y: auto;
   }
 
@@ -246,3 +251,6 @@
     user-select: text;
     caret-color: auto;
   }
+
+  
+   </style>

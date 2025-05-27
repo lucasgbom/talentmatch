@@ -28,6 +28,8 @@ CREATE TABLE post (
     data_ DATE,
     pagamento INT,
     descricao VARCHAR(1280),
+    latitude DECIMAL(10, 8),  
+    longitude DECIMAL(11, 8),
     idUsuario INT,
     habilidade VARCHAR(100),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
