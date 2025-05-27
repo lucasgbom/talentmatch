@@ -8,53 +8,83 @@ function formatarData($dataCompleta)
 {
     $data = DateTime::createFromFormat('Y-m-d', $dataCompleta);
     return $data ? $data->format('d/m/y') : '';
-}
-
-
+} 
 function procurarDistancia($usuario, $raio, $tabela)
 {
-    
-    $sqlDistancia = "
-SELECT 
-   *,
-    (
-        6371 * ACOS(
-            COS(RADIANS(:lat_ref)) * COS(RADIANS(latitude)) *
-            COS(RADIANS(longitude) - RADIANS(:lon_ref)) +
-            SIN(RADIANS(:lat_ref)) * SIN(RADIANS(latitude))
-        )
-    ) AS distancia_km
-FROM $tabela
-HAVING distancia_km <= :raio_km
-ORDER BY distancia_km ASC;
-";
-    try {
-        $consulta = Conexao::getConexao()->prepare($sqlDistancia);
-        $consulta->bindValue(":lon_ref", $usuario->getLongitude());
-        $consulta->bindValue(":lat_ref", $usuario->getLatitude());
-        $consulta->bindValue(":raio_km", $raio);
-        $consulta->execute();
+    $sql = "
+        SELECT 
+            *,
+            (
+                6371 * ACOS(
+                    COS(RADIANS(:lat_ref)) * COS(RADIANS(latitude)) *
+                    COS(RADIANS(longitude) - RADIANS(:lon_ref)) +
+                    SIN(RADIANS(:lat_ref)) * SIN(RADIANS(latitude))
+                )
+            ) AS distancia_km
+        FROM $tabela
+        HAVING distancia_km <= :raio_km
+        ORDER BY distancia_km ASC
+    ";
 
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    try {
+        $conexao = Conexao::getConexao();
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindValue(':lat_ref', $usuario->getLatitude());
+        $stmt->bindValue(':lon_ref', $usuario->getLongitude());
+        $stmt->bindValue(':raio_km', $raio);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
+        error_log("Erro ao buscar por distância: " . $e->getMessage());
+        return [];
     }
 }
-function postPesquisa($array, $pesquisas){
-    $resultado = $array;
-    foreach ($pesquisas as $chave => $valor) {
-        
-    }
-    return $resultado;
-} 
-function postTalento($habilidade){
-    $sql = "SELECT * FROM post WHERE habilidade = :talento";
-    $consulta = Conexao::getConexao()->prepare($sql);
-    $consulta->bindValue(':talento',$habilidade);
-    $consulta->execute();
+function postPesquisa($resultados, $filtros)
+{
+    // Normaliza os filtros
+    $filtros = array_map('trim', $filtros);
 
-    $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    return array_filter($resultados, function ($item) use ($filtros) {
+        // Filtrar por título (ignorar se estiver vazio)
+        if (!empty($filtros['titulo'])) {
+            $tituloFiltro = mb_strtolower($filtros['titulo']);
+            $tituloItem = mb_strtolower($item['titulo'] ?? '');
+            if (stripos($tituloItem, $tituloFiltro) === false) {
+                return false;
+            }
+        }
 
-    return $resultado;
-} 
+        // Filtrar por talento (habilidade), normalizando acentos
+        if (!empty($filtros['talento'])) {
+            $filtroTalento = normalizarTexto($filtros['talento']);
+            $itemTalento = normalizarTexto($item['habilidade'] ?? '');
+            if ($itemTalento !== $filtroTalento) {
+                return false;
+            }
+        }
+
+        // Filtrar por pagamento mínimo
+        if (!empty($filtros['pagamento'])) {
+            $pagamentoMin = floatval(str_replace(['R$', '.', ',', ' '], ['', '', '.', ''], $filtros['pagamento']));
+            $pagamentoItem = floatval($item['pagamento'] ?? 0);
+            if ($pagamentoItem < $pagamentoMin) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
+function normalizarTexto($texto)
+{
+    $texto = mb_strtolower($texto);
+    // Remove acentos
+    $semAcentos = preg_replace(
+        ['/[áàãâä]/u','/[éèêë]/u','/[íìîï]/u','/[óòõôö]/u','/[úùûü]/u','/[ç]/u'],
+        ['a','e','i','o','u','c'],
+        $texto
+    );
+    return $semAcentos;
+}
 
