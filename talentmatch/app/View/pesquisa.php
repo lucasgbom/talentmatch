@@ -6,18 +6,25 @@ include('../../php/funcoes.php');
 session_start();
 
 $usuarioDAO = new UsuarioDAO();
-// Dados do usuário logado
 $usuario = $_SESSION['usuario'] ?? null;
+if (is_string($usuario)) {
+    $usuario = unserialize($usuario);
+}
 
-// Verifica se o formulário foi enviado
+$tipo = $_GET['tipo'] ?? 'post';
+$tabelaMap = [
+    'post' => 'post',
+    'usuario' => 'usuario',
+    'projeto' => 'projeto'
+];
+
+$tabela = $tabelaMap[$tipo] ?? 'post';
+$postFiltrados = [];
+
 if ($usuario && isset($_GET['enviar'])) {
     $distancia = isset($_GET['distancia']) ? intval($_GET['distancia']) : 0;
-    $tabela = $_GET['tabela'] ?? 'post';
-
-    $postDistancia = procurarDistancia($usuario, $distancia, $tabela);
-    $postFiltrados = postPesquisa($postDistancia, $_GET);
-} else {
-    $postFiltrados = [];
+    $resultados = procurarDistancia($usuario, $distancia, $tabela);
+   $postFiltrados = filtrarResultados($resultados, $_GET, $tipo);
 }
 ?>
 
@@ -25,44 +32,62 @@ if ($usuario && isset($_GET['enviar'])) {
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa de Posts</title>
+    <title>Pesquisa</title>
 </head>
 <body>
     <form action="pesquisa.php" method="GET">
-        <label>Título: <input type="text" name="titulo"></label><br>
-
-        <label>Habilidade desejada:
-            <select name="talento">
-                <option value="">--Selecione--</option>
-                <option value="Violão">Violão</option>
-                <option value="Baixo">Baixo</option>
-                <option value="Piano">Piano</option>
+        <label>Tipo de busca:
+            <select name="tipo" onchange="this.form.submit()">
+                <option value="post" <?= $tipo === 'post' ? 'selected' : '' ?>>Post</option>
+                <option value="usuario" <?= $tipo === 'usuario' ? 'selected' : '' ?>>Usuário</option>
+                <option value="projeto" <?= $tipo === 'projeto' ? 'selected' : '' ?>>Projeto</option>
             </select>
-        </label><br>
+        </label><br><br>
+
+        <?php if ($tipo === 'post'): ?>
+            <label>Título: <input type="text" name="titulo" value="<?= htmlspecialchars($_GET['titulo'] ?? '') ?>"></label><br>
+            <label>Habilidade:
+                <select name="talento">
+                    <option value="">--Selecione--</option>
+                    <option value="Violão">Violão</option>
+                    <option value="Baixo">Baixo</option>
+                    <option value="Piano">Piano</option>
+                </select>
+            </label><br>
+            <label>Pagamento mínimo:
+                <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
+            </label><br>
+        <?php elseif ($tipo === 'usuario'): ?>
+            <label>Nome do usuário: <input type="text" name="nome" value="<?= htmlspecialchars($_GET['nome'] ?? '') ?>"></label><br>
+        <?php elseif ($tipo === 'projeto'): ?>
+            <label>Título do projeto: <input type="text" name="titulo" value="<?= htmlspecialchars($_GET['titulo'] ?? '') ?>"></label><br>
+        <?php endif; ?>
 
         <label>Distância:
-            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="500">
-            <span id="distancia">500</span> km
+            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
         </label><br>
 
-        <label>Pagamento mínimo:
-            <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
-        </label><br>
-
-        <input type="hidden" name="tabela" value="post">
         <input type="submit" value="Enviar" name="enviar">
     </form>
 
-    <h2>Resultados da pesquisa</h2>
+    <h2>Resultados</h2>
     <ul>
         <?php if (!empty($postFiltrados)): ?>
             <?php foreach ($postFiltrados as $item): ?>
                 <li>
-                    <strong><?php echo htmlspecialchars($item['titulo'] ?? 'Sem título'); ?></strong> |
-                    Habilidade: <?php echo htmlspecialchars($item['habilidade'] ?? 'Não informado'); ?> |
-                    Pagamento: R$ <?php echo number_format(floatval($item['pagamento'] ?? 0), 2, ',', '.'); ?> |
-                    Distância: <?php echo round($item['distancia_km'] ?? 0, 1); ?> km
+                    <?php if ($tipo === 'post'): ?>
+                        <strong><?= htmlspecialchars($item['titulo'] ?? 'Sem título') ?></strong> |
+                        Habilidade: <?= htmlspecialchars($item['habilidade'] ?? '---') ?> |
+                        Pagamento: <?= formatarParaReal($item['pagamento'] ?? 0) ?> |
+                        Distância: <?= round($item['distancia_km'] ?? 0, 1) ?> km
+                    <?php elseif ($tipo === 'usuario'): ?>
+                        <strong><?= htmlspecialchars($item['nome'] ?? 'Sem nome') ?></strong> |
+                        Distância: <?= round($item['distancia_km'] ?? 0, 1) ?> km
+                    <?php elseif ($tipo === 'projeto'): ?>
+                        <strong><?= htmlspecialchars($item['titulo'] ?? 'Sem título') ?></strong> |
+                        Distância: <?= round($item['distancia_km'] ?? 0, 1) ?> km
+                    <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         <?php else: ?>
@@ -78,28 +103,29 @@ if ($usuario && isset($_GET['enviar'])) {
         });
 
         const pagamentoInput = document.getElementById('pagamento');
-
-        pagamentoInput.addEventListener('input', () => {
-            let v = pagamentoInput.value.replace(/\D/g, '');
-            if (!v) v = '0';
-            v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
+        if (pagamentoInput) {
+            pagamentoInput.addEventListener('input', () => {
+                let v = pagamentoInput.value.replace(/\D/g, '');
+                if (!v) v = '0';
+                v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+                pagamentoInput.value = v;
             });
-            pagamentoInput.value = v;
-        });
 
-        pagamentoInput.addEventListener('focus', () => {
-            if (pagamentoInput.value.trim() === '') {
-                pagamentoInput.value = 'R$ 0,00';
-            }
-        });
+            pagamentoInput.addEventListener('focus', () => {
+                if (pagamentoInput.value.trim() === '') {
+                    pagamentoInput.value = 'R$ 0,00';
+                }
+            });
 
-        pagamentoInput.addEventListener('blur', () => {
-            if (pagamentoInput.value === 'R$ 0,00') {
-                pagamentoInput.value = '';
-            }
-        });
+            pagamentoInput.addEventListener('blur', () => {
+                if (pagamentoInput.value === 'R$ 0,00') {
+                    pagamentoInput.value = '';
+                }
+            });
+        }
     </script>
 </body>
 </html>
