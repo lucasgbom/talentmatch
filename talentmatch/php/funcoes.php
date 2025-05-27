@@ -8,7 +8,7 @@ function formatarData($dataCompleta)
 {
     $data = DateTime::createFromFormat('Y-m-d', $dataCompleta);
     return $data ? $data->format('d/m/y') : '';
-} 
+}
 function procurarDistancia($usuario, $raio, $tabela)
 {
     $sql = "
@@ -65,12 +65,17 @@ function postPesquisa($resultados, $filtros)
 
         // Filtrar por pagamento mínimo
         if (!empty($filtros['pagamento'])) {
-            $pagamentoMin = floatval(str_replace(['R$', '.', ',', ' '], ['', '', '.', ''], $filtros['pagamento']));
+            $pagamentoStr = str_replace(['R$', ' ', '.', ' '], '', $filtros['pagamento']);
+            $pagamentoStr = str_replace(',', '.', $pagamentoStr);
+            $pagamentoMin = floatval($pagamentoStr);
+            // Valor do banco já em centavos
             $pagamentoItem = floatval($item['pagamento'] ?? 0);
-            if ($pagamentoItem < $pagamentoMin) {
+            // Compara pagamento no banco (centavos) com filtro convertido em centavos
+            if ($pagamentoItem < ($pagamentoMin * 100)) {
                 return false;
             }
         }
+
 
         return true;
     });
@@ -81,10 +86,9 @@ function normalizarTexto($texto)
     $texto = mb_strtolower($texto);
     // Remove acentos
     $semAcentos = preg_replace(
-        ['/[áàãâä]/u','/[éèêë]/u','/[íìîï]/u','/[óòõôö]/u','/[úùûü]/u','/[ç]/u'],
-        ['a','e','i','o','u','c'],
+        ['/[áàãâä]/u', '/[éèêë]/u', '/[íìîï]/u', '/[óòõôö]/u', '/[úùûü]/u', '/[ç]/u'],
+        ['a', 'e', 'i', 'o', 'u', 'c'],
         $texto
     );
     return $semAcentos;
 }
-
