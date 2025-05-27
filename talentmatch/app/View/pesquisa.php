@@ -24,16 +24,18 @@ $postFiltrados = [];
 if ($usuario && isset($_GET['enviar'])) {
     $distancia = isset($_GET['distancia']) ? intval($_GET['distancia']) : 0;
     $resultados = procurarDistancia($usuario, $distancia, $tabela);
-   $postFiltrados = filtrarResultados($resultados, $_GET, $tipo);
+    $postFiltrados = filtrarResultados($resultados, $_GET, $tipo);
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Pesquisa</title>
 </head>
+
 <body>
     <form action="pesquisa.php" method="GET">
         <label>Tipo de busca:
@@ -128,4 +130,5 @@ if ($usuario && isset($_GET['enviar'])) {
         }
     </script>
 </body>
+
 </html>
