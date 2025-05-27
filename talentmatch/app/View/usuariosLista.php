@@ -8,26 +8,23 @@ $nome = isset($_GET['nome']) ? $_GET['nome'] : '';
 $usuarios = $usuarioDAO->buscar('nome', $nome);
 session_start();
 $usuario = $_SESSION['usuario'];
-var_dump(procurarDistancia($usuario, intval($_GET['distancia'])));
 
 
+if(isset($_SESSION['retorno'])){
+    $retorno = $_SESSION['retorno'];
+}
 
 $pesquisas = [];
+
 foreach ($_GET as $chave => $valor) {
     if (!empty($valor)) {
         $pesquisas[$chave] = $valor;
     }
 }
+$usuariosDistancia = procurarDistancia($usuario, intval($_GET['distancia']));
+$resultadoPesquisa = postPesquisa($resultadoDistancia, $pesquisas);
 
-foreach ($pesquisas as $chave => $valor) {
-    $funcao = 'post' . ucfirst($chave);
-
-    echo($funcao);
-    if (function_exists($funcao)) {
-        var_dump($funcao($valor));
-        
-    }
-}
+var_dump($resultadoPesquisa);
 
 ?>
 <!DOCTYPE html>

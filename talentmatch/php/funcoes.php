@@ -40,7 +40,15 @@ ORDER BY distancia_km ASC;
         print "Erro ao carregar usuario <br>" . $e->getMessage() . '<br>';
     }
 }
+function postPesquisa($array, $pesquisas){
+    $resultado = [];
+    foreach ($pesquisas as $chave => $valor) {
+        array_filter($array, )
+    }
 
+    
+    return $resultado;
+} /*
 function postTalento($habilidade){
     $sql = "SELECT * FROM post WHERE habilidade = :talento";
     $consulta = Conexao::getConexao()->prepare($sql);
@@ -50,6 +58,5 @@ function postTalento($habilidade){
     $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
     return $resultado;
-
-}
+} */
 
