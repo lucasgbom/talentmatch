@@ -51,9 +51,9 @@ if ($usuario && isset($_GET['enviar'])) {
             <label>Habilidade:
                 <select name="talento">
                     <option value="">--Selecione--</option>
-                    <option value="Violão">Violão</option>
-                    <option value="Baixo">Baixo</option>
-                    <option value="Piano">Piano</option>
+                    <option value="violao">Violão</option>
+                    <option value="baixo">Baixo</option>
+                    <option value="piano">Piano</option>
                 </select>
             </label><br>
             <label>Pagamento mínimo:
@@ -84,7 +84,7 @@ if ($usuario && isset($_GET['enviar'])) {
                         Pagamento: <?= formatarParaReal($item['pagamento'] ?? 0) ?> |
                         Distância: <?= round($item['distancia_km'] ?? 0, 1) ?> km
                     <?php elseif ($tipo === 'usuario'): ?>
-                        <strong><?= htmlspecialchars($item['nome'] ?? 'Sem nome') ?></strong> |
+                        <strong><a href="perfil.php?id=<?=$item['id']?>"><?= htmlspecialchars($item['nome'] ?? 'Sem nome') ?></a></strong> |
                         Distância: <?= round($item['distancia_km'] ?? 0, 1) ?> km
                     <?php elseif ($tipo === 'projeto'): ?>
                         <strong><?= htmlspecialchars($item['titulo'] ?? 'Sem título') ?></strong> |

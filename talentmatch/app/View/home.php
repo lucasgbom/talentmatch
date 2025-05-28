@@ -186,7 +186,9 @@ $usuario2 = $_SESSION["usuario"];
 
 <div class="main-content">
   <div class="search-bar">
-    <input type="text" placeholder="Pesquisar...">
+    <form action="pesquisa.php">
+      <input type="text" placeholder="Pesquisar..." name="nome">
+    </form>
   </div>
 
   <h1>Galeria de Pôsteres</h1>
