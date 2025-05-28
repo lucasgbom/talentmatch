@@ -11,7 +11,7 @@ function formatarData($dataCompleta)
 }
 function procurarDistancia($usuario, $raio, $tabela)
 {
-    if ($tabela != "projeto") {
+    if ($tabela != "projeto" && $raio > 0) {
         $sql = "
         SELECT 
             *,
@@ -41,7 +41,7 @@ function procurarDistancia($usuario, $raio, $tabela)
         }
     }
     else{
-        $sql = "SELECT * FROM projeto";
+        $sql = "SELECT * FROM $tabela";
           try {
             $conexao = Conexao::getConexao();
             $stmt = $conexao->prepare($sql);

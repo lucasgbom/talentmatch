@@ -14,59 +14,224 @@ $usuarioDAO = new UsuarioDAO();
 $usuario2 = $_SESSION["usuario"];
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../../bootstrap/bootstrap.cs">
-    <script src="../../bootstrap/bootstrap.js"></script>
-    <style>
-        p {
-            word-wrap: break-word;
-            white-space: normal;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema com Sidebar, Pesquisa e Pôsteres</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #181818;
+      color: #fff;
+      display: flex;
+    }
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background-color: #0f0f0f;
+      padding: 20px 10px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .logo img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .menu-item:hover, .menu-item.active {
+      background-color: #272727;
+    }
+    .menu-item span {
+      margin-left: 15px;
+      font-size: 14px;
+    }
+    .section {
+      margin-top: 20px;
+      border-top: 1px solid #333;
+      padding-top: 15px;
+    }
+    .login-btn {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border: 1px solid #3ea6ff;
+      color: #3ea6ff;
+      border-radius: 20px;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    h4 {
+      margin: 10px 0;
+      font-size: 12px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    .main-content {
+      margin-left: 260px;
+      padding: 20px;
+      width: calc(100% - 260px);
+    }
+
+    /* INPUT DE PESQUISA */
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 30px;
+      border: none;
+      background-color: #2a2a2a;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* POSTERS */
+    .grid-posters {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .poster-card {
+      background-color: #242424;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .poster-card:hover {
+      transform: scale(1.05);
+    }
+    .poster-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .poster-content {
+      padding: 10px;
+    }
+    .poster-title {
+      font-size: 14px;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    .poster-desc {
+      font-size: 12px;
+      color: #ccc;
+    }
+  </style>
 </head>
+<body>
 
-<?php include_once('../../php/navbar.php');
-$posts = $postDAO->listarHome($_SESSION['usuario']);
-foreach ($posts as $post) {
-    $usuario = $usuarioDAO->buscar('id', $post['idUsuario']);
-?>
+<div class="sidebar">
+  <div class="logo">
+    <img src="https://www.svgrepo.com/show/349402/youtube.svg" alt="Logo">
+    <strong>TalentMacht</strong>
+  </div>
 
-    <main class="d-flex justify-content-center">
-        <div class="container posts" style="background-color: #E2E2E2; padding: 2em; border-radius: 2em; border-style: solid; width: 60em">
-            <div class="header_post row align-items-center" style="padding-left: 1em;">
-                <div class="col-auto d-flex flex-wrap align-items-center" style="width: 30px; height: 30px; padding: 0;">
-                    <img src="../../data/<?php
-                                            if (isset($usuario['fotoPerfil'])) {
-                                                echo ($usuario['fotoPerfil']);
-                                            } else {
-                                                echo ('perfil_padrao.png');
-                                            }
-                                            ?>" alt="" class="d-inline-block align-text-top" style="width: 100%; height: 100%; object-fit: fill;">
-                </div>
-                <div class="col justify-content-start align-items-center">
-                    <a href="perfil.php?id=<?= $post['idUsuario'] ?>"><b><?php echo ($usuario['nome']); ?></b></a>
-                </div>
-                <form style="padding: 0" action="match.php" method="POST"><br>
-                    <h3 for="titulo" class="fw-bold"> <?= $post['titulo'] ?></h3>
-                    <p> <?= $post['descricao'] ?> </p>
-                    <span class="fw-bold"><?= formatarData($post['data_']) ?></span><br>
-                    <span class="fw-bold"> Pagamento: <?= formatarParaReal($post['pagamento']) ?></span> <br>
-                    <input type="hidden" name="acao" value="inserir">
-                    <span>Habilidade necessária: <i><?= $post['habilidade'] ?></i> </span>
-                    <input type="hidden" name="idUsuario" value="<?= $usuario2->getId() ?>">
-                    <input type="hidden" name="idPost" value="<?= $post['id'] ?>">
+  <div class="menu-item active">🏠 <span>Início</span></div>
+  <div class="menu-item">🎬 <span>Shorts</span></div>
+  <div class="menu-item">📺 <span>Inscrições</span></div>
 
-                    <button class="btn btn-lg btn-success float-end" type="submit" name="editar" style="margin-right: 1em;">Aceitar</button>
-                </form>
-            </div>
-        </div>
-    </main>
-<?php } ?>
+  <div class="section">
+    <div class="menu-item">👤 <span>Você</span></div>
+    <div class="menu-item">🕘 <span>Histórico</span></div>
+  </div>
+
+  <div class="section">
+    <p style="font-size: 12px; color: #aaa;">Faça login para curtir vídeos, comentar e se inscrever.</p>
+    <a class="login-btn">Fazer login</a>
+  </div>
+
+  <div class="section">
+    <h4>Explorar</h4>
+    <div class="menu-item">🔥 <span>Em alta</span></div>
+    <div class="menu-item">🛍️ <span>Shopping</span></div>
+    <div class="menu-item">🎵 <span>Música</span></div>
+    <div class="menu-item">🎞️ <span>Filmes</span></div>
+    <div class="menu-item">📡 <span>Ao vivo</span></div>
+    <div class="menu-item">🎮 <span>Jogos</span></div>
+    <div class="menu-item">📰 <span>Notícias</span></div>
+    <div class="menu-item">🏆 <span>Esportes</span></div>
+    <div class="menu-item">🎓 <span>Cursos</span></div>
+    <div class="menu-item">🎙️ <span>Podcasts</span></div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="search-bar">
+    <input type="text" placeholder="Pesquisar...">
+  </div>
+
+  <h1>Galeria de Pôsteres</h1>
+  <div class="grid-posters">
+    <div class="poster-card">
+      <img class="poster-img" src="https://source.unsplash.com/400x300/?movie" alt="Poster">
+      <div class="poster-content">
+        <div class="poster-title">Pôster 1</div>
+        <div class="poster-desc">Descrição breve do pôster ou filme.</div>
+      </div>
+    </div>
+
+    <div class="poster-card">
+      <img class="poster-img" src="https://source.unsplash.com/400x300/?cinema" alt="Poster">
+      <div class="poster-content">
+        <div class="poster-title">Pôster 2</div>
+        <div class="poster-desc">Descrição breve do pôster ou filme.</div>
+      </div>
+    </div>
+
+    <div class="poster-card">
+      <img class="poster-img" src="https://source.unsplash.com/400x300/?art" alt="Poster">
+      <div class="poster-content">
+        <div class="poster-title">Pôster 3</div>
+        <div class="poster-desc">Descrição breve do pôster ou filme.</div>
+      </div>
+    </div>
+
+    <div class="poster-card">
+      <img class="poster-img" src="https://source.unsplash.com/400x300/?design" alt="Poster">
+      <div class="poster-content">
+        <div class="poster-title">Pôster 4</div>
+        <div class="poster-desc">Descrição breve do pôster ou filme.</div>
+      </div>
+    </div>
+
+    <div class="poster-card">
+      <img class="poster-img" src="https://source.unsplash.com/400x300/?nature" alt="Poster">
+      <div class="poster-content">
+        <div class="poster-title">Pôster 5</div>
+        <div class="poster-desc">Descrição breve do pôster ou filme.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
-
 </html>
