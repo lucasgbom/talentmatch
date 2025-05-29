@@ -164,7 +164,7 @@ $postDAO = new PostDAO();
             <option value="piano">Piano</option>
             <option value="baixo">Baixo</option>
           </select>
-         <?php include("../../../teste/criar.php");?>
+          <?php include("../../../teste/criar.php"); ?>
           <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
           <input type="hidden" class="id" name="id">
 

@@ -82,86 +82,102 @@
   }
     */
 
-const wrapper = document.getElementById('myModal');
+  const wrapper = document.getElementById('myModal');
 
-function openModal(element) {
-  let target = element.dataset.modal;
-  const modal = document.getElementById(target);
-  modal.classList.add('active');
+  function openModal(element) {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 1);  
+    let target = element.dataset.modal;
+    const modal = document.getElementById(target);
+    modal.classList.add('active');
 
-  const create = document.querySelector(`#criar-${target}`); const create_tab = modal.querySelector('.criar');
+    const create = document.querySelector(`#criar-${target}`);
+    const create_tab = modal.querySelector('.criar');
 
-  const view = document.querySelector(`#visualizar-${target}`); const view_tab = modal.querySelector('.visualizar');
+    const view = document.querySelector(`#visualizar-${target}`);
+    const view_tab = modal.querySelector('.visualizar');
 
-  const edit = document.querySelector(`#editar-${target}`); const edit_tab = modal.querySelector('.editar');
+    const edit = document.querySelector(`#editar-${target}`);
+    const edit_tab = modal.querySelector('.editar');
 
-  wrapper.style.display = "block";  
+    wrapper.style.display = "block";
 
-  tab = element.dataset.tb
-
-
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-  switch (tab){
-    case 'criar':
-      create.classList.add('active'); create_tab.classList.add('active','permit');
-      break;
-    case 'visualizar':
-      view.classList.add('active'); view_tab.classList.add('active','permit');
-      edit_tab.classList.add('permit');
-
-      if(target == 'projeto'){
-      id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; arquivo = element.dataset.arquivo;
+    tab = element.dataset.tb
 
 
-      edit.querySelector(".id").value = id
-    edit.querySelector(".titulo").value = titulo
-    edit.querySelector(".descricao").value = descricao
-    edit.querySelector(".projeto").src = "../../data/" + arquivo;
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-     view.querySelector(".titulo").textContent = titulo
-    view.querySelector(".descricao").textContent = descricao
-    view.querySelector(".projeto").src = "../../data/" + arquivo;
-      }
+    switch (tab) {
+      case 'criar':
+        create.classList.add('active');
+        create_tab.classList.add('active', 'permit');
+        break;
+      case 'visualizar':
+        view.classList.add('active');
+        view_tab.classList.add('active', 'permit');
+        edit_tab.classList.add('permit');
 
-      if(target == 'post'){
-      id = element.dataset.id; titulo =  element.dataset.titulo; descricao = element.dataset.descricao; data = element.dataset.data_; habilidade = element.dataset.habilidade; pagamento = element.dataset.pagamento;
-      console.log(id,titulo,descricao,data,habilidade,pagamento);
+        if (target == 'projeto') {
+          id = element.dataset.id;
+          titulo = element.dataset.titulo;
+          descricao = element.dataset.descricao;
+          arquivo = element.dataset.arquivo;
 
-       view.querySelector(".titulo").textContent = titulo
-    view.querySelector(".descricao").textContent = descricao
-    view.querySelector(".data").textContent = data
-      view.querySelector(".pagamento").textContent = pagamento
-        view.querySelector(".habilidade").textContent = habilidade
-    
-        match(element);
-      }
-      break;
+
+          edit.querySelector(".id").value = id
+          edit.querySelector(".titulo").value = titulo
+          edit.querySelector(".descricao").value = descricao
+          edit.querySelector(".projeto").src = "../../data/" + arquivo;
+
+          view.querySelector(".titulo").textContent = titulo
+          view.querySelector(".descricao").textContent = descricao
+          view.querySelector(".projeto").src = "../../data/" + arquivo;
+        }
+
+        if (target == 'post') {
+          id = element.dataset.id;
+          titulo = element.dataset.titulo;
+          descricao = element.dataset.descricao;
+          data = element.dataset.data_;
+          habilidade = element.dataset.habilidade;
+          pagamento = element.dataset.pagamento;
+          console.log(id, titulo, descricao, data, habilidade, pagamento);
+
+          view.querySelector(".titulo").textContent = titulo
+          view.querySelector(".descricao").textContent = descricao
+          view.querySelector(".data").textContent = data
+          view.querySelector(".pagamento").textContent = pagamento
+          view.querySelector(".habilidade").textContent = habilidade
+
+          match(element);
+        }
+        break;
+    }
+
   }
 
-}
 
+  function closeModal() {
+    wrapper.style.display = "none";
 
- function closeModal() {
-  wrapper.style.display = "none";
+    Array.from(wrapper.children).forEach(child => {
+      child.classList.remove('active');
+    });
+  }
 
-  Array.from(wrapper.children).forEach(child => {
-    child.classList.remove('active');
-  });
-}
+  function switchTab(element) {
+    const tabId = element.dataset.target;
 
-function switchTab(element) {
-  const tabId = element.dataset.target;
+    // Remove classes 'active' de todas as abas e conteúdos
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-  // Remove classes 'active' de todas as abas e conteúdos
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-  // Ativa a aba clicada e o conteúdo correspondente
-  element.classList.add('active');
-  document.getElementById(tabId).classList.add('active');
-}
+    // Ativa a aba clicada e o conteúdo correspondente
+    element.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
 
   // Fecha o modal ao clicar fora do conteúdo
   window.onclick = function(event) {
@@ -171,17 +187,16 @@ function switchTab(element) {
     }
   };
 
-  function match(element){
+  function match(element) {
     matchs = JSON.parse(element.dataset.matchs);
 
-matchs.forEach(match => {
-  document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
+    matchs.forEach(match => {
+      document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
     <form action="perfil.php" method="get" class="profile">
       <input type="hidden" name="id" value="${match.id}">
       <button type="submit">${match.id}</button>
     </form>
   `);
-});
+    });
   }
-
 </script>
