@@ -20,9 +20,11 @@
     body {
       min-height: 100vh;
       width: 100%;
-      background: #009579;
+      background: #5a1c00;
+      color: #ffffff;
     }
 
+    
     .container {
       position: absolute;
       top: 50%;
@@ -30,7 +32,7 @@
       transform: translate(-50%, -50%);
       max-width: 430px;
       width: 100%;
-      background: #fff;
+      background :rgba(126, 56, 18, 0.56);
       border-radius: 7px;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
@@ -39,11 +41,11 @@
       display: none;
     }
 
-    #check:checked~.registration {
+    #check:checked ~ .registration {
       display: block;
     }
 
-    #check:checked~.login {
+    #check:checked ~ .login {
       display: none;
     }
 
@@ -60,6 +62,7 @@
       font-weight: 500;
       text-align: center;
       margin-bottom: 1.5rem;
+      color: #ffffff;
     }
 
     .form input {
@@ -68,18 +71,20 @@
       padding: 0 15px;
       font-size: 17px;
       margin-bottom: 1.3rem;
-      border: 1px solid #ddd;
+      border: 1px solid #5a1c00;
       border-radius: 6px;
       outline: none;
+      background:whitesmoke;
+      color: black;
     }
 
     .form input:focus {
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .form a {
       font-size: 16px;
-      color: #009579;
+      color: #e63946;
       text-decoration: none;
     }
 
@@ -88,8 +93,8 @@
     }
 
     .form input.button {
-      color: #fff;
-      background: #009579;
+      color:  whitesmoke;
+      background: #5a1c00;
       font-size: 1.2rem;
       font-weight: 500;
       letter-spacing: 1px;
@@ -99,16 +104,17 @@
     }
 
     .form input.button:hover {
-      background: #006653;
+      background:#5a1c00;
     }
 
     .signup {
       font-size: 17px;
       text-align: center;
+      color: #d3cfcf;
     }
 
     .signup label {
-      color: #009579;
+      color:rgb(255, 17, 37);
       cursor: pointer;
     }
 
@@ -122,31 +128,35 @@
   <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
-      <header>Login</header>
-      <form action="../Controller/UsuarioController.php" method="POST">
-        <label for="email">Email: </label><input type="email" name="email">
-        <label for="senha">Senha: </label><input type="password" name="senha">
+      <header style="color: #5a1c00;">Login</header>
+      <form action="../Controller/UsuarioController.php" method="POST" style="color: #5a1c00;">
+        <label for="email">Email:</label>
+        <input type="email" name="email">
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha">
         <input type="hidden" value="logar" name="tipo">
-        <input type="submit" value="Logar">
+        <input type="submit" value="Logar" class="button">
       </form>
       <div class="signup">
-        <span class="signup">Não possui uma conta ainda?
+        <span style="color: #5a1c00;">Não possui uma conta ainda?
           <label for="check">Cadastrar</label>
         </span>
       </div>
     </div>
     <div class="registration form">
       <header>Cadastro</header>
-      <form action="../Controller/UsuarioController.php" method="POST">
-
-        <label for="nome">Nome: </label><input type="text" name="nome">
-        <label for="email">Email: </label><input type="email" name="email">
-        <label for="senha">Senha: </label><input type="password" name="senha">
+      <form action="../Controller/UsuarioController.php" method="POST" style="color: #5a1c00;">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome">
+        <label for="email">Email:</label>
+        <input type="email" name="email">
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha">
         <input type="hidden" name="tipo" value="cadastrar">
-        <input type="submit" value="Cadastrar">
+        <input type="submit" value="Cadastrar" class="button">
       </form>
       <div class="signup">
-        <span class="signup">Já possui uma conta?
+        <span>Já possui uma conta?
           <label for="check">Logar</label>
         </span>
       </div>

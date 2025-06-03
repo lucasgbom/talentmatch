@@ -1,142 +1,38 @@
+<?php
+include('../../php/funcoes.php');
+require_once("../Model/Usuario.php");
+include_once("../DAO/UsuarioDAO.php");
+include_once("../Model/Projeto.php");
+include_once("../DAO/ProjetoDAO.php");
+include_once("../DAO/PostDAO.php");
+include_once("../conexao/Conexao.php");
+session_start();
+if (isset($_SESSION["usuario"])) {
+    $usuario = $_SESSION["usuario"];
+} else {
+    header("location: pagina_inicial.php");
+}
+$projetoDAO = new ProjetoDAO();
+$postDAO = new PostDAO();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Perfil - Paulo Victor</title>
+    <title>Perfil - <?= $usuario->getNome() ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        .header {
-            background-color: #4b1500;
-            color: white;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-right: 20px;
-            background: #ccc;
-            object-fit: cover;
-        }
-
-        .profile-info h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .profile-info p {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .navbar {
-            display: flex;
-            background-color: #2a0d00;
-        }
-
-        .nav-link {
-            padding: 15px 20px;
-            color: white;
-            text-decoration: none;
-            flex: 1;
-            text-align: center;
-            border-bottom: 3px solid transparent;
-            transition: background 0.3s, border-bottom 0.3s;
-        }
-
-        .nav-link:hover {
-            background-color: #3d1200;
-        }
-
-        .nav-link.active {
-            border-bottom: 3px solid red;
-        }
-
-        .content {
-            padding: 20px;
-            background-color: #f7f7f7;
-        }
-
-        h2 {
-            margin-bottom: 10px;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #4b1500;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .btn:hover {
-            background: #3d1200;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 300px;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .gallery img {
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    <?php include("meuPerfilCss.php"); ?>
+    <?php include("perfilCss.php");?>
 </head>
 
 <body>
 
     <div class="header">
-        <img src="https://via.placeholder.com/100" alt="Perfil" class="profile-pic" id="profile-pic">
+        <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
         <div class="profile-info">
-            <h1 id="profile-name">Paulo Victor</h1>
+            <h1 id="profile-name"><?= $usuario->getNome() ?></h1>
             <p id="descricao"></p>
         </div>
     </div>
@@ -166,21 +62,38 @@
 
     <div class="content" id="posts" style="display:none;">
         <h2>Posts</h2>
-        <p>Nenhum post publicado ainda.</p>
+        <div class="grid-container">
+            <?php
+            $posts = $postDAO->listarPorUsuario($usuario);
+            foreach ($posts as $post) {
+            ?>
+                <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
+
+                    <?= $post['titulo'] ?>
+                </button>
+            <?php } ?>
+        </div>
     </div>
 
     <div class="content" id="projetos" style="display:none;">
         <h2>Projetos</h2>
-        <div class="gallery" id="gallery">
-            <img src="https://via.placeholder.com/150" onclick="openModal('projeto', this)">
-            <img src="https://via.placeholder.com/150/0000FF" onclick="openModal('projeto', this)">
-            <img src="https://via.placeholder.com/150/FF0000" onclick="openModal('projeto', this)">
+        <div class="grid-container">
+            <?php
+            $projetos = $projetoDAO->listar($usuario);
+            foreach ($projetos as $projeto) {
+            ?>
+                <button class="grid-item open-btn" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
+
+                    <?= $projeto['titulo'] ?>
+                </button>
+            <?php } ?>
         </div>
     </div>
 
     <div class="content" id="sobre" style="display:none;">
-        <h2>Sobre</h2>
-        <p>Informações adicionais sobre o usuário.</p>
+        <h2>Informações adicionais</h2>
+        <p>Telefone: </p>
+        <p>Email: <?= $usuario->getEmail() ?></p>
     </div>
 
     <!-- Modal genérico -->
@@ -195,7 +108,7 @@
     </div>
 
     <script>
-        let descricaoCompleta = "Paulo Victor é um desenvolvedor apaixonado por tecnologia e inovação, sempre em busca de novos desafios e aprendizados.";
+        let descricaoCompleta = "<?= $usuario->getBiografia() ?>";
 
         function showTab(tab) {
             const tabs = ['inicio', 'posts', 'projetos', 'sobre'];

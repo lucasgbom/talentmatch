@@ -81,7 +81,7 @@ class PostDAO
     public function listarHome($usuario)
     {
         try {
-            $sql = 'SELECT * FROM post WHERE idUsuario != :id';
+            $sql = 'SELECT * FROM post WHERE idUsuario != :id ORDER BY id DESC';
             $consulta = Conexao::getConexao()->prepare($sql);
             $consulta->bindValue(':id', $usuario->getId());
             $consulta->execute();

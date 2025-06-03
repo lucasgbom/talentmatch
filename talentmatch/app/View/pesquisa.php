@@ -12,11 +12,11 @@ if (is_string($usuario)) {
 }
 
 $tipo = $_GET['tipo'] ?? 'post';
-$tabelaMap = [
+/*$tabelaMap = [
     'post' => 'post',
     'usuario' => 'usuario',
     'projeto' => 'projeto'
-];
+];*/
 
 $tabela = $tabelaMap[$tipo] ?? 'post';
 $postFiltrados = [];
