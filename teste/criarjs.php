@@ -36,12 +36,14 @@
     map.setView([latitude, longitude], 13);
     setTimeout(() => {
       setMarker(latitude, longitude, "<b>Localização salva!</b>");
-    }, 300); 
+    }, 300);
+    
   } else getLocation();
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
+  
   map.on('click', e => setMarker(e.latlng.lat, e.latlng.lng, "<b>Localização atualizada!</b>"));
 </script>

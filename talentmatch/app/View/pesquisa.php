@@ -7,6 +7,8 @@ session_start();
 
 $usuarioDAO = new UsuarioDAO();
 $usuario = $_SESSION['usuario'] ?? null;
+
+
 if (is_string($usuario)) {
     $usuario = unserialize($usuario);
 }

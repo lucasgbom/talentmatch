@@ -12,6 +12,7 @@ session_start();
 $postDAO = new PostDAO();
 $usuarioDAO = new UsuarioDAO();
 $usuario = $_SESSION["usuario"] ?? "";
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -34,10 +35,14 @@ $usuario = $_SESSION["usuario"] ?? "";
       <strong>TalentMacht</strong>
     </div>
     <div class="section">
-      <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
-      <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
-    </div> <br>
-
+      <?php if (!$usuario) { ?>
+        <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
+        <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
+      <?php } else { ?>
+        <a class="login-btn" href="sair.php">Sair</a>
+      <?php } ?>
+    </div>
+    <br>
     <div class="menu-item" id="btn_posts" data-target="posts" onclick="switchContent(this)">💼 <span>Posts</span></div>
     <div class="menu-item" id="btn_projetos" data-target="projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
     <div class="menu-item" id="btn_usuarios" data-target="usuarios" onclick="switchContent(this)">👤 <span>Usuarios</span></div>
@@ -72,13 +77,19 @@ $usuario = $_SESSION["usuario"] ?? "";
     <div class="content posts shown">
       <div class="search-bar">
         <input type="text" placeholder="Pesquisar...">
-        <div class="seletor"><div class="seletor-content"><form action="" class="seletor-form"><input type="text"><br><input type="text"></form></div></div>
+        <div class="seletor">
+          <div class="seletor-content">
+            <form action="" class="seletor-form"><input type="text"><br><input type="text"></form>
+          </div>
+        </div>
       </div>
       <h1>Galeria de posts</h1>
       <div class="grid-posts">
         <?php
-        if (!isset($_GET['enviarPosts'])) {
+        if (!isset($_GET['enviarPosts']) && $usuario) {
           $posts = $postDAO->listarHome($usuario);
+        } else {
+          $posts = $postDAO->listarTodos();
         }
         foreach ($posts as $post) {
         ?>
@@ -87,7 +98,7 @@ $usuario = $_SESSION["usuario"] ?? "";
               <div class="poster-title"><?= $post['titulo'] ?></div>
               <div class="poster-desc"><?= $post['descricao'] ?></div>
               <div class="poster-desc"><?= formatarParaReal($post['pagamento']) ?></div>
-              <?php if (isset($post['distancia'])) echo('')?>
+              <?php if (isset($post['distancia'])) echo ('') ?>
             </div>
           </div>
         <?php } ?>

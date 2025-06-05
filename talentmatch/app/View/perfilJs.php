@@ -67,20 +67,6 @@
 
 
 
-  //a
-  /*function fecharModal() {
-    document.getElementById("meuModal").style.display = "none";
-  }*/
-
-  // Fecha o modal ao clicar fora do conteúdo
-  /*
-  window.onclick = function(event) {
-    const modal = document.getElementById("meuModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-    */
 
   const wrapper = document.getElementById('myModal');
 
