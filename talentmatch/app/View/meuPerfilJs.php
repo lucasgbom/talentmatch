@@ -11,6 +11,7 @@
     }
 
     function openModal(tipo, img = null) {
+        
         const modal = document.getElementById('modal');
         const title = document.getElementById('modal-title');
         const body = document.getElementById('modal-body');
@@ -37,7 +38,7 @@
                     <textarea style="width: 100%; height: 60px;" placeholder="Descreva seu projeto..."></textarea>
                 `;
         }
-
+        document.querySelector('.modal-content').style.display = 'flex';
         modal.setAttribute('data-tipo', tipo);
         modal.style.display = 'flex';
     }

@@ -1,6 +1,6 @@
     <div class="modal" id="myModal">
 
-        <div class="modal-content" id="projeto">
+        <div class="modal-contentItem" id="projeto">
             <span class="close-btn" onclick="closeModalItem()">&times;</span>
 
             <!-- Abas -->
@@ -67,7 +67,7 @@
 
 
         </div>
-        <div class="modal-content" id="post">
+        <div class="modal-contentItem" id="post">
             <span class="close-btn" onclick="closeModalItem()">&times;</span>
             <!-- Abas -->
             <div class="tabs">

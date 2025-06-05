@@ -8,7 +8,7 @@
     </div>
 
     <!-- Modal para descrição completa -->
-    <div class="modal" id="modal-descricao">
+    <div class="modal" id="modal-descricao" style="display: none;">
         <div style="background: white; padding: 20px; border-radius: 8px; max-width: 400px; max-height: 80%; overflow-y: auto;">
             <h3>Descrição Completa</h3>
             <p id="descricao-completa-texto"></p>
@@ -30,7 +30,7 @@
         <button class="btn" onclick="openModal('perfil')">Editar Perfil</button>
     </div>
 
-    <div class="content" id="posts" style="display:none;">
+    <div class="content" id="posts" style="display: none;">
         <h2>Posts</h2>
         <button class="open-modal-btn" data-tb="criar" data-modal="post" onclick="openModalItem(this)">criar post</button> <br><br>
         <div class="grid-container">
@@ -48,7 +48,7 @@
 
     <div class="content" id="projetos" style="display:none;">
         <h2>Projetos</h2>
-        <button class="open-modal-btn" data-tb="criar" data-modal="projeto" onclick="openModalItem(this)">criar projeto</button>
+        <button class="open-modal-btn" data-tb="criar" data-modal="projeto" onclick="openModalItem(this)">criar projeto</button> <br> <br>
         <div class="grid-container">
             <?php
             $projetos = $projetoDAO->listar($usuario);
@@ -72,6 +72,7 @@
         <div class="modal-content">
             <h3 id="modal-title">Editar</h3>
             <div id="modal-body">
+
             </div>
             <button class="btn" onclick="saveModal()">Salvar</button>
         </div>
