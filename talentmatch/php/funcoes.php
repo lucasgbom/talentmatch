@@ -11,6 +11,7 @@ function formatarData($dataCompleta)
 }
 function procurarDistancia($usuario, $raio, $tabela)
 {
+    
     if ($tabela != "projeto" && $raio > 0) {
         $sql = "
         SELECT 
@@ -56,7 +57,6 @@ function procurarDistancia($usuario, $raio, $tabela)
 function filtrarResultados($resultados, $filtros, $tipo)
 {
     $filtros = array_map('trim', $filtros);
-
     return array_filter($resultados, function ($item) use ($filtros, $tipo) {
         switch ($tipo) {
             case 'post':
@@ -65,13 +65,11 @@ function filtrarResultados($resultados, $filtros, $tipo)
                     $tituloItem = mb_strtolower($item['titulo'] ?? '');
                     if (stripos($tituloItem, $tituloFiltro) === false) return false;
                 }
-
                 if (!empty($filtros['talento'])) {
                     $filtroTalento = $filtros['talento'];
                     $itemTalento = $item['habilidade'] ?? '';
                     if ($itemTalento !== $filtroTalento) return false;
                 }
-
                 if (!empty($filtros['pagamento'])) {
                     $pagamentoStr = str_replace(['R$', ' ', '.', ' '], '', $filtros['pagamento']);
                     $pagamentoStr = str_replace(',', '.', $pagamentoStr);
@@ -79,9 +77,7 @@ function filtrarResultados($resultados, $filtros, $tipo)
                     $pagamentoItem = floatval($item['pagamento'] ?? 0);
                     if ($pagamentoItem < ($pagamentoMin * 100)) return false;
                 }
-
                 break;
-
             case 'usuario':
                 if (!empty($filtros['nome'])) {
                     $nomeFiltro = mb_strtolower($filtros['nome']);
@@ -89,7 +85,6 @@ function filtrarResultados($resultados, $filtros, $tipo)
                     if (stripos($nomeItem, $nomeFiltro) === false) return false;
                 }
                 break;
-
             case 'projeto':
                 if (!empty($filtros['titulo'])) {
                     $tituloFiltro = mb_strtolower($filtros['titulo']);

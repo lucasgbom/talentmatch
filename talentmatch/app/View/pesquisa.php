@@ -47,7 +47,6 @@ if ($usuario && isset($_GET['enviar'])) {
                 <option value="projeto" <?= $tipo === 'projeto' ? 'selected' : '' ?>>Projeto</option>
             </select>
         </label><br><br>
-
         <?php if ($tipo === 'post'): ?>
             <label>Título: <input type="text" name="titulo" value="<?= htmlspecialchars($_GET['titulo'] ?? '') ?>"></label><br>
             <label>Habilidade:

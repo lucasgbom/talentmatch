@@ -11,10 +11,20 @@ include_once('../../php/funcoes.php');
 session_start();
 $postDAO = new PostDAO();
 $usuarioDAO = new UsuarioDAO();
-$usuario = $_SESSION["usuario"] ?? "";
+$projetoDAO = new ProjetoDAO();
+$usuario = $_SESSION['usuario'] ?? null;
 
+$tipo = $_GET['tipo'] ?? 'post';
+$tabela = $tipo;
+$resFiltrados = [];
+if ($usuario && isset($_GET['enviar'])) {
+  $distancia = isset($_GET['distancia']) ? intval($_GET['distancia']) : 0;
+  $resultados = procurarDistancia($usuario, $distancia, $tabela);
+  $resFiltrados = filtrarResultados($resultados, $_GET, $tipo);
+}
 ?>
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -73,35 +83,36 @@ $usuario = $_SESSION["usuario"] ?? "";
   <div class="main-content">
     <div class="content posts shown">
       <form action="" method="get" class="search-bar">
-          <input type="text" placeholder="Pesquisar..." class="type">
-          <input type="button" value="seletor" class="seletor">
-          <input type="submit" value="Enviar" name="enviar" class="search">
-
-          <div class="over">
-                    <label>Habilidade:
-                <select name="talento">
-                    <option value="">--Selecione--</option>
-                    <option value="violao">Violão</option>
-                    <option value="baixo">Baixo</option>
-                    <option value="piano">Piano</option>
-                </select>
-            </label>
-            <label>Distância:
+        <input type="hidden" name="tipo" value="post">
+        <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
+        <input type="button" value="seletor" class="seletor">
+        <input type="submit" value="Enviar" name="enviar" class="search">
+        <div class="over">
+          <label>Habilidade:
+            <select name="talento">
+              <option value="">--Selecione--</option>
+              <option value="violao">Violão</option>
+              <option value="baixo">Baixo</option>
+              <option value="piano">Piano</option>
+            </select>
+          </label>
+          <label>Distância:
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
             <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
-        </label>
+          </label>
+        </div>
+      </form>
 
-          </div>
-        </form>
-  
 
       <h1>Galeria de posts</h1>
       <div class="grid-posts">
         <?php
-        if (!isset($_GET['enviarPosts']) && $usuario) {
-          $posts = $postDAO->listarHome($usuario);
-        } else {
+        if (!$usuario) {
           $posts = $postDAO->listarTodos();
+        } else if ($tipo != 'post' || !isset($_GET['enviar'])) {
+          $posts = $postDAO->listarHome($usuario);
+        } else if (isset($_GET['enviar']) && $tipo == "post") {
+          $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
         ?>
@@ -110,7 +121,7 @@ $usuario = $_SESSION["usuario"] ?? "";
               <div class="poster-title"><?= $post['titulo'] ?></div>
               <div class="poster-desc"><?= $post['descricao'] ?></div>
               <div class="poster-desc"><?= formatarParaReal($post['pagamento']) ?></div>
-              <?php if (isset($post['distancia'])) echo ('') ?>
+              <div class="poster-desc">Distância: <?= round($post['distancia_km'] ?? 0, 1) ?> km </div>
             </div>
           </div>
         <?php } ?>
@@ -119,13 +130,36 @@ $usuario = $_SESSION["usuario"] ?? "";
 
     <div class="content usuarios">
 
-      <div class="search-bar">
-        <input type="text" placeholder="Pesquisar...">
-      </div>
+      <form action="" method="get" class="search-bar">
+        <input type="hidden" name="tipo" value="usuario">
+        <input type="text" placeholder="Pesquisar..." class="type" name="nome">
+        <input type="button" value="seletor" class="seletor">
+        <input type="submit" value="Enviar" name="enviar" class="search">
+        <div class="over">
+          <label>Distância:
+            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+          </label>
+        </div>
+      </form>
 
       <h1>Usuarios</h1>
       <div class="grid-usuarios">
-        tynytyjyjyujuykuk
+        <?php if ($tipo == 'usuario') {
+          var_dump($resFiltrados);
+          $usuarios = $resFiltrados;
+        } else {
+          $usuarios = $usuarioDAO->listarTodos();
+        }
+        foreach ($usuarios as $usuario) {
+        ?>
+          <div class="poster-card">
+            <div class="poster-content">
+              <div class="poster-title"><?= $usuario['id'] ?></div>
+              <div class="poster-desc">Distância: <?= round($usuario['distancia_km'] ?? 0, 1) ?> km </div>
+            </div>
+          </div>
+        <?php } ?>
       </div>
 
     </div>
@@ -136,9 +170,22 @@ $usuario = $_SESSION["usuario"] ?? "";
         <input type="text" placeholder="Pesquisar...">
       </div>
 
-      <h1>projetoooooooooo</h1>
+      <h1>Projetos</h1>
       <div class="grid-projetos">
-        erregrrvrvrttr
+        <?php if ($tipo == 'projeto') {
+          var_dump($resFiltrados);
+          $projetos = $resFiltrados;
+        } else {
+          $projetos = $projetoDAO->listarTodos();
+        }
+        foreach ($projetos as $projeto) {
+        ?>
+          <div class="poster-card">
+            <div class="poster-content">
+              <div class="poster-title"><?= $projeto['titulo'] ?></div>
+            </div>
+          </div>
+        <?php } ?>
       </div>
     </div>
 
