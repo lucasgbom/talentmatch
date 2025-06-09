@@ -70,19 +70,31 @@ $usuario = $_SESSION["usuario"] ?? "";
   </div>
 
 
-
-
-
   <div class="main-content">
     <div class="content posts shown">
-      <div class="search-bar">
-        <input type="text" placeholder="Pesquisar...">
-        <div class="seletor">
-          <div class="seletor-content">
-            <form action="" class="seletor-form"><input type="text"><br><input type="text"></form>
+      <form action="" method="get" class="search-bar">
+          <input type="text" placeholder="Pesquisar..." class="type">
+          <input type="button" value="seletor" class="seletor">
+          <input type="submit" value="Enviar" name="enviar" class="search">
+
+          <div class="over">
+                    <label>Habilidade:
+                <select name="talento">
+                    <option value="">--Selecione--</option>
+                    <option value="violao">Violão</option>
+                    <option value="baixo">Baixo</option>
+                    <option value="piano">Piano</option>
+                </select>
+            </label>
+            <label>Distância:
+            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+        </label>
+
           </div>
-        </div>
-      </div>
+        </form>
+  
+
       <h1>Galeria de posts</h1>
       <div class="grid-posts">
         <?php
@@ -111,7 +123,7 @@ $usuario = $_SESSION["usuario"] ?? "";
         <input type="text" placeholder="Pesquisar...">
       </div>
 
-      <h1>usuarioooooooooos</h1>
+      <h1>Usuarios</h1>
       <div class="grid-usuarios">
         tynytyjyjyujuykuk
       </div>

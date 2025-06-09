@@ -14,4 +14,13 @@ function switchContent(element) {
     selected.classList.add('shown');
   }
 }
+
+document.querySelectorAll(".seletor").forEach(seletor => {
+  seletor.addEventListener("click", event => {
+    document.querySelectorAll(".over").forEach(form => {
+      form.classList.toggle("open");
+    });
+  });
+});
+
 </script>

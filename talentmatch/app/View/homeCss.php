@@ -141,77 +141,51 @@
 
 
       /* INPUT DE PESQUISA */
-      .search-bar {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        padding: 0 20px 0 20px;
-        gap: 20px;
+      .search-bar{
+        height: 6vh;
+        width: 80%;
+        position: relative;
+        justify-self: center;
+        display: grid;
+        grid-template-columns: 10fr 1fr 1fr;
+        margin-top: 3vh;
       }
 
       .search-bar input {
-        flex-grow: 8;
-        height: 80%;
-        padding: 10px 15px;
-        border-radius: 30px;
+        width: 100%;
+        height: 100%;     
         border: none;
         background-color: #2a2a2a;
-        color: #fff;
-        font-size: 14px;
-        outline: none;
+      }
+
+      .type{
+        z-index: 199;
+        color: white;
+        border-radius:  30px 0 0 30px;
       }
 
       .seletor {
-        flex-grow: 1;
-        height: 80%;
-        overflow-y: visible;
-        position: relative;
-        transition: flex-grow 0.3s ease;
+        z-index: 200;
       }
 
-      .seletor-content {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 30px;
-        border: none;
-        background-color: #2a2a2a;
-        color: #fff;
-        transition: height 0.3s ease;
+      .search{
+z-index: 200;
+border-radius: 0 30px 30px 0;
       }
 
-      .seletor:hover {
-        flex-grow: 2;
-      }
-
-      .seletor:hover .seletor-content {
-        height: 600%;
-      }
-
-      .seletor:hover .seletor-form {
-        opacity: 1;
-        display: flex;
-      }
-
-      .seletor-form {
-        opacity: 0;
-        transition: opacity 0.3s ease 0.3s;
+      .over{
         display: none;
+        position: absolute;
+        width: 100%;
+        height: 200px;
+        top: 50%;
+        border-radius: 0 0 30px 30px;
+        background-color: #2a2a2a;
         flex-direction: column;
-
+        padding-top: 50px;
       }
-
-      .seletor-form input {
-        background-color: blue;
-      }
-
-      /* POSTERS */
-
+     
+      .open{display: flex;}
 
       .poster-card {
         background-color: #242424;
