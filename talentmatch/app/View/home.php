@@ -22,11 +22,11 @@ if (isset($_SESSION['usuario'])) {
   $usuario->setLongitude($_GET['longitude'] ?? "");
 }
 $tipo = $_GET['tipo'] ?? 'post';
-$tabela = $tipo;
+
 $resFiltrados = [];
 if ($usuario && isset($_GET['enviar'])) {
   $distancia = isset($_GET['distancia']) ? intval($_GET['distancia']) : 0;
-  $resultados = procurarDistancia($usuario, $distancia, $tabela);
+  $resultados = procurarDistancia($usuario, $distancia, $tipo);
   $resFiltrados = filtrarResultados($resultados, $_GET, $tipo);
 }
 ?>
@@ -67,22 +67,6 @@ if ($usuario && isset($_GET['enviar'])) {
       <a href="meuPerfil.php">
         <div class="menu-item">👤 <span>Você</span></div>
       </a>
-
-
-
-      <div class="section">
-        <h4>Explorar</h4>
-        <div class="menu-item">🔥 <span>Em alta</span></div>
-        <div class="menu-item">🛍️ <span>Shopping</span></div>
-        <div class="menu-item">🎵 <span>Música</span></div>
-        <div class="menu-item">🎞️ <span>Filmes</span></div>
-        <div class="menu-item">📡 <span>Ao vivo</span></div>
-        <div class="menu-item">🎮 <span>Jogos</span></div>
-        <div class="menu-item">📰 <span>Notícias</span></div>
-        <div class="menu-item">🏆 <span>Esportes</span></div>
-        <div class="menu-item">🎓 <span>Cursos</span></div>
-        <div class="menu-item">🎙️ <span>Podcasts</span></div>
-      </div>
     </div>
   </div>
 
@@ -105,6 +89,9 @@ if ($usuario && isset($_GET['enviar'])) {
               <option value="piano">Piano</option>
             </select>
           </label>
+          <label>Pagamento mínimo:
+            <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
+          </label><br>
           <label>Distância:
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
             <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
@@ -116,11 +103,11 @@ if ($usuario && isset($_GET['enviar'])) {
       <h1>Galeria de posts</h1>
       <div class="grid-posts">
         <?php
-        if (!$usuario) {
+        if ($guest || $tipo != "tipo") {
           $posts = $postDAO->listarTodos();
-        } else if ($tipo != 'post' || !isset($_GET['enviar'])) {
-          $posts = $postDAO->listarHome($usuario);
-        } else if (isset($_GET['enviar']) && $tipo == "post") {
+        } else if (!isset($_GET['enviar'])) {
+          $posts = $postDAO->listarTodos();
+        } else if (isset($_GET['enviar'])) {
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
@@ -177,6 +164,7 @@ if ($usuario && isset($_GET['enviar'])) {
     <div class="content projetos">
 
       <form action="" method="get" class="search-bar">
+        <input type="hidden" name="tipo" value="projeto">
         <input type="hidden" name="latitude" class="latitude">
         <input type="hidden" name="longitude" class="longitude">
         <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
@@ -187,7 +175,6 @@ if ($usuario && isset($_GET['enviar'])) {
       <h1>Projetos</h1>
       <div class="grid-projetos">
         <?php if ($tipo == 'projeto') {
-          var_dump($resFiltrados);
           $projetos = $resFiltrados;
         } else {
           $projetos = $projetoDAO->listarTodos();
@@ -197,7 +184,7 @@ if ($usuario && isset($_GET['enviar'])) {
           <div class="poster-card">
             <div class="poster-content">
               <div class="poster-title"><?= $projeto['titulo'] ?></div>
-              <video src="../../data/<?=$projeto['arquivoCaminho']?>"  width=""></video>
+              <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" width=""></video>
             </div>
           </div>
         <?php } ?>

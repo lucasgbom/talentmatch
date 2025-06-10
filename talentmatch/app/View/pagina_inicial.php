@@ -20,8 +20,9 @@
     body {
       min-height: 100vh;
       width: 100%;
-  background: #000000;
-background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%, rgba(105, 46, 6, 1) 100%);
+      background-image: url(fundo.jpg); 
+ /*background: #000000;
+background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgb(92, 38, 2) 70%, rgb(80, 34, 4) 100%);*/
       color: #ffffff;
     }
 
@@ -77,6 +78,7 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%,
       outline: none;
       background:whitesmoke;
       color: black;
+      letter-spacing: 1.5px;
     }
 
     .form input:focus {
@@ -115,7 +117,8 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%,
     }
 
     .signup label {
-      color:rgb(255, 0, 170);
+      font-weight: bolder;
+      color:rgb(240, 232, 232);
       cursor: pointer;
     }
 
@@ -131,10 +134,10 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%,
     <div class="login form">
       <header style="color:rgb(255, 255, 255);">Login</header>
       <form action="../Controller/UsuarioController.php" method="POST" style="color: #5a1c00;">
-        <label for="email">Email:</label>
-        <input type="email" name="email">
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha">
+      
+        <input type="email" name="email" placeholder="talentmatch@gmail.com" required>
+        
+        <input type="password" name="senha" placeholder="senha" required>
         <input type="hidden" value="logar" name="tipo">
         <input type="submit" value="Logar" class="button">
       </form>
@@ -147,12 +150,11 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%,
     <div class="registration form">
       <header>Cadastro</header>
       <form action="../Controller/UsuarioController.php" method="POST" style="color:rgb(5, 5, 5);">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome">
-        <label for="email">Email:</label>
-        <input type="email" name="email">
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha">
+        
+        <input type="text" name="nome" placeholder="nome" required>
+       
+        <input type="email" name="email" placeholder="talentmatch@gmail.com">
+        <input type="password" name="senha" placeholder="senha" required>
         <input type="hidden" name="tipo" value="cadastrar">
         <input type="submit" value="Cadastrar" class="button">
       </form>

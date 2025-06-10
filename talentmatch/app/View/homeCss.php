@@ -36,8 +36,6 @@
 
       .sidebar::-webkit-scrollbar {
         display: none;
-        /* Chrome, Safari and Opera */
-
       }
 
       .logo {
@@ -45,10 +43,12 @@
         align-items: center;
         height: 60px;
       }
+
       .logo img {
         height: 100%;
         object-fit: contain;
       }
+
       .logo strong {
         line-height: 1;
       }
@@ -141,7 +141,7 @@
 
 
       /* INPUT DE PESQUISA */
-      .search-bar{
+      .search-bar {
         height: 6vh;
         width: 80%;
         position: relative;
@@ -153,27 +153,27 @@
 
       .search-bar input {
         width: 100%;
-        height: 100%;     
+        height: 100%;
         border: none;
         background-color: #2a2a2a;
       }
 
-      .type{
+      .type {
         z-index: 199;
         color: white;
-        border-radius:  30px 0 0 30px;
+        border-radius: 30px 0 0 30px;
       }
 
       .seletor {
         z-index: 200;
       }
 
-      .search{
-z-index: 200;
-border-radius: 0 30px 30px 0;
+      .search {
+        z-index: 200;
+        border-radius: 0 30px 30px 0;
       }
 
-      .over{
+      .over {
         display: none;
         position: absolute;
         width: 100%;
@@ -184,15 +184,25 @@ border-radius: 0 30px 30px 0;
         flex-direction: column;
         padding-top: 50px;
       }
-     
-      .open{display: flex;}
+
+      .open {
+        display: flex;
+      }
 
       .poster-card {
+        max-height: 20em;
         background-color: #242424;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         transition: transform 0.3s;
+      }
+
+      .poster-content video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 6px;
       }
 
       .poster-card:hover {
