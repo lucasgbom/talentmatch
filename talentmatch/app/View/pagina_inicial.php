@@ -20,7 +20,8 @@
     body {
       min-height: 100vh;
       width: 100%;
-      background: #5a1c00;
+  background: #000000;
+background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgba(89, 36, 0, 1) 70%, rgba(105, 46, 6, 1) 100%);
       color: #ffffff;
     }
 
@@ -32,7 +33,7 @@
       transform: translate(-50%, -50%);
       max-width: 430px;
       width: 100%;
-      background :rgba(126, 56, 18, 0.56);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 7px;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
@@ -94,7 +95,7 @@
 
     .form input.button {
       color:  whitesmoke;
-      background: #5a1c00;
+      background:rgb(90, 18, 0);
       font-size: 1.2rem;
       font-weight: 500;
       letter-spacing: 1px;
@@ -114,7 +115,7 @@
     }
 
     .signup label {
-      color:rgb(255, 17, 37);
+      color:rgb(255, 0, 170);
       cursor: pointer;
     }
 
@@ -128,7 +129,7 @@
   <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
-      <header style="color: #5a1c00;">Login</header>
+      <header style="color:rgb(255, 255, 255);">Login</header>
       <form action="../Controller/UsuarioController.php" method="POST" style="color: #5a1c00;">
         <label for="email">Email:</label>
         <input type="email" name="email">
@@ -138,14 +139,14 @@
         <input type="submit" value="Logar" class="button">
       </form>
       <div class="signup">
-        <span style="color: #5a1c00;">Não possui uma conta ainda?
+        <span style="color:rgb(255, 255, 255);">Não possui uma conta ainda?
           <label for="check">Cadastrar</label>
         </span>
       </div>
     </div>
     <div class="registration form">
       <header>Cadastro</header>
-      <form action="../Controller/UsuarioController.php" method="POST" style="color: #5a1c00;">
+      <form action="../Controller/UsuarioController.php" method="POST" style="color:rgb(5, 5, 5);">
         <label for="nome">Nome:</label>
         <input type="text" name="nome">
         <label for="email">Email:</label>

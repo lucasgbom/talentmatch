@@ -30,11 +30,8 @@ $postDAO = new PostDAO();
 </head>
 
 <body>
-    <!-- Modal Luis (usuario) -->
-    <?php include("../../php/modalUsuario.php"); ?>
-    <!-- Modal Lemuel (projeto, post) -->
+    <?php include("../../php/tabUsuario.php"); ?>
     <?php include("../../php/modalPost.php"); ?>
-
 
     <?php include("meuPerfilJs.php"); ?>
     <?php include("../../../teste/criarjs.php"); ?>

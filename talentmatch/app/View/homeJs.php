@@ -53,4 +53,14 @@
       }
     });
   }
+  // Pegar a localização pro guest;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(position);
+    document.querySelectorAll('.latitude').forEach(function(e) {
+      e.value = position.coords.latitude;
+    });
+    document.querySelectorAll('.longitude').forEach(function(e) {
+      e.value = position.coords.longitude;
+    });
+  });
 </script>

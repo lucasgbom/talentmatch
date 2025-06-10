@@ -9,11 +9,18 @@ include_once('../Model/Projeto.php');
 include_once('../DAO/ProjetoDAO.php');
 include_once('../../php/funcoes.php');
 session_start();
+$guest = false;
 $postDAO = new PostDAO();
 $usuarioDAO = new UsuarioDAO();
 $projetoDAO = new ProjetoDAO();
-$usuario = $_SESSION['usuario'] ?? null;
-
+if (isset($_SESSION['usuario'])) {
+  $usuario = $_SESSION['usuario'];
+} else {
+  $guest = true;
+  $usuario = new Usuario();
+  $usuario->setLatitude($_GET['latitude'] ?? "");
+  $usuario->setLongitude($_GET['longitude'] ?? "");
+}
 $tipo = $_GET['tipo'] ?? 'post';
 $tabela = $tipo;
 $resFiltrados = [];
@@ -45,7 +52,7 @@ if ($usuario && isset($_GET['enviar'])) {
       <strong>TalentMacht</strong>
     </div>
     <div class="section">
-      <?php if (!$usuario) { ?>
+      <?php if ($guest) { ?>
         <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
         <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
       <?php } else { ?>
@@ -83,6 +90,8 @@ if ($usuario && isset($_GET['enviar'])) {
   <div class="main-content">
     <div class="content posts shown">
       <form action="" method="get" class="search-bar">
+        <input type="hidden" name="latitude" class="latitude">
+        <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="post">
         <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
         <input type="button" value="seletor" class="seletor">
@@ -131,6 +140,8 @@ if ($usuario && isset($_GET['enviar'])) {
     <div class="content usuarios">
 
       <form action="" method="get" class="search-bar">
+        <input type="hidden" name="latitude" class="latitude">
+        <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="usuario">
         <input type="text" placeholder="Pesquisar..." class="type" name="nome">
         <input type="button" value="seletor" class="seletor">
@@ -146,7 +157,6 @@ if ($usuario && isset($_GET['enviar'])) {
       <h1>Usuarios</h1>
       <div class="grid-usuarios">
         <?php if ($tipo == 'usuario') {
-          var_dump($resFiltrados);
           $usuarios = $resFiltrados;
         } else {
           $usuarios = $usuarioDAO->listarTodos();
@@ -166,9 +176,13 @@ if ($usuario && isset($_GET['enviar'])) {
 
     <div class="content projetos">
 
-      <div class="search-bar">
-        <input type="text" placeholder="Pesquisar...">
-      </div>
+      <form action="" method="get" class="search-bar">
+        <input type="hidden" name="latitude" class="latitude">
+        <input type="hidden" name="longitude" class="longitude">
+        <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
+        <input type="button" value="seletor" class="seletor">
+        <input type="submit" value="Enviar" name="enviar" class="search">
+      </form>
 
       <h1>Projetos</h1>
       <div class="grid-projetos">
@@ -183,6 +197,7 @@ if ($usuario && isset($_GET['enviar'])) {
           <div class="poster-card">
             <div class="poster-content">
               <div class="poster-title"><?= $projeto['titulo'] ?></div>
+              <video src="../../data/<?=$projeto['arquivoCaminho']?>"  width=""></video>
             </div>
           </div>
         <?php } ?>
@@ -192,7 +207,9 @@ if ($usuario && isset($_GET['enviar'])) {
   </div>
 
 </body>
+<script>
 
+</script>
 <?php include("homeJs.php") ?>
 
 </html>

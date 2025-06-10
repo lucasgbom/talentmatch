@@ -17,18 +17,42 @@
 </div>
 
 <nav class="navbar">
-    <a href="#" class="nav-link active" onclick="showTab('inicio')">Início</a>
+    <a href="#" class="nav-link active" onclick="showTab('inicio')">Informações</a>
     <a href="#" class="nav-link" onclick="showTab('posts')">Posts</a>
     <a href="#" class="nav-link" onclick="showTab('projetos')">Projetos</a>
-    <a href="#" class="nav-link" onclick="showTab('sobre')">Sobre</a>
 </nav>
 
 <div class="content" id="inicio">
     <h2>Início</h2>
     <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
-    <button class="open-modal-btn btn" data-tb="visualizar" data-modal="usuario" data-id='<?=$usuario->getId()?>' data-nome = '<?=$usuario->getNome()?>' onclick="openModal(this)">Editar perfil</button>
-    <button class="grid-item open-btn" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
-    <button class="btn" onclick="openModal('perfil')">Editar Perfil</button>
+    
+    <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
+
+    <div class="special-input">
+      <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                                                      echo $usuario->getFotoPerfil();
+                                                    } else {
+                                                      echo 'perfil_padrao.png';
+                                                    } ?>" alt="">
+      <input type="file" name="foto" class="hide input-field" id="foto" disabled>
+    </div>
+
+
+    <label for="nome">Nome:</label><br>
+    <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
+
+    <label for="nomeUsuario">Nome de usuario:</label><br>
+    <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
+
+    <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+    <input type="submit" id="salvar" value="salvar" disabled>
+
+    <input type="hidden" value="atualizar" name="tipo" disabled>
+  </form>
+
 </div>
 
 <div class="content" id="posts" style="display: none;">
