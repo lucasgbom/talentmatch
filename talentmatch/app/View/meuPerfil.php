@@ -14,6 +14,12 @@ if (isset($_SESSION["usuario"])) {
 }
 $projetoDAO = new ProjetoDAO();
 $postDAO = new PostDAO();
+$temLocalizacao = false;
+if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
+    $temLocalizacaoU = true;
+    $latitudeU = $usuario->getLatitude();
+    $longitudeU = $usuario->getLongitude();
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +54,8 @@ $postDAO = new PostDAO();
         <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
 
         <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="tipo" value="atualizar"> 
+            <input type="hidden" name="tipo" value="atualizar">
+            <input type="hidden" name="id">
             <div class="special-input">
                 <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
                                                                     echo $usuario->getFotoPerfil();
@@ -57,7 +64,6 @@ $postDAO = new PostDAO();
                                                                 } ?>" alt="">
                 <input type="file" name="foto" class="hide input-field" id="foto" disabled>
             </div>
-
 
             <label for="nome">Nome:</label><br>
             <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
@@ -72,8 +78,15 @@ $postDAO = new PostDAO();
             <input type="submit" id="salvar" value="salvar">
 
             <input type="hidden" value="atualizar" name="tipo" disabled>
+            <div>
+                <h2>Mapa de Localização</h2>
+                <div id="mapU" style="height: 400px;"></div>
+                <button onclick="getLocationU()" type="button">Usar localização atual</button>
+                <input type="hidden" name="lat" id='latU' value="">
+                <input type="hidden" name="lon" id='lonU' value="">
+                <input type="hidden" name="acao" id='acao' value="atualizar">
+            </div>
         </form>
-
     </div>
 
     <div class="content" id="posts" style="display: none;">
@@ -113,8 +126,6 @@ $postDAO = new PostDAO();
 
 
     <div class="modal" id="myModal">
-
-
         <div class="modal-content" id="projeto">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <!-- Abas -->
@@ -160,19 +171,21 @@ $postDAO = new PostDAO();
 
             <div class="tab-content" id="editar-projeto">
                 <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
+                    <div>
+                        <input type="text" name="titulo" class="titulo" />
+                        <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                    <div class="special-input">
-                        <video src="" class="projeto"></video>
-                        <input type="file" name="video" class="arquivo" />
+                        <div class="special-input">
+                            <video src="" class="projeto"></video>
+                            <input type="file" name="video" class="arquivo" />
+                        </div>
+
+                        <input type="hidden" name="tipo" value="editar">
+                        <input type="hidden" class="id" name="id">
+
+
+                        <button type="submit" name="editar">Salvar</button>
                     </div>
-
-                    <input type="hidden" name="tipo" value="editar">
-                    <input type="hidden" class="id" name="id">
-
-
-                    <button type="submit" name="editar">Salvar</button>
                 </form>
             </div>
         </div>

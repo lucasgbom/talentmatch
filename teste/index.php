@@ -47,14 +47,14 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
     // Inicializa o mapa
     if (temLocalizacao && latitude !== null && longitude !== null) {
-      map = L.map('map').setView([latitude, longitude], 13);
+      map = L.map('mapU').setView([latitude, longitude], 13);
       currentMarker = L.marker([latitude, longitude]).addTo(map)
         .bindPopup("<b>Localização salva!</b>").openPopup();
 
       document.getElementById('lat').value = latitude;
       document.getElementById('lon').value = longitude;
     } else {
-      map = L.map('map').setView([0, 0], 2); // padrão até obter localização
+      map = L.map('mapU').setView([0, 0], 2); // padrão até obter localização
       getLocation(); // tenta pegar automaticamente se não tem
     }
 

@@ -5,16 +5,13 @@
 
     //mudar o conteudo mostrado
     function showTab(tab) {
-        const tabs = ['inicio', 'posts', 'projetos', 'sobre'];
+        const tabs = ['informações', 'posts', 'projetos'];
         tabs.forEach(t => {
             document.getElementById(t).style.display = t === tab ? 'block' : 'none';
             document.querySelector(`.nav-link[onclick*="${t}"]`).classList.toggle('active', t === tab);
         });
     }
     //mudar o conteudo mostrado
-
-
-    
 
     function editarFormulario() {
         const campos = document.querySelectorAll('.input-field');
