@@ -44,12 +44,12 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     </div>
 
     <nav class="navbar">
-        <a href="#" class="nav-link active" onclick="showTab('inicio')">Informações</a>
+        <a href="#" class="nav-link active" onclick="showTab('informacoes')">Informações</a>
         <a href="#" class="nav-link" onclick="showTab('posts')">Posts</a>
         <a href="#" class="nav-link" onclick="showTab('projetos')">Projetos</a>
     </nav>
 
-    <div class="content" id="inicio">
+    <div class="content" id="informacoes">
         <h2>Início</h2>
         <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
 

@@ -5,7 +5,7 @@
 
     //mudar o conteudo mostrado
     function showTab(tab) {
-        const tabs = ['informações', 'posts', 'projetos'];
+        const tabs = ['informacoes', 'posts', 'projetos'];
         tabs.forEach(t => {
             document.getElementById(t).style.display = t === tab ? 'block' : 'none';
             document.querySelector(`.nav-link[onclick*="${t}"]`).classList.toggle('active', t === tab);

@@ -81,10 +81,10 @@
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
 
-        map.setView([lat, lon], 13);
+        mapU.setView([lat, lon], 13);
 
         if (currentMarkerU) {
-          map.removeLayer(currentMarkerU);
+          mapU.removeLayer(currentMarkerU);
         }
 
         currentMarkerU = L.marker([lat, lon]).addTo(mapU)
