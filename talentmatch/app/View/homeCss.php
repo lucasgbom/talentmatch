@@ -11,19 +11,18 @@
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background-color: #181818;
+        background-color: #55290E;
         color: #fff;
         display: grid;
         height: 100vh;
         width: 100vw;
         grid-template-columns: 2fr 12fr;
-        overflow: hidden;
       }
 
       .sidebar {
         width: 100%;
-        background-color: #0f0f0f;
-        padding: 20px 10px;
+        background-color: rgb(34, 15, 4);
+        padding: 20px;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -32,6 +31,11 @@
         overflow: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
+      }
+
+      .content {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
+        box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
       }
 
       .sidebar::-webkit-scrollbar {
@@ -121,7 +125,9 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 20px;
+        margin-left: 30px;
       }
+
 
       .posts,
       .projetos,
@@ -131,6 +137,7 @@
         height: 100%;
         display: none;
         flex-direction: column;
+        padding: 20px;
       }
 
 
@@ -162,6 +169,7 @@
         z-index: 199;
         color: white;
         border-radius: 30px 0 0 30px;
+
       }
 
       .seletor {
@@ -191,7 +199,7 @@
 
       .poster-card {
         max-height: 20em;
-        background-color: #242424;
+        background-color: rgb(133, 63, 20);
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);

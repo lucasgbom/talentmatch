@@ -15,6 +15,9 @@ if (isset($_SESSION["usuario"])) {
 $projetoDAO = new ProjetoDAO();
 $postDAO = new PostDAO();
 $temLocalizacao = false;
+$temLocalizacaoU = false;
+$latitudeU = 0;
+$longitudeU = 0;
 if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     $temLocalizacaoU = true;
     $latitudeU = $usuario->getLatitude();
@@ -51,42 +54,50 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
     <div class="content" id="informacoes">
         <h2>Início</h2>
-        <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
+        <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p> <br>
 
         <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="tipo" value="atualizar">
             <input type="hidden" name="id">
-            <div class="special-input">
-                <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
-                                                                    echo $usuario->getFotoPerfil();
-                                                                } else {
-                                                                    echo 'perfil_padrao.png';
-                                                                } ?>" alt="">
-                <input type="file" name="foto" class="hide input-field" id="foto" disabled>
+            <div id="informacoes-tab">
+                <!-- Coluna 1: Inputs -->
+                <div style="flex: 1;">
+                    <div class="special-input">
+                        <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                                                                            echo $usuario->getFotoPerfil();
+                                                                        } else {
+                                                                            echo 'perfil_padrao.png';
+                                                                        } ?>" alt="">
+                        <input type="file" name="foto" class="hide input-field" id="foto" disabled>
+                    </div>
+
+                    <label for="nome">Nome:</label><br>
+                    <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
+
+                    <label for="email">Email:</label><br>
+                    <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
+
+                    <label for="nomeUsuario">Nome de usuario:</label><br>
+                    <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
+
+                    <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+                    <input type="submit" id="salvar" value="salvar">
+                </div>
+                <!-- Coluna 2: Mapa -->
+                <div id="map-content" style="flex: 2;">
+                    <h2>Mapa de Localização</h2>
+                    <div id="mapU" style="width: 100%; height: 300px; background-color: #ccc;"></div>
+                    <button onclick="getLocationU()" type="button">Usar localização atual</button>
+                    <input type="hidden" name="lat" id='latU' value="">
+                    <input type="hidden" name="lon" id='lonU' value="">
+                    <input type="hidden" name="acao" id='acao' value="atualizar">
+                </div>
+
             </div>
-
-            <label for="nome">Nome:</label><br>
-            <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
-
-            <label for="email">Email:</label><br>
-            <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
-
-            <label for="nomeUsuario">Nome de usuario:</label><br>
-            <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
-
-            <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-            <input type="submit" id="salvar" value="salvar">
 
             <input type="hidden" value="atualizar" name="tipo" disabled>
-            <div>
-                <h2>Mapa de Localização</h2>
-                <div id="mapU" style="height: 400px;"></div>
-                <button onclick="getLocationU()" type="button">Usar localização atual</button>
-                <input type="hidden" name="lat" id='latU' value="">
-                <input type="hidden" name="lon" id='lonU' value="">
-                <input type="hidden" name="acao" id='acao' value="atualizar">
-            </div>
         </form>
+
     </div>
 
     <div class="content" id="posts" style="display: none;">

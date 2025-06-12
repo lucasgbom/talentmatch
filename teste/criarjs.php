@@ -27,18 +27,15 @@
       maximumAge: 0
     });
   }
-
   map = L.map('map').setView(
     temLocalizacao && latitude && longitude ? [latitude, longitude] : [0, 0],
     temLocalizacao ? 13 : 2
   );
-
   if (temLocalizacao) {
     map.setView([latitude, longitude], 13);
     setTimeout(() => {
       setMarker(latitude, longitude, "<b>Localização salva!</b>");
     }, 300);
-
   } else getLocation();
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -101,13 +101,16 @@ if ($usuario && isset($_GET['enviar'])) {
 
 
       <h1>Galeria de posts</h1>
+      
       <div class="grid-posts">
         <?php
-        if ($guest || $tipo != "tipo") {
+        if ($guest || $tipo != "post") {
           $posts = $postDAO->listarTodos();
         } else if (!isset($_GET['enviar'])) {
+
           $posts = $postDAO->listarTodos();
         } else if (isset($_GET['enviar'])) {
+
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {

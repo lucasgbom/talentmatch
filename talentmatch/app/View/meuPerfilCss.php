@@ -367,5 +367,18 @@
         user-select: text;
         caret-color: auto;
       }
+      /*
+      Estilo Mapa
+      */
+      #informacoes-tab{
+        margin-right: 20em;
+        display: flex;
+        gap: 2px; 
+        align-items: flex-start;
+      }
+      #mapU{
+        height: 15em;
+        width: 350p;
+      }
     </style>
     </style>

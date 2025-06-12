@@ -137,7 +137,7 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgb(92, 38, 2) 70%, rgb
       
         <input type="email" name="email" placeholder="talentmatch@gmail.com" required>
         
-        <input type="password" name="senha" placeholder="senha" required>
+        <input type="password" name="senha" placeholder="Senha" required>
         <input type="hidden" value="logar" name="tipo">
         <input type="submit" value="Logar" class="button">
       </form>
@@ -154,7 +154,7 @@ background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgb(92, 38, 2) 70%, rgb
         <input type="text" name="nome" placeholder="nome" required>
        
         <input type="email" name="email" placeholder="talentmatch@gmail.com">
-        <input type="password" name="senha" placeholder="senha" required>
+        <input type="password" name="senha" placeholder="Senha" required>
         <input type="hidden" name="tipo" value="cadastrar">
         <input type="submit" value="Cadastrar" class="button">
       </form>
