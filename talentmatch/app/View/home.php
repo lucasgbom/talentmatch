@@ -21,7 +21,7 @@ if (isset($_SESSION['usuario'])) {
   $usuario->setLatitude($_GET['latitude'] ?? "");
   $usuario->setLongitude($_GET['longitude'] ?? "");
 }
-$tipo = $_GET['tipo'] ?? 'post';
+$tipo = $_GET['tipo'] ?? '';
 
 $resFiltrados = [];
 if ($usuario && isset($_GET['enviar'])) {
@@ -103,16 +103,12 @@ if ($usuario && isset($_GET['enviar'])) {
 
 
       <h1>Galeria de posts</h1>
-      
+
       <div class="grid-posts">
         <?php
-        if ($guest || $tipo != "post") {
-          $posts = $postDAO->listarTodos();
-        } else if (!isset($_GET['enviar'])) {
-
+        if ($tipo != "post") {
           $posts = $postDAO->listarTodos();
         } else if (isset($_GET['enviar'])) {
-
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
@@ -153,7 +149,7 @@ if ($usuario && isset($_GET['enviar'])) {
         ?>
           <div class="poster-card">
             <div class="poster-content">
-              <div class="poster-title"><?= $usuario['id'] ?></div>
+              <div class="poster-title"><?= $usuario['nome'] ?></div>
               <div class="poster-desc">Distância: <?= round($usuario['distancia_km'] ?? 0, 1) ?> km </div>
             </div>
           </div>
