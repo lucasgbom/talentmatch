@@ -1,17 +1,20 @@
-    <style>
+<style>
       a {
         text-decoration: none;
         color: white;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background-color: #55290E;
         color: #fff;
         display: grid;
         height: 100vh;
@@ -21,7 +24,7 @@
 
       .sidebar {
         width: 100%;
-        background-color: rgb(34, 15, 4);
+        background-color: rgb(55, 23, 5);
         padding: 20px;
         height: 100%;
         display: flex;
@@ -32,36 +35,6 @@
         scrollbar-width: none;
         -ms-overflow-style: none;
       }
-
-      .content {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
-        box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
-      }
-
-      .sidebar::-webkit-scrollbar {
-        display: none;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        height: 60px;
-      }
-
-      .logo img {
-        height: 100%;
-        object-fit: contain;
-      }
-
-      .logo strong {
-        line-height: 1;
-      }
-
-      .logo img {
-        width: 30px;
-        margin-right: 10px;
-      }
-
       .menu-item {
         display: flex;
         align-items: center;
@@ -70,23 +43,19 @@
         cursor: pointer;
         transition: background 0.3s;
       }
-
       .menu-item:hover,
       .menu-item.active {
-        background: #272727;
-      }
-
+      background-color: rgb(47, 20, 5)  
+    }
       .menu-item span {
         margin-left: 15px;
         font-size: 14px;
       }
-
       .section {
         margin-top: 20px;
         padding-top: 15px;
         border-top: 1px solid #333;
       }
-
       .login-btn {
         margin-top: 10px;
         padding: 8px 12px;
@@ -99,6 +68,32 @@
         cursor: pointer;
         text-decoration: none;
       }
+      .sidebar::-webkit-scrollbar {
+        display: none;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        height: 60px;
+      }
+      .logo img {
+        height: 100%;
+        object-fit: contain;
+      }
+
+
+
+      .content {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
+        box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+      }
+      
+      .content::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge moderno */
+      }
+      
+      
 
       h4 {
         margin: 10px 0;
@@ -115,6 +110,7 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        
       }
 
       .grid-posts,
@@ -158,77 +154,236 @@
         margin-top: 3vh;
       }
 
-      .search-bar input {
+      .input{
         width: 100%;
         height: 100%;
         border: none;
-        background-color: #2a2a2a;
+        outline: none;          /* Remove o contorno ao focar (aquela "borda azul" no Chrome, por exemplo) */
+        box-shadow: none;     
+        background-color: rgb(55, 23, 5);
+        padding: 15px;
       }
+
+      .input:hover{background-color: rgb(47, 20, 5)}
 
       .type {
         z-index: 199;
-        color: white;
         border-radius: 30px 0 0 30px;
-
       }
 
-      .seletor {
+      .seletor{
         z-index: 200;
+        display: flex;              /* Flexbox para alinhar conteúdo */
+        justify-content: center;    /* Centraliza horizontalmente */
+        align-items: center; 
       }
 
       .search {
         z-index: 200;
         border-radius: 0 30px 30px 0;
+        border: none;
+        display: flex;              /* Flexbox para alinhar conteúdo */
+        justify-content: center;    /* Centraliza horizontalmente */
+        align-items: center; 
       }
-
+      .search img, .seletor img{
+        height: auto;
+        width: 45%;
+        display: block;
+      }
       .over {
         display: none;
         position: absolute;
         width: 100%;
         height: 200px;
         top: 50%;
+        background-color: rgb(55, 23, 5);
         border-radius: 0 0 30px 30px;
-        background-color: #2a2a2a;
         flex-direction: column;
         padding-top: 50px;
+        padding-left: 20px;
       }
-
       .open {
         display: flex;
       }
 
-      .poster-card {
-        max-height: 20em;
-        background-color: rgb(133, 63, 20);
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s;
+
+
+     .open-modal-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
       }
 
-      .poster-content video {
+      .modal {
+        display: none;
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 6px;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 8px;
+        width: 40vw;
+        height: 60vh;
+        display: none;
+        flex-direction: column;
+        position: relative;
+      }
+      .modal-content.active {
+        display: flex; z-index: 1000;
       }
 
-      .poster-card:hover {
-        transform: scale(1.05);
-      }
+      
 
-      .poster-content {
-        padding: 10px;
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
       }
-
-      .poster-title {
-        font-size: 14px;
-        margin: 10px 0 5px;
+      .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        background: none;
+        border: none;
         font-weight: bold;
+        outline: none;
+        display: none;
+      }
+      .tab.permit {
+        display: inline-block;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .tab.active {
+        border-bottom: 2px solid #007BFF;
+        color: #007BFF;
+      }
+      .tab-content {
+        display: none;
+        flex-grow: 1;
+        padding: 20px;
+        margin: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .tab-content #map {
+        height: 100%;
+      }
+      .tab-content button:hover {
+        background-color: #0056b3;
       }
 
-      .poster-desc {
-        font-size: 12px;
-        color: #ccc;
+      .post-container {
+        max-width: 80%;
+        max-height: 80%;
+        margin: 40px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
       }
-    </style>
+
+      .post-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #333;
+        height: auto;
+      }
+
+      .post-description {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #555;
+        height: auto;
+      }
+
+      .post-video {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 ratio */
+        height: 0;
+        border-radius: 8px;
+      }
+
+      .post-video iframe,
+      .post-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+
+      .grid-container {
+        display: grid;
+        width: 90%;
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .grid-item {
+        background-color: #ddd;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        height: 200px;
+        width: 200px;
+      }
+
+      .create-btn {
+        columns: 1 1;
+      }
+
+
+      .projeto {
+        background-color: gray;
+        width: 100%;
+        height: 100%;
+      }
+
+      .arquivo {
+        display: none;
+      }
+
+      input,
+      textarea {
+        user-select: text;
+        caret-color: auto;
+      }
+      /*
+      Estilo Mapa
+      */
+      #informacoes-tab{
+        margin-right: 20em;
+        display: flex;
+        gap: 2px; 
+        align-items: flex-start;
+      }
+      #mapU{
+        height: 15em;
+        width: 350p;
+      }
+</style>

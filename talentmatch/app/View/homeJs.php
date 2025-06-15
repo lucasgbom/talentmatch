@@ -62,4 +62,6 @@
       e.value = position.coords.longitude;
     });
   });
+
+
 </script>

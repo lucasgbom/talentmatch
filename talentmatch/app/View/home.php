@@ -39,17 +39,15 @@ if ($usuario && isset($_GET['enviar'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sistema com Sidebar, Pesquisa e postes</title>
   <?php include("homeCss.php"); ?>
-  <style>
-
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 <body>
 
   <div class="sidebar">
     <div class="logo">
-      <img src="logo.png" alt="Não foi possível carregar imagem.">
-      <strong>TalentMacht</strong>
+      <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
     </div>
     <div class="section">
       <?php if ($guest) { ?>
@@ -72,14 +70,18 @@ if ($usuario && isset($_GET['enviar'])) {
 
 
   <div class="main-content">
+
+      <?php include('modal.php')?>
+
+
     <div class="content posts shown">
       <form action="" method="get" class="search-bar">
         <input type="hidden" name="latitude" class="latitude">
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="post">
-        <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
-        <input type="button" value="seletor" class="seletor">
-        <input type="submit" value="Enviar" name="enviar" class="search">
+        <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar"><img src="search.png"></button>
         <div class="over">
           <label>Habilidade:
             <select name="talento">
@@ -114,15 +116,11 @@ if ($usuario && isset($_GET['enviar'])) {
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
+          var_dump($post);
         ?>
-          <div class="poster-card">
-            <div class="poster-content">
-              <div class="poster-title"><?= $post['titulo'] ?></div>
-              <div class="poster-desc"><?= $post['descricao'] ?></div>
-              <div class="poster-desc"><?= formatarParaReal($post['pagamento']) ?></div>
-              <div class="poster-desc">Distância: <?= round($post['distancia_km'] ?? 0, 1) ?> km </div>
-            </div>
-          </div>
+          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
+
+                    <?= $post['titulo'] ?>
         <?php } ?>
       </div>
     </div>
@@ -135,7 +133,7 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="tipo" value="usuario">
         <input type="text" placeholder="Pesquisar..." class="type" name="nome">
         <input type="button" value="seletor" class="seletor">
-        <input type="submit" value="Enviar" name="enviar" class="search">
+        <input type="submit" name="enviar" class="search">
         <div class="over">
           <label>Distância:
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
@@ -193,13 +191,10 @@ if ($usuario && isset($_GET['enviar'])) {
         <?php } ?>
       </div>
     </div>
-
   </div>
 
 </body>
-<script>
 
-</script>
-<?php include("homeJs.php") ?>
+<?php include("homeJs.php"); include("modalJs.php")?>
 
 </html>

@@ -15,8 +15,6 @@
 
       /*estilos gerais*/
 
-
-
       .header {
         background-color: #4b1500;
         color: white;
@@ -192,8 +190,6 @@
       .modal-content.active {
         display: flex;
       }
-
-
 
       .close-btn {
         position: absolute;
