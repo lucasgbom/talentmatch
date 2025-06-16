@@ -207,7 +207,12 @@
         display: flex;
       }
 
-
+.match{
+  width: 20%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
 
      .open-modal-btn {
         padding: 10px 20px;
@@ -216,10 +221,11 @@
       }
       .close-btn {
         position: absolute;
-        top: 10px;
-        right: 15px;
+        top: 2%;
+        right: 2%;
         font-size: 24px;
         cursor: pointer;
+        color: #371705;
       }
 
       .modal {
@@ -233,7 +239,7 @@
         background-color: rgba(0, 0, 0, 0.5);
       }
       .modal-content {
-        background-color: #fff;
+        background-color:rgb(233, 186, 129);
         margin: 5% auto;
         padding: 0;
         border-radius: 8px;
@@ -251,7 +257,7 @@
 
       .tabs {
         display: flex;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #371705;
       }
       .tab {
         padding: 10px 20px;
@@ -268,8 +274,8 @@
         pointer-events: auto;
       }
       .tab.active {
-        border-bottom: 2px solid #007BFF;
-        color: #007BFF;
+        border-bottom: 2px solid #371705;
+        color: #371705;
       }
       .tab-content {
         display: none;
@@ -278,6 +284,7 @@
         margin: 10px;
         box-sizing: border-box;
         overflow-y: auto;
+        color: #371705;
       }
       .tab-content.active {
         display: block;
@@ -287,19 +294,6 @@
       }
       .tab-content button:hover {
         background-color: #0056b3;
-      }
-
-      .post-container {
-        max-width: 80%;
-        max-height: 80%;
-        margin: 40px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
       }
 
       .post-title {
@@ -345,12 +339,13 @@
       }
 
       .grid-item {
-        background-color: #ddd;
+        background-color:rgb(233, 186, 129);
         padding: 20px;
         text-align: center;
         border-radius: 8px;
         height: 200px;
         width: 200px;
+        border: none;
       }
 
       .create-btn {

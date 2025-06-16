@@ -215,51 +215,12 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
                     <input type="text" name="titulo" class="titulo" />
                     <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                    <input type="date" name="date">
+                    <input type="date" name="date" id="dataI" max = "2100-12-30">
                     <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
 
                     <input type="hidden" name="acao" value="inserir">
                     <select name="habilidade" id="habilidades">
-                        <option value="violao">Violão</option>
-                        <option value="piano">Piano</option>
-                        <option value="baixo">Baixo</option>
-                    </select>
-                    <?php include("../../../teste/criar.php"); ?>
-                    <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
-                    <input type="hidden" class="id" name="id">
-                    <button type="submit" name="editar">Salvar</button>
-                </form>
-            </div>
-            <div class="tab-content" id="visualizar-post">
-                <div class="post-container">
-                    <h2 class="titulo"></h2>
-                    <p class="descricao"></p>
-
-                    <p class="data"></p>
-                    <p class="habilidade"></p>
-                    <p class="pagamento"></p>
-                </div>
-            </div>
-            <div class="tab-content" id="editar-post">
-            </div>
-        </div>
-        <div class="modal-content" id="usuario">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <!-- Abas -->
-            <div class="tabs">
-                <button class="tab criar" data-target="editar-perfil" data-mdl="criar" onclick="switchTab(this)">Editar</button>
-            </div>
-            <!-- Conteúdo das abas -->
-            <div class="tab-content" id="criar-post">
-                <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
-
-                    <input type="date" name="date">
-                    <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
-
-                    <input type="hidden" name="acao" value="inserir">
-                    <select name="habilidade" id="habilidades">
+                        <option value="vocalista">Vocalista</option>
                         <option value="violao">Violão</option>
                         <option value="piano">Piano</option>
                         <option value="baixo">Baixo</option>

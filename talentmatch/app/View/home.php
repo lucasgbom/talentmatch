@@ -21,7 +21,8 @@ if (isset($_SESSION['usuario'])) {
   $usuario->setLatitude($_GET['latitude'] ?? "");
   $usuario->setLongitude($_GET['longitude'] ?? "");
 }
-$tipo = $_GET['tipo'] ?? '';
+$tipo = $_GET['tipo'] ?? 'post';
+
 
 $resFiltrados = [];
 if ($usuario && isset($_GET['enviar'])) {
@@ -71,7 +72,7 @@ if ($usuario && isset($_GET['enviar'])) {
 
   <div class="main-content">
 
-      <?php include('modal.php')?>
+    <?php include('modal.php') ?>
 
 
     <div class="content posts shown">
@@ -81,11 +82,12 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="tipo" value="post">
         <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
-        <button type="submit" class="search input" title="Pesquisar"><img src="search.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar" value="asd"><img src="search.png"></button>
         <div class="over">
           <label>Habilidade:
             <select name="talento">
               <option value="">--Selecione--</option>
+              <option value="vocalista">Vocalista</option>
               <option value="violao">Violão</option>
               <option value="baixo">Baixo</option>
               <option value="piano">Piano</option>
@@ -101,23 +103,21 @@ if ($usuario && isset($_GET['enviar'])) {
         </div>
       </form>
 
-
       <h1>Galeria de posts</h1>
 
       <div class="grid-posts">
         <?php
-        if ($tipo != "post") {
+        if (!isset($_GET['enviar'])) {
           $posts = $postDAO->listarTodos();
-        } else if (isset($_GET['enviar'])) {
+        } else {
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
-          var_dump($post);
         ?>
-          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
+          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= formatarData($post['data_']) ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
 
-                    <?= $post['titulo'] ?>
-        <?php } ?>
+            <?= $post['titulo'] ?>
+          <?php } ?>
       </div>
     </div>
 
@@ -191,6 +191,7 @@ if ($usuario && isset($_GET['enviar'])) {
 
 </body>
 
-<?php include("homeJs.php"); include("modalJs.php")?>
+<?php include("homeJs.php");
+include("modalJs.php") ?>
 
 </html>

@@ -14,6 +14,21 @@
       selected.classList.add('shown');
     }
   }
+  const target = "<?=$tipo?>" + "s";
+  console.log(target);
+  const sections = document.querySelectorAll('.content');
+
+  sections.forEach(section => {
+    section.classList.remove('shown');
+
+  });
+  const selected = document.querySelector(`.${target}`);
+
+  if (selected) {
+    selected.classList.add('shown');
+  }
+
+
 
   document.querySelectorAll(".seletor").forEach(seletor => {
     seletor.addEventListener("click", event => {
@@ -62,6 +77,4 @@
       e.value = position.coords.longitude;
     });
   });
-
-
 </script>

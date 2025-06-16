@@ -26,15 +26,14 @@
         </div>
         <!-- Conteúdo das abas -->
         <div class="tab-content" id="visualizar-post">
-            <div class="post-container">
-                <h2 class="titulo"></h2>
-                <p class="descricao"></p>
+            <h2 class="titulo"></h2>
+            <p class="descricao"></p>
 
-                <p class="data"></p>
-                <p class="habilidade"></p>
-                <p class="pagamento"></p>
-            </div>
+            <label for="dataV">Data de evento:</label><p class="data" name="dataV"></p>
+            <label for="talentoV">Talento requisitado:</label><p class="habilidade" name="talentoV"></p>
+            <label for="pagamentoV">Pagamento:</label><p class="pagamento" name="pagamentoV"></p>
         </div>
+
+        <button class="match">Match</button>
     </div>
-    
 </div>

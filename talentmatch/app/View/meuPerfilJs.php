@@ -1,5 +1,4 @@
 <script>
-
     let descricaoCompleta = "<?= $usuario->getBiografia() ?>";
 
 
@@ -199,4 +198,12 @@
     });
     //formatar o campo do real
 
+    const inputData = document.getElementById('dataI');
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const dataAtual = `${ano}-${mes}-${dia}`;
+
+    inputData.min = dataAtual;
 </script>
