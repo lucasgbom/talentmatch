@@ -34,6 +34,11 @@
             <label for="pagamentoV">Pagamento:</label><p class="pagamento" name="pagamentoV"></p>
         </div>
 
+        <form action="match.php" method="post">
+            <input type="hidden" name="idUsuario" class="userI">
+            <input type="hidden" name="idPost" class="postI">
         <button class="match">Match</button>
+
+        </form>
     </div>
 </div>

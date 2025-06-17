@@ -37,6 +37,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     <?php include("meuPerfilCss.php"); ?>
 </head>
 
+
 <body>
     <div class="header">
         <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">

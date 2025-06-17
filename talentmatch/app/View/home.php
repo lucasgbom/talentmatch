@@ -114,7 +114,7 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($posts as $post) {
         ?>
-          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= formatarData($post['data_']) ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
+          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-idU="<?= $usuario->getId(); ?>" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= formatarData($post['data_']) ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
 
             <?= $post['titulo'] ?>
           <?php } ?>
@@ -178,13 +178,14 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($projetos as $projeto) {
         ?>
-          <div class="poster-card">
-            <div class="poster-content">
-              <div class="poster-title"><?= $projeto['titulo'] ?></div>
-              <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" width=""></video>
+          <button class="grid-item open-btn" onclick="openModal(this)" data-modal="projeto" data-titulo="<?=$projeto['titulo']?>" data-descricao="<?=$projeto['descricao']?>">
+            <div class="poster-card">
+              <div class="poster-content">
+                <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" width="160px"></video>
+              </div>
             </div>
-          </div>
-        <?php } ?>
+          <?php } ?>
       </div>
     </div>
   </div>
@@ -192,6 +193,6 @@ if ($usuario && isset($_GET['enviar'])) {
 </body>
 
 <?php include("homeJs.php");
-include("modalJs.php") ?>
+include("modalJs.php"); ?>
 
 </html>
