@@ -64,12 +64,12 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
                 <!-- Coluna 1: Inputs -->
                 <div style="flex: 1;">
                     <div class="special-input">
-                        <img class="place" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                        <img class="place input-field" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
                                                                             echo $usuario->getFotoPerfil();
                                                                         } else {
                                                                             echo 'perfil_padrao.png';
-                                                                        } ?>" alt="">
-                        <input type="file" name="foto" class="hide input-field" id="foto" disabled>
+                                                                        } ?>" alt="" disabled>
+                        <input type="file" name="foto" class="hide" id="foto" disabled>
                     </div>
 
                     <label for="nome">Nome:</label><br>
@@ -243,6 +243,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
                 </div>
             </div>
             <div class="tab-content" id="editar-post">
+
             </div>
         </div>
     </div>

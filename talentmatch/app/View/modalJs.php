@@ -33,24 +33,23 @@
         }
         if (target == 'post') {
             id = element.dataset.id;
-            idU = element.dataset.idU;
+            idU = element.dataset.usuario;
             titulo = element.dataset.titulo;
             descricao = element.dataset.descricao;
             data = element.dataset.data_;
             habilidade = element.dataset.habilidade;
             pagamento = element.dataset.pagamento;
-            console.log(id, titulo, descricao, data, habilidade, pagamento);
+
+            console.log(id, idU, titulo, descricao, data, habilidade, pagamento);
+
+            view.querySelector(".postI").value = id;
+            view.querySelector(".userI").value = idU;
 
             view.querySelector(".titulo").textContent = titulo
             view.querySelector(".descricao").textContent = descricao
             view.querySelector(".data").textContent = data
             view.querySelector(".pagamento").textContent = pagamento
             view.querySelector(".habilidade").textContent = habilidade
-
-            document.querySelector(".postI").value = id;
-            document.querySelector(".userI").value = idU;
-
-            console.log(idU)
 
         }
     }

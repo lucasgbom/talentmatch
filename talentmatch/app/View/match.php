@@ -11,6 +11,5 @@ $consulta->bindValue(':idU',$idUsuario);
 $consulta->bindValue(':idP',$idPost);
 $consulta->execute();
 
-
 echo($idPost . $idUsuario);
 ?>

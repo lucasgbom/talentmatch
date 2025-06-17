@@ -158,12 +158,13 @@
     //sei lá
     function match(element) {
         matchs = JSON.parse(element.dataset.matchs);
+        console.log(matchs)
         matchs.forEach(match => {
 
             document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
                 <form action="perfil.php" method="get" class="profile">
-                <input type="hidden" name="id" value="${match.id}">
-                <button type="submit">${match.id}</button>
+                <input type="hidden" name="id" value="${match.idUsuario}">
+                <button type="submit">${match.idUsuario}</button>
                 </form>
             `);
         });

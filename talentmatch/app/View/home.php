@@ -114,7 +114,15 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($posts as $post) {
         ?>
-          <button class="grid-item open-btn" data-modal="post" onclick="openModal(this)" data-idU="<?= $usuario->getId(); ?>" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= formatarData($post['data_']) ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
+          <button class="grid-item open-btn" onclick="openModal(this)"
+            data-modal="post"
+            data-usuario="<?= $usuario->getId(); ?>"
+            data-id='<?= $post['id'] ?>'
+            data-titulo='<?= $post['titulo'] ?>'
+            data-descricao='<?= $post['descricao'] ?>'
+            data-data_='<?= formatarData($post['data_']) ?>'
+            data-habilidade='<?= $post['habilidade'] ?>'
+            data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
 
             <?= $post['titulo'] ?>
           <?php } ?>
@@ -147,12 +155,16 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($usuarios as $usuario) {
         ?>
-          <div class="poster-card">
-            <div class="poster-content">
-              <div class="poster-title"><?= $usuario['nome'] ?></div>
-              <div class="poster-desc">Distância: <?= round($usuario['distancia_km'] ?? 0, 1) ?> km </div>
+          <a href="perfil.php?id=<?= $usuario['id'] ?>" class="link-perfil">
+            <div class="poster-card">
+              <button class="grid-item open-btn btn-usuario">
+                <div class="poster-content">
+                  <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
+                </div>
+                <div class="poster-title"><?= $usuario['nome'] ?></div>
+              </button>
             </div>
-          </div>
+          </a>
         <?php } ?>
       </div>
 
@@ -178,11 +190,11 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($projetos as $projeto) {
         ?>
-          <button class="grid-item open-btn" onclick="openModal(this)" data-modal="projeto" data-titulo="<?=$projeto['titulo']?>" data-descricao="<?=$projeto['descricao']?>">
+          <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" data-modal="projeto" data-titulo="<?= $projeto['titulo'] ?>" data-descricao="<?= $projeto['descricao'] ?>" data-arquivo="<?= $projeto['arquivoCaminho'] ?>">
             <div class="poster-card">
               <div class="poster-content">
                 <div class="poster-title"><?= $projeto['titulo'] ?></div>
-                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" width="160px"></video>
+                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
               </div>
             </div>
           <?php } ?>

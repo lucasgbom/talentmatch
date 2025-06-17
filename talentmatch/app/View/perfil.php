@@ -22,10 +22,12 @@ $usuario = $usuarioDAO->buscar('id', $id);
     <title>Perfil Freelancer</title>
 
     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -136,32 +138,18 @@ $usuario = $usuarioDAO->buscar('id', $id);
     <div class="informacoes">
         <img src="perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
         <div class="complementoPessoal">
-            <h1>Paulo Victor</h1>
-            <p class="descricao" id="descricao">
-                <!-- Texto vai ser controlado via JS -->
-            </p>
-        </div>
-    </div>
-
-
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="fecharModal">&times;</span>
-            <p id="descricaoCompleta"></p>
+            <h1><?=$usuario['nome']?></h1>
         </div>
     </div>
 
     <div class="tab-menu">
-        <button class="tablink" onclick="openTab(event, 'inicio')">Início</button>
+        <button class="tablink" onclick="openTab(event, 'informacoes')">Informações</button>
         <button class="tablink  active" onclick="openTab(event, 'posts')">Posts</button>
         <button class="tablink" onclick="openTab(event, 'projetos')">Projetos</button>
-        <button class="tablink" onclick="openTab(event, 'sobre')">Sobre</button>
     </div>
 
     <!-- Conteúdos -->
-    <div id="inicio" class="tab-content active">
+    <div id="informacoes" class="tab-content active">
         <h2>Início</h2>
         <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
     </div>
@@ -176,10 +164,6 @@ $usuario = $usuarioDAO->buscar('id', $id);
         <p>Confira os projetos realizados e em andamento.</p>
     </div>
 
-    <div id="sobre" class="tab-content">
-        <h2>Sobre</h2>
-        <p>Informações adicionais sobre o freelancer.</p>
-    </div>
 
 
     <script>
