@@ -445,8 +445,6 @@
     width: 100%;
     height: 15em;
     object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
   }
 
   .btn-usuario {
@@ -459,6 +457,5 @@
     width: 80%;
     height: 17em;
     padding: 0px;
-    border-radius: 20px;
   }
 </style>

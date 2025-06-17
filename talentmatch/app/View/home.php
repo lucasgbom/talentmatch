@@ -82,7 +82,7 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="tipo" value="post">
         <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
-        <button type="submit" class="search input" title="Pesquisar" name="enviar" value="asd"><img src="search.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
         <div class="over">
           <label>Habilidade:
             <select name="talento">
@@ -107,9 +107,9 @@ if ($usuario && isset($_GET['enviar'])) {
 
       <div class="grid-posts">
         <?php
-        if (!isset($_GET['enviar'])) {
+        if (!isset($_GET['enviar']) || $tipo != "post") {
           $posts = $postDAO->listarTodos();
-        } else {
+        } else if ($tipo == "post") {
           $posts = $resFiltrados;
         }
         foreach ($posts as $post) {
@@ -135,9 +135,9 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="latitude" class="latitude">
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="usuario">
-        <input type="text" placeholder="Pesquisar..." class="type" name="nome">
-        <input type="button" value="seletor" class="seletor">
-        <input type="submit" name="enviar" class="search">
+        <input type="text" placeholder="Pesquisar..." class="type input" name="nome">
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
         <div class="over">
           <label>Distância:
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
@@ -155,7 +155,7 @@ if ($usuario && isset($_GET['enviar'])) {
         }
         foreach ($usuarios as $usuario) {
         ?>
-          <a href="perfil.php?id=<?= $usuario['id'] ?>" class="link-perfil">
+          <a href="perfil.php?id=<?= $usuario['id']?>" class="link-perfil">
             <div class="poster-card">
               <button class="grid-item open-btn btn-usuario">
                 <div class="poster-content">
@@ -173,12 +173,12 @@ if ($usuario && isset($_GET['enviar'])) {
     <div class="content projetos">
 
       <form action="" method="get" class="search-bar">
-        <input type="hidden" name="tipo" value="projeto">
         <input type="hidden" name="latitude" class="latitude">
         <input type="hidden" name="longitude" class="longitude">
-        <input type="text" placeholder="Pesquisar..." class="type" name="titulo">
-        <input type="button" value="seletor" class="seletor">
-        <input type="submit" value="Enviar" name="enviar" class="search">
+        <input type="hidden" name="tipo" value="projeto">
+        <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
       </form>
 
       <h1>Projetos</h1>
