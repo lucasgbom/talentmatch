@@ -84,7 +84,7 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
         <div class="over">
-          <label>Habilidade:
+          <label title="Talento"><img src="musical-note.png" class="icon">
             <select name="talento">
               <option value="">--Selecione--</option>
               <option value="vocalista">Vocalista</option>
@@ -93,17 +93,19 @@ if ($usuario && isset($_GET['enviar'])) {
               <option value="piano">Piano</option>
             </select>
           </label>
-          <label>Pagamento mínimo:
+          <label title="Pagamento"><img src="profit.png" class="icon">
             <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
           </label><br>
-          <label>Distância:
+          <label  title="Distância"><img class="icon" src="distance.png">
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
             <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
+
+          
         </div>
       </form>
-
-      <h1>Galeria de posts</h1>
+        <main>
+<h1 class="gradiente-texto">Galeria de posts</h1>
 
       <div class="grid-posts">
         <?php
@@ -127,6 +129,8 @@ if ($usuario && isset($_GET['enviar'])) {
             <?= $post['titulo'] ?>
           <?php } ?>
       </div>
+        </main>
+      
     </div>
 
     <div class="content usuarios">
@@ -139,34 +143,36 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
         <div class="over">
-          <label>Distância:
+          
+          <label>
             <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
             <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
         </div>
       </form>
-
-      <h1>Usuarios</h1>
-      <div class="grid-usuarios">
-        <?php if ($tipo == 'usuario') {
-          $usuarios = $resFiltrados;
-        } else {
-          $usuarios = $usuarioDAO->listarTodos();
-        }
-        foreach ($usuarios as $usuario) {
-        ?>
-          <a href="perfil.php?id=<?= $usuario['id']?>" class="link-perfil">
-            <div class="poster-card">
-              <button class="grid-item open-btn btn-usuario">
-                <div class="poster-content">
-                  <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
-                </div>
-                <div class="poster-title"><?= $usuario['nome'] ?></div>
-              </button>
+      <main>
+            <h1 class="gradiente-texto">Usuarios</h1>
+            <div class="grid-usuarios">
+              <?php if ($tipo == 'usuario') {
+                $usuarios = $resFiltrados;
+              } else {
+                $usuarios = $usuarioDAO->listarTodos();
+              }
+              foreach ($usuarios as $usuario) {
+              ?>
+                <a href="perfil.php?id=<?= $usuario['id']?>" class="link-perfil">
+                  <div class="poster-card">
+                    <button class="grid-item open-btn btn-usuario">
+                      <div class="poster-content">
+                        <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
+                      </div>
+                      <div class="poster-title"><?= $usuario['nome'] ?></div>
+                    </button>
+                  </div>
+                </a>
+              <?php } ?>
             </div>
-          </a>
-        <?php } ?>
-      </div>
+      </main>
 
     </div>
 
@@ -180,8 +186,8 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
       </form>
-
-      <h1>Projetos</h1>
+<main>
+ <h1 class="gradiente-texto">Projetos</h1>
       <div class="grid-projetos">
         <?php if ($tipo == 'projeto') {
           $projetos = $resFiltrados;
@@ -200,6 +206,8 @@ if ($usuario && isset($_GET['enviar'])) {
           <?php } ?>
       </div>
     </div>
+</main>
+     
   </div>
 
 </body>

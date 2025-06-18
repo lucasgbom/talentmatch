@@ -59,7 +59,11 @@
   .section {
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #333;
+border-top: 1px solid;
+  border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;;
   }
 
   .login-btn {
@@ -122,7 +126,6 @@
     position: relative;
   }
 
-
   .grid-posts,
   .grid-projetos,
   .grid-usuarios {
@@ -164,12 +167,23 @@
     flex-direction: column;
     padding: 20px;
   }
-
+main{padding: 2% 5% 0 5% ;}
 
   .shown {
     display: grid;
     grid-template-rows: 1fr 7fr;
   }
+
+  .gradiente-texto {
+    display: inline-block;
+  background: linear-gradient(to right, #B97E30, #FBE793);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2%;
+  font-size: 400%;
+}
 
 
   /* INPUT DE PESQUISA */
@@ -190,12 +204,12 @@
     outline: none;
     /* Remove o contorno ao focar (aquela "borda azul" no Chrome, por exemplo) */
     box-shadow: none;
-    background-color: rgb(55, 23, 5);
+    background-color: #F6D9B5;
     padding: 15px;
   }
 
   .input:hover {
-    background-color: rgb(47, 20, 5)
+    background-color:rgb(218, 192, 160);
   }
 
   .type {
@@ -230,18 +244,26 @@
     display: block;
   }
 
-  .over {
+  .over{
     display: none;
     position: absolute;
     width: 100%;
-    height: 200px;
-    top: 50%;
-    background-color: rgb(55, 23, 5);
-    border-radius: 0 0 30px 30px;
-    flex-direction: column;
-    padding-top: 50px;
-    padding-left: 20px;
+    height: 300%;
+    padding: 2%;
+    background-color: #F6D9B5;
+    border-radius:  30px;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 20px;
   }
+
+  .over .icon{
+    width: 30px;
+    height: 30px;
+  }
+
+  label{display: flex;align-items: center;}
 
   .open {
     display: flex;
