@@ -60,6 +60,7 @@
         setTimeout(() => {
             map.invalidateSize();
         }, 1);
+        
         let target = element.dataset.modal;
         const modal = document.getElementById(target);
         modal.classList.add('active');

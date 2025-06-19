@@ -205,10 +205,10 @@ if ($usuario && isset($_GET['enviar'])) {
             </div>
           <?php } ?>
       </div>
+      </main>
     </div>
-</main>
-     
-  </div>
+
+</div>
 
 </body>
 

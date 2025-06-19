@@ -37,8 +37,32 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     <?php include("meuPerfilCss.php"); ?>
 </head>
 
-
 <body>
+
+<div class="sidebar">
+    <div class="logo">
+      <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
+    </div>
+    <div class="section">
+      <?php if ($guest) { ?>
+        <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
+        <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
+      <?php } else { ?>
+        <a class="login-btn" href="sair.php">Sair</a>
+      <?php } ?>
+    </div>
+    <br>
+    <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
+    <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
+    <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+    <div class="section">
+      <a href="meuPerfil.php">
+        <div class="menu-item">👤<span>Você</span></div>
+      </a>
+    </div>
+  </div>
+
+<div class="main-content">
     <div class="header">
         <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
         <div class="profile-info">
@@ -101,7 +125,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
     </div>
 
-    <div class="content" id="posts" style="display: none;">
+    <div class="content" id="posts">
         <h2>Posts</h2>
         <br><br>
         <div class="grid-container">
@@ -247,6 +271,8 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
             </div>
         </div>
     </div>
+</div>
+
 
     <?php include("meuPerfilJs.php"); ?>
     <?php include("../../../teste/criarjs.php"); ?>

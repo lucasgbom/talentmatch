@@ -63,7 +63,7 @@ border-top: 1px solid;
   border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
   border-right: 0;
   border-left: 0;
-  border-bottom: 0;;
+  border-bottom: 0;
   }
 
   .login-btn {
@@ -159,7 +159,7 @@ border-top: 1px solid;
 
   .posts,
   .projetos,
-  .usuarios {
+  .usuarios{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -167,7 +167,7 @@ border-top: 1px solid;
     flex-direction: column;
     padding: 20px;
   }
-main{padding: 2% 5% 0 5% ;}
+  main{padding: 2% 5% 0 5% ;}
 
   .shown {
     display: grid;

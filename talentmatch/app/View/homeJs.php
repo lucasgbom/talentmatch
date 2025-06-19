@@ -20,8 +20,8 @@
 
   sections.forEach(section => {
     section.classList.remove('shown');
-
   });
+  
   const selected = document.querySelector(`.${target}`);
 
   if (selected) {

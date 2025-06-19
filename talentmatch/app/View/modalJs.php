@@ -2,19 +2,15 @@
     const wrapper = document.getElementById('myModal');
 
     function openModal(element) {
-
         let target = element.dataset.modal;
+
         const modal = document.getElementById(target);
-        console.log(target);
-        modal.classList.add('active');
-
-
-
         const view = document.querySelector(`#visualizar-${target}`);
         const view_tab = modal.querySelector('.visualizar');
 
+        console.log(target);
 
-
+        modal.classList.add('active');
         wrapper.style.display = "block";
 
 

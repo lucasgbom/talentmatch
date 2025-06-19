@@ -9,17 +9,89 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
   }
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
-      body{display: flex; flex-direction: column;}
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: 2fr 12fr;
+  }
 
-      /*estilos gerais*/
+  .sidebar {
+    width: 100%;
+    background-color: rgb(55, 23, 5);
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .menu-item:hover,
+  .menu-item.active {
+    background-color: rgb(47, 20, 5)
+  }
+
+  .menu-item span {
+    margin-left: 15px;
+    font-size: 14px;
+  }
+
+  .section {
+    margin-top: 20px;
+    padding-top: 15px;
+border-top: 1px solid;
+  border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+  }
+
+  .login-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: 1px solid #3ea6ff;
+    color: #3ea6ff;
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo img {
+    height: 100%;
+    object-fit: contain;
+  }
+
 
       .header {
-        background-color: #4b1500;
+    background-color: rgb(80, 40, 18);
         color: white;
         padding: 20px;
         display: flex;
@@ -48,7 +120,7 @@
 
       .navbar {
         display: flex;
-        background-color: #2a0d00;
+    background-color: rgb(55, 23, 5);
       }
 
       .nav-link {
@@ -62,19 +134,18 @@
       }
 
       .nav-link:hover {
-        background-color: #3d1200;
+    background-color: rgb(47, 20, 5)
       }
 
       .nav-link.active {
-        border-bottom: 3px solid red;
+    background-color: rgb(47, 20, 5)
       }
 
 
 
       .content {
-        background-color: #f7f7f7;
-        width: 100%;
-        height: 100%;
+    background-color: #F6D9B5;
+
       }
       .btn {
         display: inline-block;
