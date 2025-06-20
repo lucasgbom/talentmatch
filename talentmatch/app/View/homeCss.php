@@ -104,7 +104,6 @@ border-top: 1px solid;
 
   .content::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, Edge moderno */
   }
 
 
@@ -167,6 +166,7 @@ border-top: 1px solid;
     flex-direction: column;
     padding: 20px;
   }
+  
   main{padding: 2% 5% 0 5% ;}
 
   .shown {

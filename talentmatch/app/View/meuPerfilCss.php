@@ -17,6 +17,7 @@
     height: 100vh;
     width: 100vw;
     grid-template-columns: 2fr 12fr;
+    overflow: hidden;
   }
 
   .sidebar {
@@ -141,12 +142,6 @@ border-top: 1px solid;
     background-color: rgb(47, 20, 5)
       }
 
-
-
-      .content {
-    background-color: #F6D9B5;
-
-      }
       .btn {
         display: inline-block;
         margin-top: 10px;
@@ -450,5 +445,46 @@ border-top: 1px solid;
         height: 15em;
         width: 350p;
       }
-    </style>
-    </style>
+
+      .nav-input{
+        all: unset;          /* Remove TODOS os estilos padrões (o jeito mais limpo) */
+  cursor: pointer;     /* Opcional: pra manter o cursor de clique */
+  display: block;      /* Se quiser que ele se comporte como uma div */
+  width: 100%;    
+      }
+
+  .content {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
+    box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+  }
+
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-content {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .content.shown {
+  display: grid !important;
+  grid-template-rows: 1fr 7fr;
+}
+
+  .perfil,
+  .meus-projetos,
+  .meus-posts{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+  }
+</style>

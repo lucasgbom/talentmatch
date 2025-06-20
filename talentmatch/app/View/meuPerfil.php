@@ -51,14 +51,16 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
         <a class="login-btn" href="sair.php">Sair</a>
       <?php } ?>
     </div>
-    <br>
-    <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
-    <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
-    <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+    <form action="home.php" method="get">
+    <button name="tipo" value="post" type="submit" class="nav-input"><div class="menu-item" id="btn_posts">💼 <span>Posts</span></div></button>
+    <button name="tipo" value="projeto" type="submit" class="nav-input"><div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div></button>
+    <button name="tipo" value="usuario" type="submit" class="nav-input"><div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div></button>
+    </form>
+   
     <div class="section">
-      <a href="meuPerfil.php">
-        <div class="menu-item">👤<span>Você</span></div>
-      </a>
+        <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
+        <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
+        <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Posts</span></div>
     </div>
   </div>
 
@@ -71,13 +73,9 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
         </div>
     </div>
 
-    <nav class="navbar">
-        <a href="#" class="nav-link active" onclick="showTab('informacoes')">Informações</a>
-        <a href="#" class="nav-link" onclick="showTab('posts')">Posts</a>
-        <a href="#" class="nav-link" onclick="showTab('projetos')">Projetos</a>
-    </nav>
 
-    <div class="content" id="informacoes">
+    <div class="content perfil shown" id="informacoes">
+
         <h2>Início</h2>
         <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p> <br>
 
@@ -125,7 +123,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
     </div>
 
-    <div class="content" id="posts">
+    <div class="content meus-posts" id="posts">
         <h2>Posts</h2>
         <br><br>
         <div class="grid-container">
@@ -142,7 +140,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
         </div>
     </div>
 
-    <div class="content" id="projetos" style="display:none;">
+    <div class="content meus-projetos" id="projetos">
         <h2>Projetos</h2>
         <div class="grid-container">
 
