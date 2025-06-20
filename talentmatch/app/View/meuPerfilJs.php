@@ -17,15 +17,15 @@
       selected.classList.add('shown');
     }
   }
+function editarFormulario() {
+    const campos = document.querySelectorAll('.input-field');
+    
 
-    function editarFormulario() {
-        const campos = document.querySelectorAll('.input-field');
 
-        campos.forEach(campo => {
-            campo.disabled = !campo.disabled;
-            campo.style.opacity = campo.disabled ? '0.7' : '1'; // Ajusta a opacidade
-        });
-    }
+    campos.forEach(campo => {
+        campo.classList.toggle('disabled');
+    });
+}
 
     const form = document.getElementById('formulario');
     let formularioAlterado = false;

@@ -60,8 +60,8 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
         <div class="section">
             <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
-            <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
-            <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Posts</span></div>
+            <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Meus projetos</span></div>
+            <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Meus posts</span></div>
         </div>
     </div>
 
@@ -76,57 +76,68 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
 
         <div class="content perfil shown" id="informacoes">
+            <h1 class="gradiente-texto">Informações</h1>
 
-            <h2>Início</h2>
-            <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p> <br>
-
-            <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
+        <div class="infor">
+        <div class="i1">
+<form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="tipo" value="atualizar">
                 <input type="hidden" name="id">
-                <div id="informacoes-tab">
-                    <!-- Coluna 1: Inputs -->
-                    <div style="flex: 1;">
+                  
                         <div class="special-input">
-                            <img class="place input-field" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                            <img class="place input-field disabled" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
                                                                                             echo $usuario->getFotoPerfil();
                                                                                         } else {
                                                                                             echo 'perfil_padrao.png';
-                                                                                        } ?>" alt="" disabled>
-                            <input type="file" name="foto" class="hide" id="foto" disabled>
+                                                                                        } ?>">
+                            <input type="file" name="foto" class="hide input-field disabled" id="foto">
                         </div>
 
                         <label for="nome">Nome:</label><br>
-                        <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
+                        <input type="text" name="nome" class="input-field disabled" value="<?= $usuario->getNome(); ?>" ><br>
 
                         <label for="email">Email:</label><br>
-                        <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
+                        <input type="email" name="email" class="input-field disabled" value="<?= $usuario->getEmail(); ?>"><br>
 
                         <label for="nomeUsuario">Nome de usuario:</label><br>
-                        <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
+                        <input type="text" name="nomeUsuario" class="input-field disabled" value="<?= $usuario->getNomeUsuario(); ?>"><br>
 
-                        <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-                        <input type="submit" id="salvar" value="salvar">
-                    </div>
-                    <!-- Coluna 2: Mapa -->
-                    <div id="map-content" style="flex: 2;">
-                        <h2>Mapa de Localização</h2>
-                        <div id="mapU" style="width: 100%; height: 300px; background-color: #ccc;"></div>
+                       
+        </div>
+
+        <div class="i2">
+<!-- Coluna 2: Mapa -->                        <h2>Mapa de Localização</h2>
+
+                    <div id="map-content" class="input-field disabled">
+                        <div id="mapU" style="width: 100%; height: 300px;"></div>
                         <button onclick="getLocationU()" type="button">Usar localização atual</button>
                         <input type="hidden" name="lat" id='latU' value="">
                         <input type="hidden" name="lon" id='lonU' value="">
                         <input type="hidden" name="acao" id='acao' value="atualizar">
                     </div>
 
-                </div>
+            
 
                 <input type="hidden" value="atualizar" name="tipo" disabled>
             </form>
+        </div>
+
+        <div class="bot">
+             <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+                        <input type="submit" id="salvar" value="salvar">
+        </div>
+
+         
+                   
+                    
+        </div>
+           
 
         </div>
 
         <div class="content meus-posts" id="posts">
-            <h2>Posts</h2>
-            <br><br>
+            <h1 class="gradiente-texto">Posts</h1>
+            
             <div class="grid-container">
                 <button class="open-modal-btn create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
                 <?php
@@ -142,7 +153,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
         </div>
 
         <div class="content meus-projetos" id="projetos">
-            <h2>Projetos</h2>
+            <h1 class="gradiente-texto">Projetos</h1>
             <div class="grid-container">
 
                 <button class="open-modal-btn create-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)">criar projeto</button>

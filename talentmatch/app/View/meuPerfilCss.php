@@ -184,22 +184,24 @@ border-top: 1px solid;
         white-space: normal;
       }
 
-
+.place {
+  border: 1px solid rgb(233, 186, 129);
+  padding: 0 !important;
+}
 
 
       .input-field {
-        background-color: #f0f0f0;
+        background-color:rgb(239, 210, 174);
         padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
+        border: none;
+        box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        opacity: 0.7;
-        /* Opacidade inicial */
+        opacity: 1;
       }
+      .input-field:focus{
+        outline: none;
+        border: 1px solid rgb(233, 186, 129) ; /* Exemplo de cor dourada ao foco */
 
-      .input-field[disabled] {
-        opacity: 0.3;
-        /* Opacidade quando desabilitado */
       }
 
       .hide {
@@ -444,7 +446,10 @@ border-top: 1px solid;
       #mapU{
         height: 15em;
         width: 350p;
+        
       }
+
+      .input-field.disabled{pointer-events: none; opacity: 0.5;}
 
       .nav-input{
         all: unset;          /* Remove TODOS os estilos padrões (o jeito mais limpo) */
@@ -487,4 +492,39 @@ border-top: 1px solid;
     flex-direction: column;
     padding: 20px;
   }
+
+  .infor{
+    background-color: #F6D9B5;
+    height: fit-content;
+    padding: 5%;
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    position: relative;
+    border: 5px solid   rgb(233, 186, 129);
+    }
+
+    .i1{border-right: 1px solid   rgb(233, 186, 129);padding: 4%;width: 100%;height: 100%;}
+        .i2{border-left: 1px solid  rgb(233, 186, 129); padding: 4%;width: 100%;height: 100%;}
+
+
+    .bot{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 5%;
+    }
+
+    .gradiente-texto {
+    display: inline-block;
+  background: linear-gradient(to right, #B97E30, #FBE793);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2%;
+  font-size: 300%;
+}
 </style>
