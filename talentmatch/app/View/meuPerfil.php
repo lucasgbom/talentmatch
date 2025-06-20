@@ -39,173 +39,140 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
 
 <body>
 
-<div class="sidebar">
-    <div class="logo">
-      <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
-    </div>
-    <div class="section">
-      <?php if ($guest) { ?>
-        <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
-        <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
-      <?php } else { ?>
-        <a class="login-btn" href="sair.php">Sair</a>
-      <?php } ?>
-    </div>
-    <form action="home.php" method="get">
-    <button name="tipo" value="post" type="submit" class="nav-input"><div class="menu-item" id="btn_posts">💼 <span>Posts</span></div></button>
-    <button name="tipo" value="projeto" type="submit" class="nav-input"><div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div></button>
-    <button name="tipo" value="usuario" type="submit" class="nav-input"><div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div></button>
-    </form>
-   
-    <div class="section">
-        <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
-        <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
-        <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Posts</span></div>
-    </div>
-  </div>
-
-<div class="main-content">
-    <div class="header">
-        <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
-        <div class="profile-info">
-            <h1 id="profile-name"><?= $usuario->getNome() ?></h1>
-            <p id="descricao"></p>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
         </div>
-    </div>
-
-
-    <div class="content perfil shown" id="informacoes">
-
-        <h2>Início</h2>
-        <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p> <br>
-
-        <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="tipo" value="atualizar">
-            <input type="hidden" name="id">
-            <div id="informacoes-tab">
-                <!-- Coluna 1: Inputs -->
-                <div style="flex: 1;">
-                    <div class="special-input">
-                        <img class="place input-field" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
-                                                                            echo $usuario->getFotoPerfil();
-                                                                        } else {
-                                                                            echo 'perfil_padrao.png';
-                                                                        } ?>" alt="" disabled>
-                        <input type="file" name="foto" class="hide" id="foto" disabled>
-                    </div>
-
-                    <label for="nome">Nome:</label><br>
-                    <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
-
-                    <label for="email">Email:</label><br>
-                    <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
-
-                    <label for="nomeUsuario">Nome de usuario:</label><br>
-                    <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
-
-                    <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-                    <input type="submit" id="salvar" value="salvar">
-                </div>
-                <!-- Coluna 2: Mapa -->
-                <div id="map-content" style="flex: 2;">
-                    <h2>Mapa de Localização</h2>
-                    <div id="mapU" style="width: 100%; height: 300px; background-color: #ccc;"></div>
-                    <button onclick="getLocationU()" type="button">Usar localização atual</button>
-                    <input type="hidden" name="lat" id='latU' value="">
-                    <input type="hidden" name="lon" id='lonU' value="">
-                    <input type="hidden" name="acao" id='acao' value="atualizar">
-                </div>
-
-            </div>
-
-            <input type="hidden" value="atualizar" name="tipo" disabled>
+        <div class="section">
+            <a class="login-btn" href="sair.php">Sair</a>
+        </div>
+        <form action="home.php" method="get">
+            <button name="tipo" value="post" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
+            </button>
+            <button name="tipo" value="projeto" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
+            </button>
+            <button name="tipo" value="usuario" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+            </button>
         </form>
 
-    </div>
-
-    <div class="content meus-posts" id="posts">
-        <h2>Posts</h2>
-        <br><br>
-        <div class="grid-container">
-            <button class="open-modal-btn create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
-            <?php
-            $posts = $postDAO->listarPorUsuario($usuario);
-            foreach ($posts as $post) {
-            ?>
-                <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
-
-                    <?= $post['titulo'] ?>
-                </button>
-            <?php } ?>
+        <div class="section">
+            <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
+            <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
+            <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Posts</span></div>
         </div>
     </div>
 
-    <div class="content meus-projetos" id="projetos">
-        <h2>Projetos</h2>
-        <div class="grid-container">
-
-            <button class="open-modal-btn create-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)">criar projeto</button>
-            <?php
-            $projetos = $projetoDAO->listar($usuario);
-            foreach ($projetos as $projeto) {
-            ?>
-                <button class="grid-item open-btn" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
-
-                    <?= $projeto['titulo'] ?>
-                </button>
-            <?php } ?>
-        </div>
-    </div>
-
-
-
-    <div class="modal" id="myModal">
-        <div class="modal-content" id="projeto">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <!-- Abas -->
-            <div class="tabs_usuario">
-                <button class="tab criar" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
-                <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
-                <button class="tab editar" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+    <div class="main-content">
+        <div class="header">
+            <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
+            <div class="profile-info">
+                <h1 id="profile-name"><?= $usuario->getNome() ?></h1>
+                <p id="descricao"></p>
             </div>
-            <!-- Conteúdo das abas -->
-            <div class="tab-content" id="criar-projeto">
+        </div>
 
-                <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                    <div class="special-input">
-                        <video src="" class="projeto"></video>
-                        <input type="file" name="video" class="arquivo" />
+        <div class="content perfil shown" id="informacoes">
+
+            <h2>Início</h2>
+            <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p> <br>
+
+            <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tipo" value="atualizar">
+                <input type="hidden" name="id">
+                <div id="informacoes-tab">
+                    <!-- Coluna 1: Inputs -->
+                    <div style="flex: 1;">
+                        <div class="special-input">
+                            <img class="place input-field" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
+                                                                                            echo $usuario->getFotoPerfil();
+                                                                                        } else {
+                                                                                            echo 'perfil_padrao.png';
+                                                                                        } ?>" alt="" disabled>
+                            <input type="file" name="foto" class="hide" id="foto" disabled>
+                        </div>
+
+                        <label for="nome">Nome:</label><br>
+                        <input type="text" name="nome" class="input-field" value="<?= $usuario->getNome(); ?>" disabled><br>
+
+                        <label for="email">Email:</label><br>
+                        <input type="email" name="email" class="input-field" value="<?= $usuario->getEmail(); ?>" disabled><br>
+
+                        <label for="nomeUsuario">Nome de usuario:</label><br>
+                        <input type="text" name="nomeUsuario" class="input-field" value="<?= $usuario->getNomeUsuario(); ?>" disabled><br>
+
+                        <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+                        <input type="submit" id="salvar" value="salvar">
                     </div>
-
-                    <input type="hidden" name="tipo" value="inserir">
-                    <input type="hidden" class="id" name="id">
-
-
-                    <button type="submit" name="editar">Salvar</button>
-                </form>
-
-
-            </div>
-
-            <div class="tab-content" id="visualizar-projeto">
-                <div class="post-container">
-                    <h2 class="titulo"></h2>
-                    <p class="descricao"></p>
-
-                    <div class="post-video">
-                        <video src="" class="projeto" controls></video>
+                    <!-- Coluna 2: Mapa -->
+                    <div id="map-content" style="flex: 2;">
+                        <h2>Mapa de Localização</h2>
+                        <div id="mapU" style="width: 100%; height: 300px; background-color: #ccc;"></div>
+                        <button onclick="getLocationU()" type="button">Usar localização atual</button>
+                        <input type="hidden" name="lat" id='latU' value="">
+                        <input type="hidden" name="lon" id='lonU' value="">
+                        <input type="hidden" name="acao" id='acao' value="atualizar">
                     </div>
 
                 </div>
+
+                <input type="hidden" value="atualizar" name="tipo" disabled>
+            </form>
+
+        </div>
+
+        <div class="content meus-posts" id="posts">
+            <h2>Posts</h2>
+            <br><br>
+            <div class="grid-container">
+                <button class="open-modal-btn create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
+                <?php
+                $posts = $postDAO->listarPorUsuario($usuario);
+                foreach ($posts as $post) {
+                ?>
+                    <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
+
+                        <?= $post['titulo'] ?>
+                    </button>
+                <?php } ?>
             </div>
+        </div>
+
+        <div class="content meus-projetos" id="projetos">
+            <h2>Projetos</h2>
+            <div class="grid-container">
+
+                <button class="open-modal-btn create-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)">criar projeto</button>
+                <?php
+                $projetos = $projetoDAO->listar($usuario);
+                foreach ($projetos as $projeto) {
+                ?>
+                    <button class="grid-item open-btn" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
+
+                        <?= $projeto['titulo'] ?>
+                    </button>
+                <?php } ?>
+            </div>
+        </div>
 
 
-            <div class="tab-content" id="editar-projeto">
-                <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                    <div>
+
+        <div class="modal" id="myModal">
+            <div class="modal-content" id="projeto">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <!-- Abas -->
+                <div class="tabs_usuario">
+                    <button class="tab criar" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+                    <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+                    <button class="tab editar" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+                </div>
+                <!-- Conteúdo das abas -->
+                <div class="tab-content" id="criar-projeto">
+
+                    <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
                         <input type="text" name="titulo" class="titulo" />
                         <textarea name="descricao" rows="4" class="descricao"></textarea>
 
@@ -214,62 +181,96 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
                             <input type="file" name="video" class="arquivo" />
                         </div>
 
-                        <input type="hidden" name="tipo" value="editar">
+                        <input type="hidden" name="tipo" value="inserir">
                         <input type="hidden" class="id" name="id">
 
 
                         <button type="submit" name="editar">Salvar</button>
+                    </form>
+
+
+                </div>
+
+                <div class="tab-content" id="visualizar-projeto">
+                    <div class="post-container">
+                        <h2 class="titulo"></h2>
+                        <p class="descricao"></p>
+
+                        <div class="post-video">
+                            <video src="" class="projeto" controls></video>
+                        </div>
+
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
 
-        <div class="modal-content" id="post">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <!-- Abas -->
-            <div class="tabs">
-                <button class="tab criar" data-target="criar-post" data-mdl="criar" onclick="switchTab(this)">Criar</button>
-                <button class="tab visualizar" data-target="visualizar-post" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
-                <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Editar</button>
-            </div>
-            <!-- Conteúdo das abas -->
-            <div class="tab-content" id="criar-post">
-                <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                    <input type="date" name="date" id="dataI" max = "2100-12-30">
-                    <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
+                <div class="tab-content" id="editar-projeto">
+                    <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <input type="text" name="titulo" class="titulo" />
+                            <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                    <input type="hidden" name="acao" value="inserir">
-                    <select name="habilidade" id="habilidades">
-                        <option value="vocalista">Vocalista</option>
-                        <option value="violao">Violão</option>
-                        <option value="piano">Piano</option>
-                        <option value="baixo">Baixo</option>
-                    </select>
-                    <?php include("../../../teste/criar.php"); ?>
-                    <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
-                    <input type="hidden" class="id" name="id">
-                    <button type="submit" name="editar">Salvar</button>
-                </form>
-            </div>
-            <div class="tab-content" id="visualizar-post">
-                <div class="post-container">
-                    <h2 class="titulo"></h2>
-                    <p class="descricao"></p>
+                            <div class="special-input">
+                                <video src="" class="projeto"></video>
+                                <input type="file" name="video" class="arquivo" />
+                            </div>
 
-                    <p class="data"></p>
-                    <p class="habilidade"></p>
-                    <p class="pagamento"></p>
+                            <input type="hidden" name="tipo" value="editar">
+                            <input type="hidden" class="id" name="id">
+
+
+                            <button type="submit" name="editar">Salvar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="tab-content" id="editar-post">
 
+            <div class="modal-content" id="post">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <!-- Abas -->
+                <div class="tabs">
+                    <button class="tab criar" data-target="criar-post" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+                    <button class="tab visualizar" data-target="visualizar-post" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+                    <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+                </div>
+                <!-- Conteúdo das abas -->
+                <div class="tab-content" id="criar-post">
+                    <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="titulo" class="titulo" />
+                        <textarea name="descricao" rows="4" class="descricao"></textarea>
+
+                        <input type="date" name="date" id="dataI" max="2100-12-30">
+                        <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
+
+                        <input type="hidden" name="acao" value="inserir">
+                        <select name="habilidade" id="habilidades">
+                            <option value="vocalista">Vocalista</option>
+                            <option value="violao">Violão</option>
+                            <option value="piano">Piano</option>
+                            <option value="baixo">Baixo</option>
+                        </select>
+                        <?php include("../../../teste/criar.php"); ?>
+                        <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
+                        <input type="hidden" class="id" name="id">
+                        <button type="submit" name="editar">Salvar</button>
+                    </form>
+                </div>
+                <div class="tab-content" id="visualizar-post">
+                    <div class="post-container">
+                        <h2 class="titulo"></h2>
+                        <p class="descricao"></p>
+
+                        <p class="data"></p>
+                        <p class="habilidade"></p>
+                        <p class="pagamento"></p>
+                    </div>
+                </div>
+                <div class="tab-content" id="editar-post">
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <?php include("meuPerfilJs.php"); ?>

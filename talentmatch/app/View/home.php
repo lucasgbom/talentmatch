@@ -96,41 +96,39 @@ if ($usuario && isset($_GET['enviar'])) {
           <label title="Pagamento"><img src="profit.png" class="icon">
             <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
           </label><br>
-          <label  title="Distância"><img class="icon" src="distance.png">
-            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
-            <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+          <label title="Distância"><img class="icon" src="distance.png">
+            <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distanciaPost"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
-
-          
         </div>
       </form>
-        <main>
-<h1 class="gradiente-texto">Galeria de posts</h1>
+      <main>
+        <h1 class="gradiente-texto">Galeria de posts</h1>
 
-      <div class="grid-posts">
-        <?php
-        if (!isset($_GET['enviar']) || $tipo != "post") {
-          $posts = $postDAO->listarTodos();
-        } else if ($tipo == "post") {
-          $posts = $resFiltrados;
-        }
-        foreach ($posts as $post) {
-        ?>
-          <button class="grid-item open-btn" onclick="openModal(this)"
-            data-modal="post"
-            data-usuario="<?= $usuario->getId(); ?>"
-            data-id='<?= $post['id'] ?>'
-            data-titulo='<?= $post['titulo'] ?>'
-            data-descricao='<?= $post['descricao'] ?>'
-            data-data_='<?= formatarData($post['data_']) ?>'
-            data-habilidade='<?= $post['habilidade'] ?>'
-            data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
+        <div class="grid-posts">
+          <?php
+          if (!isset($_GET['enviar']) || $tipo != "post") {
+            $posts = $postDAO->listarTodos();
+          } else if ($tipo == "post") {
+            $posts = $resFiltrados;
+          }
+          foreach ($posts as $post) {
+          ?>
+            <button class="grid-item open-btn" onclick="openModal(this)"
+              data-modal="post"
+              data-usuario="<?= $usuario->getId(); ?>"
+              data-id='<?= $post['id'] ?>'
+              data-titulo='<?= $post['titulo'] ?>'
+              data-descricao='<?= $post['descricao'] ?>'
+              data-data_='<?= formatarData($post['data_']) ?>'
+              data-habilidade='<?= $post['habilidade'] ?>'
+              data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
 
-            <?= $post['titulo'] ?>
-          <?php } ?>
-      </div>
-        </main>
-      
+              <?= $post['titulo'] ?>
+            <?php } ?>
+        </div>
+      </main>
+
     </div>
 
     <div class="content usuarios">
@@ -143,35 +141,35 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
         <div class="over">
-          
+
           <label>
-            <input type="range" min="0" max="1000" id="inputD" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
-            <span id="distancia"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+            <input type="range" min="0" max="1000" id="inputDUsuario" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distanciaUsuario"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
         </div>
       </form>
       <main>
-            <h1 class="gradiente-texto">Usuarios</h1>
-            <div class="grid-usuarios">
-              <?php if ($tipo == 'usuario') {
-                $usuarios = $resFiltrados;
-              } else {
-                $usuarios = $usuarioDAO->listarTodos();
-              }
-              foreach ($usuarios as $usuario) {
-              ?>
-                <a href="perfil.php?id=<?= $usuario['id']?>" class="link-perfil">
-                  <div class="poster-card">
-                    <button class="grid-item open-btn btn-usuario">
-                      <div class="poster-content">
-                        <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
-                      </div>
-                      <div class="poster-title"><?= $usuario['nome'] ?></div>
-                    </button>
+        <h1 class="gradiente-texto">Usuarios</h1>
+        <div class="grid-usuarios">
+          <?php if ($tipo == 'usuario' && isset($_GET['enviar'])) {
+            $usuarios = $resFiltrados;
+          } else {
+            $usuarios = $usuarioDAO->listarTodos();
+          }
+          foreach ($usuarios as $usuario) {
+          ?>
+            <a href="perfil.php?id=<?= $usuario['id'] ?>" class="link-perfil">
+              <div class="poster-card">
+                <button class="grid-item open-btn btn-usuario">
+                  <div class="poster-content">
+                    <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
                   </div>
-                </a>
-              <?php } ?>
-            </div>
+                  <div class="poster-title"><?= $usuario['nome'] ?></div>
+                </button>
+              </div>
+            </a>
+          <?php } ?>
+        </div>
       </main>
 
     </div>
@@ -186,29 +184,29 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
       </form>
-<main>
- <h1 class="gradiente-texto">Projetos</h1>
-      <div class="grid-projetos">
-        <?php if ($tipo == 'projeto') {
-          $projetos = $resFiltrados;
-        } else {
-          $projetos = $projetoDAO->listarTodos();
-        }
-        foreach ($projetos as $projeto) {
-        ?>
-          <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" data-modal="projeto" data-titulo="<?= $projeto['titulo'] ?>" data-descricao="<?= $projeto['descricao'] ?>" data-arquivo="<?= $projeto['arquivoCaminho'] ?>">
-            <div class="poster-card">
-              <div class="poster-content">
-                <div class="poster-title"><?= $projeto['titulo'] ?></div>
-                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+      <main>
+        <h1 class="gradiente-texto">Projetos</h1>
+        <div class="grid-projetos">
+          <?php if ($tipo == 'projeto' && isset($_GET['enviar'])) {
+            $projetos = $resFiltrados;
+          } else {
+            $projetos = $projetoDAO->listarTodos();
+          }
+          foreach ($projetos as $projeto) {
+          ?>
+            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" data-modal="projeto" data-titulo="<?= $projeto['titulo'] ?>" data-descricao="<?= $projeto['descricao'] ?>" data-arquivo="<?= $projeto['arquivoCaminho'] ?>">
+              <div class="poster-card">
+                <div class="poster-content">
+                  <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                  <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+                </div>
               </div>
-            </div>
-          <?php } ?>
-      </div>
+            <?php } ?>
+        </div>
       </main>
     </div>
 
-</div>
+  </div>
 
 </body>
 

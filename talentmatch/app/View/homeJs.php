@@ -14,14 +14,14 @@
       selected.classList.add('shown');
     }
   }
-  const target = "<?=$tipo?>" + "s";
+  const target = "<?= $tipo ?>" + "s";
   console.log(target);
   const sections = document.querySelectorAll('.content');
 
   sections.forEach(section => {
     section.classList.remove('shown');
   });
-  
+
   const selected = document.querySelector(`.${target}`);
 
   if (selected) {
@@ -38,10 +38,15 @@
     });
   });
   // pesquisa
-  const inputRange = document.getElementById('inputD');
-  const spanDist = document.getElementById('distancia');
-  inputRange.addEventListener('input', () => {
-    spanDist.textContent = inputRange.value;
+  const inputRangePost = document.getElementById('inputDPost');
+  const inputRangeUsuario = document.getElementById('inputDUsuario');
+  const spanDistPost = document.getElementById('distanciaPost');
+  const spanDistUsuario = document.getElementById('distanciaUsuario');
+  inputRangePost.addEventListener('input', () => {
+    spanDistPost.textContent = inputRangePost.value;
+  });
+  inputRangeUsuario.addEventListener('input', () => {
+    spanDistUsuario.textContent = inputRangeUsuario.value;
   });
 
   const pagamentoInput = document.getElementById('pagamento');
