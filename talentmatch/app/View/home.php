@@ -116,7 +116,8 @@ if ($usuario && isset($_GET['enviar'])) {
           ?>
             <button class="grid-item open-btn" onclick="openModal(this)"
               data-modal="post"
-              data-usuario="<?= $usuario->getId(); ?>"
+              data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
+              data-id_usuario='<?= $usuario->getId() ?>'
               data-id='<?= $post['id'] ?>'
               data-titulo='<?= $post['titulo'] ?>'
               data-descricao='<?= $post['descricao'] ?>'
@@ -194,12 +195,12 @@ if ($usuario && isset($_GET['enviar'])) {
           }
           foreach ($projetos as $projeto) {
           ?>
-            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" 
-            data-modal="projeto" 
-            data-titulo="<?= $projeto['titulo'] ?>" 
-            data-descricao="<?= $projeto['descricao'] ?>" 
-            data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
-            data-usuario='<?=json_encode($usuarioDAO->carregar($projeto['idUsuario']))?>'>
+            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)"
+              data-modal="projeto"
+              data-titulo="<?= $projeto['titulo'] ?>"
+              data-descricao="<?= $projeto['descricao'] ?>"
+              data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
+              data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
               <div class="poster-card">
                 <div class="poster-content">
                   <div class="poster-title"><?= $projeto['titulo'] ?></div>

@@ -8,9 +8,9 @@
 
         <div class="tab-content" id="visualizar-projeto">
             <div class="post-container">
-                <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuarioProjeto">
-                <a href="" class="linkUsuarioProjeto">
-                    <span class="nomeUsuarioProjeto"></span>
+                <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuario">
+                <a href="" class="linkUsuario">
+                    <span class="nomeUsuario"></span>
                 </a>
                 <h2 class="titulo"></h2>
                 <p class="descricao"></p>
@@ -29,6 +29,10 @@
         </div>
         <!-- Conteúdo das abas -->
         <div class="tab-content" id="visualizar-post">
+            <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuario">
+            <a href="" class="linkUsuario">
+                <span class="nomeUsuario"></span>
+            </a>
             <h2 class="titulo"></h2>
             <p class="descricao"></p>
 
