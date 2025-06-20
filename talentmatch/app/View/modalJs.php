@@ -8,6 +8,8 @@
         const view = document.querySelector(`#visualizar-${target}`);
         const view_tab = modal.querySelector('.visualizar');
 
+        console.log(target);
+
         modal.classList.add('active');
         wrapper.style.display = "block";
 
@@ -20,17 +22,11 @@
             titulo = element.dataset.titulo;
             descricao = element.dataset.descricao;
             arquivo = element.dataset.arquivo;
-            usuario = JSON.parse(element.dataset.usuario); // array do json_encode
-            console.log(usuario);
+            idU = element.dataset.usuario;
             view.querySelector(".titulo").textContent = titulo
             view.querySelector(".descricao").textContent = descricao
             view.querySelector(".projeto").src = "../../data/" + arquivo;
-            // relacionado ao usuario
-            if (usuario['fotoPerfil']) {
-                view.querySelector(".fotoUsuarioProjeto").src = "../../data/" + usuario['fotoPerfil'];
-            }
-            view.querySelector(".nomeUsuarioProjeto").textContent = usuario['nome'];
-            view.querySelector(".linkUsuarioProjeto").href = "perfil.php?id=" + usuario['id']; // link pro perfil usando Id
+            view.querySelector(".userI").href = "perfil.php?id=" + idU;
         }
         if (target == 'post') {
             id = element.dataset.id;
