@@ -8,9 +8,12 @@
 
         <div class="tab-content" id="visualizar-projeto">
             <div class="post-container">
+                <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuarioProjeto">
+                <a href="" class="linkUsuarioProjeto">
+                    <span class="nomeUsuarioProjeto"></span>
+                </a>
                 <h2 class="titulo"></h2>
                 <p class="descricao"></p>
-                <a href="" class="userI">Usuario</a>
                 <div class="post-video">
                     <video src="" class="projeto" controls></video>
                 </div>
