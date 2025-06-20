@@ -480,4 +480,7 @@ border-top: 1px solid;
     height: 17em;
     padding: 0px;
   }
+  .fotoUsuarioProjeto{
+    height: 2em;
+  }
 </style>

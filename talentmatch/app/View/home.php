@@ -194,7 +194,12 @@ if ($usuario && isset($_GET['enviar'])) {
           }
           foreach ($projetos as $projeto) {
           ?>
-            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" data-modal="projeto" data-titulo="<?= $projeto['titulo'] ?>" data-descricao="<?= $projeto['descricao'] ?>" data-arquivo="<?= $projeto['arquivoCaminho'] ?>">
+            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)" 
+            data-modal="projeto" 
+            data-titulo="<?= $projeto['titulo'] ?>" 
+            data-descricao="<?= $projeto['descricao'] ?>" 
+            data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
+            data-usuario='<?=json_encode($usuarioDAO->carregar($projeto['idUsuario']))?>'>
               <div class="poster-card">
                 <div class="poster-content">
                   <div class="poster-title"><?= $projeto['titulo'] ?></div>
