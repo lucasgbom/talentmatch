@@ -135,7 +135,47 @@ $usuario = $usuarioDAO->buscar('id', $id);
 
 <body>
 
-    <div class="informacoes">
+ <div class="sidebar">
+    <div class="logo">
+      <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
+    </div>
+    <div class="section">
+      <?php if ($guest) { ?>
+        <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
+        <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
+      <?php } else { ?>
+        <a class="login-btn" href="sair.php">Sair</a>
+      <?php } ?>
+    </div>
+
+        <form class="nav-form"  action="home.php" method="get">
+            <button name="tipo" value="post" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
+            </button>
+            <button name="tipo" value="projeto" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
+            </button>
+            <button name="tipo" value="usuario" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+            </button>
+        </form>
+        <div class="section">
+            <form class="nav-form" action="meuPerfil.php" method="get">
+                <button name="tipo" value="perfil" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Você</span></div>
+                </button>
+                <button name="tipo" value="meus-posts" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Seus posts</span></div>
+                </button>
+                <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Seus projetos</span></div>
+                </button>
+            </form>
+        </div>
+</div>
+
+<div class="main-content">
+     <div class="informacoes">
         <img src="perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
         <div class="complementoPessoal">
             <h1><?=$usuario['nome']?></h1>
@@ -163,66 +203,6 @@ $usuario = $usuarioDAO->buscar('id', $id);
         <h2>Projetos</h2>
         <p>Confira os projetos realizados e em andamento.</p>
     </div>
-
-
-
-    <script>
-        const descricaoCompleta = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique repellendus necessitatibus libero explicabo eveniet, minima perspiciatis repudiandae quidem reprehenderit labore dicta ipsa obcaecati modi voluptatem nam. Ad saepe fuga nulla!";
-        const limiteCaracteres = 50;
-
-        const descricao = document.getElementById('descricao');
-        const modal = document.getElementById('modal');
-        const descricaoModal = document.getElementById('descricaoCompleta');
-        const fecharModal = document.getElementById('fecharModal');
-
-        if (descricaoCompleta.length > limiteCaracteres) {
-            const textoCortado = descricaoCompleta.substring(0, limiteCaracteres);
-            descricao.innerHTML = `${textoCortado}... <span class="ver-mais" id="abrirModal">mais</span>`;
-        } else {
-            descricao.textContent = descricaoCompleta;
-        }
-
-        // Abrir Modal
-        document.addEventListener('click', function(e) {
-            if (e.target && e.target.id === 'abrirModal') {
-                modal.style.display = 'block';
-                descricaoModal.textContent = descricaoCompleta;
-            }
-        });
-
-        // Fechar Modal
-        fecharModal.onclick = function() {
-            modal.style.display = 'none';
-        }
-
-        // Fechar clicando fora do modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        function openTab(evt, tabName) {
-            // Esconde todos os conteúdos
-            const tabcontent = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove('active');
-            }
-
-            // Remove classe active de todos os botões
-            const tablinks = document.getElementsByClassName("tablink");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            // Mostra a tab atual e adiciona classe active no botão
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
-
     <?php
     $postDAO = new PostDAO();
     $posts = $postDAO->buscar('idUsuario', $usuario['id']);
@@ -244,6 +224,13 @@ $usuario = $usuarioDAO->buscar('id', $id);
         <p>Descrição: <?= $projeto['descricao'] ?></p>
         Vídeo: <video controls src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="projeto"></video>
     <?php } ?>
+</div>
+   
 </body>
 
+ <script>
+        
+</script>
+
+<?php include('perfilCss.php'); include('perfilJs.php'); ?>
 </html>

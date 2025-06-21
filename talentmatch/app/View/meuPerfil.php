@@ -23,6 +23,9 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     $latitudeU = $usuario->getLatitude();
     $longitudeU = $usuario->getLongitude();
 }
+
+$tipo = $_GET['tipo'] ?? 'post';
+
 ?>
 
 <!DOCTYPE html>

@@ -63,9 +63,17 @@ if ($usuario && isset($_GET['enviar'])) {
     <div class="menu-item" id="btn_projetos" data-target="projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
     <div class="menu-item" id="btn_usuarios" data-target="usuarios" onclick="switchContent(this)">👤 <span>Usuarios</span></div>
     <div class="section">
-      <a href="meuPerfil.php">
-        <div class="menu-item">👤 <span>Você</span></div>
-      </a>
+      <form class="nav-form" action="meuPerfil.php" method="get">
+                <button name="tipo" value="perfil" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Você</span></div>
+                </button>
+                <button name="tipo" value="meus-posts" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Seus posts</span></div>
+                </button>
+                <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
+                    <div class="menu-item" >👤<span>Seus projetos</span></div>
+                </button>
+        </form>
     </div>
   </div>
 

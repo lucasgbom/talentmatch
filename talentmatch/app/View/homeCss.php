@@ -37,6 +37,13 @@
     -ms-overflow-style: none;
   }
 
+  .nav-input{
+        all: unset;          /* Remove TODOS os estilos padrões (o jeito mais limpo) */
+  cursor: pointer;     /* Opcional: pra manter o cursor de clique */
+  display: block;      /* Se quiser que ele se comporte como uma div */
+  width: 100%;    
+      }
+
   .menu-item {
     display: flex;
     align-items: center;
