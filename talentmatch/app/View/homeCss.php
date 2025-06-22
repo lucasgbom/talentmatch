@@ -1,10 +1,6 @@
 <style>
-  a {
-    text-decoration: none;
-    color: white;
-  }
 
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
   * {
     margin: 0;
@@ -15,13 +11,19 @@
 
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
     color: #fff;
     display: grid;
     height: 100vh;
     width: 100vw;
     grid-template-columns: 2fr 12fr;
   }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+ 
 
   .sidebar {
     width: 100%;
@@ -55,7 +57,7 @@
 
   .menu-item:hover,
   .menu-item.active {
-    background-color: rgb(47, 20, 5)
+    background-color: rgb(47, 20, 5);
   }
 
   .menu-item span {
@@ -156,7 +158,6 @@ border-top: 1px solid;
   .grid-item:hover {
     transform: scale(1.06);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
   }
 
   .create-btn {

@@ -7,11 +7,18 @@ include('../Model/Projeto.php');
 include('../DAO/ProjetoDAO.php');
 include('../Model/Usuario.php');
 include('../DAO/usuarioDAO.php');
+session_start();
+$usuario = $_SESSION['usuario'];
+
 $usuarioDAO = new UsuarioDAO();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
-$usuario = $usuarioDAO->buscar('id', $id);
+$usuarioP = $usuarioDAO->buscar('id', $id);
+
+    $postDAO = new PostDAO();
+    $projetoDAO = new ProjetoDAO();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,120 +27,12 @@ $usuario = $usuarioDAO->buscar('id', $id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Freelancer</title>
-
-    <style>
-         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .informacoes {
-            max-width: 100%;
-            background-color:#4D1900;
-         
-            display: flex;
-            align-items: center;
-            padding: 30px;
-            color: whitesmoke;
-        }
-
-        .foto_perfil {
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 100px;
-        }
-
-        .complementoPessoal {
-            max-width: 500px;
-        }
-
-        .descricao {
-            margin-top: 10px;
-        }
-
-        .ver-mais {
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 500px;
-        }
-
-        .close {
-            color: red;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .tab-menu {
-            display: flex;
-            background-color: #361200;
-        }
-
-        .tab-menu button {
-            background-color: inherit;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 20px;
-            transition: 0.3s;
-            color: white;
-            font-size: 16px;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-menu button:hover {
-            background-color:rgba(77, 24, 0, 0.69);
-        }
-
-        .tab-menu button.active {
-            border-bottom: 3px solid red;
-            background-color: #222;
-        }
-
-
-        .tab-content {
-            display: none;
-            padding: 20px;
-            background-color: #f1f1f1;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-    </style>
+    <?php include('perfilCss.php')?>
 </head>
 
 <body>
+
+<?php include('modal.php')?>
 
  <div class="sidebar">
     <div class="logo">
@@ -148,6 +47,7 @@ $usuario = $usuarioDAO->buscar('id', $id);
       <?php } ?>
     </div>
 
+    
         <form class="nav-form"  action="home.php" method="get">
             <button name="tipo" value="post" type="submit" class="nav-input">
                 <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
@@ -175,62 +75,85 @@ $usuario = $usuarioDAO->buscar('id', $id);
 </div>
 
 <div class="main-content">
+
      <div class="informacoes">
         <img src="perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
         <div class="complementoPessoal">
-            <h1><?=$usuario['nome']?></h1>
+            <h1><?=$usuarioP['nome']?></h1>
         </div>
     </div>
 
     <div class="tab-menu">
-        <button class="tablink" onclick="openTab(event, 'informacoes')">Informações</button>
-        <button class="tablink  active" onclick="openTab(event, 'posts')">Posts</button>
-        <button class="tablink" onclick="openTab(event, 'projetos')">Projetos</button>
+        <button class="tablink active" data-target="informacoes" onclick="opentab(this)">Informações</button>
+        <button class="tablink"  data-target="posts" onclick="opentab(this)">Posts</button>
+        <button class="tablink" data-target="projetos" onclick="opentab(this)">Projetos</button>
     </div>
 
     <!-- Conteúdos -->
-    <div id="informacoes" class="tab-content active">
+    <div id="informacoes" class="tab-page active">
         <h2>Início</h2>
         <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
     </div>
 
-    <div id="posts" class="tab-content">
+    <div id="posts" class="tab-page">
         <h2>Posts</h2>
         <p>Veja aqui os últimos posts e atualizações.</p>
+
+    
+                
+           
+                <?php
+                $posts = $postDAO->buscar('idUsuario', $usuarioP['id']);
+                foreach ($posts as $post) {?>
+                  <div class="grid-posts">
+            <button class="grid-item open-btn" onclick="openModal(this)"
+              data-modal="post"
+              data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
+              data-id_usuario='<?= $usuario->getId() ?>'
+              data-id='<?= $post['id'] ?>'
+              data-titulo='<?= $post['titulo'] ?>'
+              data-descricao='<?= $post['descricao'] ?>'
+              data-data_='<?= formatarData($post['data_']) ?>'
+              data-habilidade='<?= $post['habilidade'] ?>'
+              data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
+
+              <?= $post['titulo'] ?>
+            <?php } ?>
+
+            
+        </div>
     </div>
 
-    <div id="projetos" class="tab-content">
+    <div id="projetos" class="tab-page">
         <h2>Projetos</h2>
         <p>Confira os projetos realizados e em andamento.</p>
-    </div>
-    <?php
-    $postDAO = new PostDAO();
-    $posts = $postDAO->buscar('idUsuario', $usuario['id']);
-    foreach ($posts as $post) {
-    ?>
 
-        <h1>Titulo: <?= $post['titulo'] ?></h1>
-        <p>Descrição: <?= $post['descricao'] ?></p>
-        <p>Data: <?= formatarData($post['data_']) ?></p>
-        <p>Pagamento: <?= formatarParaReal($post['pagamento']) ?></p>
-    <?php } ?>
-
-    <?php
-    $projetoDAO = new ProjetoDAO();
-    $projetos = $projetoDAO->buscar('idUsuario', $usuario['id']);
+         <?php
+    $projetos = $projetoDAO->buscar('idUsuario', $usuarioP['id']);
     foreach ($projetos as $projeto) {
     ?>
-        <h1>Titulo: <?= $projeto['titulo'] ?></h1>
-        <p>Descrição: <?= $projeto['descricao'] ?></p>
-        Vídeo: <video controls src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="projeto"></video>
-    <?php } ?>
+            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)"
+              data-modal="projeto"
+              data-titulo="<?= $projeto['titulo'] ?>"
+              data-descricao="<?= $projeto['descricao'] ?>"
+              data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
+              data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
+              <div class="poster-card">
+                <div class="poster-content">
+                  <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                  <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+                </div>
+              </div>
+            <?php } ?>
+        </div>
+
+    </div>
+   
 </div>
+
+
    
 </body>
+<?php include('perfilJs.php'); include('modalJs.php'); ?>
 
- <script>
-        
-</script>
-
-<?php include('perfilCss.php'); include('perfilJs.php'); ?>
 </html>

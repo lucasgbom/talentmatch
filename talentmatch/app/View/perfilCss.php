@@ -1,9 +1,5 @@
 <style>
-  
-  p {
-    word-wrap: break-word;
-    white-space: normal;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
   * {
     margin: 0;
@@ -14,7 +10,6 @@
 
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
     color: #fff;
     display: grid;
     height: 100vh;
@@ -22,6 +17,12 @@
     grid-template-columns: 2fr 12fr;
     overflow: hidden;
   }
+
+  p {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+ 
 
   .sidebar {
     width: 100%;
@@ -114,7 +115,6 @@ border-top: 1px solid;
 
 
   .input-field {
-    background-color: #f0f0f0;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -274,7 +274,6 @@ border-top: 1px solid;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
     display: flex;
     overflow-y: auto;
   }
@@ -316,25 +315,32 @@ border-top: 1px solid;
   }
 
   .grid-container {
-    display: grid;
-    width: 90%;
-    grid-template-columns: repeat(auto-fill, 200px);
-    gap: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
+        display: grid;
+        width: 90%;
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
 
   .grid-item {
-    background-color: #ddd;
+    background-color: rgb(233, 186, 129);
     padding: 20px;
     text-align: center;
-    border-radius: 8px;
     height: 200px;
     width: 200px;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
 
+  .grid-item:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+
   .projeto {
-    background-color: gray;
     width: 100%;
     height: 100%;
   }
@@ -350,5 +356,126 @@ border-top: 1px solid;
     caret-color: auto;
   }
 
+   .informacoes {
+            max-width: 100%;
+   
+      background: linear-gradient(to right,rgb(42, 22, 10), rgb(55, 23, 5));
+
+
+            display: flex;
+            align-items: center;
+            padding: 30px;
+                box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .foto_perfil {
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 100px;
+        }
+
+        .complementoPessoal {
+            max-width: 500px;
+        }
+
+        .descricao {
+            margin-top: 10px;
+        }
+
+        .ver-mais {
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tab-menu {
+            display: flex;
+            background-color: #361200;
+        }
+
+        .tab-menu button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            transition: 0.3s;
+            color: white;
+            font-size: 16px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-menu button:hover {
+            background-color:rgba(77, 24, 0, 0.69);
+        }
+
+        .tab-menu button.active {
+            border-bottom: 3px solid red;
+            background-color: #222;
+        }
+
+        .tab-page {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-page.active {
+            display: block;
+        }
   
+
+  .link-perfil {
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .foto-perfil {
+    width: 100%;
+    height: 15em;
+    object-fit: cover;
+  }
+
+  .btn-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    height: 17em;
+    padding: 0px;
+  }
+  .fotoUsuario{
+    height: 2em;
+  }
    </style>

@@ -1,29 +1,15 @@
 <script>
-  const input = document.getElementById('pagamento');
 
-  input.addEventListener('input', () => {
-    let v = input.value.replace(/\D/g, '');
-    if (v === '') v = '0';
+  
+function opentab(element) {
+    let target = element.dataset.target;
 
-    v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    });
+    document.querySelectorAll('.tab-page').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tablink').forEach(tab => tab.classList.remove('active'));
 
-    input.value = v;
-  });
-
-  input.addEventListener('focus', () => {
-    if (input.value.trim() === '') {
-      input.value = 'R$ 0,00';
-    }
-  });
-
-  input.addEventListener('blur', () => {
-    if (input.value === 'R$ 0,00') {
-      input.value = '';
-    }
-  });
+    element.classList.add('active');
+    document.getElementById(target).classList.add('active');
+}
 
   function editarFormulario() {
     const campos = document.querySelectorAll('.input-field');
@@ -39,6 +25,7 @@
 
 
   document.addEventListener('DOMContentLoaded', function() {
+
     const specials = document.querySelectorAll('.special-input');
 
     specials.forEach(special => {
@@ -63,144 +50,4 @@
     });
   });
 
-
-function openTab(evt, tabName) {
-            // Esconde todos os conteúdos
-            const tabcontent = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove('active');
-            }
-
-            // Remove classe active de todos os botões
-            const tablinks = document.getElementsByClassName("tablink");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            // Mostra a tab atual e adiciona classe active no botão
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add("active");
-        }
-
-
-
-  const wrapper = document.getElementById('myModal');
-
-  function openModal(element) {
-    setTimeout(() => {
-      map.invalidateSize();
-    }, 1);  
-    let target = element.dataset.modal;
-    const modal = document.getElementById(target);
-    modal.classList.add('active');
-
-    const create = document.querySelector(`#criar-${target}`);
-    const create_tab = modal.querySelector('.criar');
-
-    const view = document.querySelector(`#visualizar-${target}`);
-    const view_tab = modal.querySelector('.visualizar');
-
-    const edit = document.querySelector(`#editar-${target}`);
-    const edit_tab = modal.querySelector('.editar');
-
-    wrapper.style.display = "block";
-
-    tab = element.dataset.tb
-
-
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-    switch (tab) {
-      case 'criar':
-        create.classList.add('active');
-        create_tab.classList.add('active', 'permit');
-        break;
-      case 'visualizar':
-        view.classList.add('active');
-        view_tab.classList.add('active', 'permit');
-        edit_tab.classList.add('permit');
-
-        if (target == 'projeto') {
-          id = element.dataset.id;
-          titulo = element.dataset.titulo;
-          descricao = element.dataset.descricao;
-          arquivo = element.dataset.arquivo;
-
-
-          edit.querySelector(".id").value = id
-          edit.querySelector(".titulo").value = titulo
-          edit.querySelector(".descricao").value = descricao
-          edit.querySelector(".projeto").src = "../../data/" + arquivo;
-
-          view.querySelector(".titulo").textContent = titulo
-          view.querySelector(".descricao").textContent = descricao
-          view.querySelector(".projeto").src = "../../data/" + arquivo;
-        }
-
-        if (target == 'post') {
-          id = element.dataset.id;
-          titulo = element.dataset.titulo;
-          descricao = element.dataset.descricao;
-          data = element.dataset.data_;
-          habilidade = element.dataset.habilidade;
-          pagamento = element.dataset.pagamento;
-          console.log(id, titulo, descricao, data, habilidade, pagamento);
-
-          view.querySelector(".titulo").textContent = titulo
-          view.querySelector(".descricao").textContent = descricao
-          view.querySelector(".data").textContent = data
-          view.querySelector(".pagamento").textContent = pagamento
-          view.querySelector(".habilidade").textContent = habilidade
-
-          match(element);
-        }
-        break;
-    }
-
-  }
-
-
-  function closeModal() {
-    wrapper.style.display = "none";
-
-    Array.from(wrapper.children).forEach(child => {
-      child.classList.remove('active');
-    });
-  }
-
-  function switchTab(element) {
-    const tabId = element.dataset.target;
-
-    // Remove classes 'active' de todas as abas e conteúdos
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-    // Ativa a aba clicada e o conteúdo correspondente
-    element.classList.add('active');
-    document.getElementById(tabId).classList.add('active');
-  }
-
-  // Fecha o modal ao clicar fora do conteúdo
-  window.onclick = function(event) {
-    const modal = document.getElementById("myModal");
-    if (event.target === modal) {
-      closeModal();
-    }
-  };
-
-  function match(element) {
-    matchs = JSON.parse(element.dataset.matchs);
-
-    matchs.forEach(match => {
-      document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
-    <form action="perfil.php" method="get" class="profile">
-      <input type="hidden" name="id" value="${match.id}">
-      <button type="submit">${match.id}</button>
-    </form>
-  `);
-    });
-  }
 </script>
