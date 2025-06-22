@@ -44,7 +44,7 @@ $tipo = $_GET['tipo'] ?? 'post';
 
     <div class="sidebar">
         <div class="logo">
-            <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
+            <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
         </div>
         <div class="section">
             <a class="login-btn" href="sair.php">Sair</a>
@@ -63,8 +63,8 @@ $tipo = $_GET['tipo'] ?? 'post';
 
         <div class="section">
             <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
+             <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">💼 <span>Meus posts</span></div>
             <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Meus projetos</span></div>
-            <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">👤 <span>Meus posts</span></div>
         </div>
     </div>
 

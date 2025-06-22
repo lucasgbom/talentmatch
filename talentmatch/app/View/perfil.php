@@ -39,7 +39,7 @@ $projetoDAO = new ProjetoDAO();
 
     <div class="sidebar">
         <div class="logo">
-            <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
+            <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
         </div>
         <div class="section">
             <?php if ($guest) { ?>
@@ -68,10 +68,10 @@ $projetoDAO = new ProjetoDAO();
                     <div class="menu-item">👤<span>Você</span></div>
                 </button>
                 <button name="tipo" value="meus-posts" type="submit" class="nav-input">
-                    <div class="menu-item">👤<span>Seus posts</span></div>
+                    <div class="menu-item">💼<span>Meus posts</span></div>
                 </button>
                 <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
-                    <div class="menu-item">👤<span>Seus projetos</span></div>
+                    <div class="menu-item">🎵<span>Meus projetos</span></div>
                 </button>
             </form>
         </div>
@@ -80,7 +80,7 @@ $projetoDAO = new ProjetoDAO();
     <div class="main-content">
 
         <div class="informacoes">
-            <img src="perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
+            <img src="../../assets/perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
             <div class="complementoPessoal">
                 <h1><?= $usuarioP['nome'] ?></h1>
             </div>

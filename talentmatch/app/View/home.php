@@ -48,7 +48,7 @@ if ($usuario && isset($_GET['enviar'])) {
 
   <div class="sidebar">
     <div class="logo">
-      <img src="talentmatch.png" alt="Não foi possível carregar imagem.">
+      <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
     </div>
     <div class="section">
       <?php if ($guest) { ?>
@@ -68,10 +68,10 @@ if ($usuario && isset($_GET['enviar'])) {
                     <div class="menu-item" >👤<span>Você</span></div>
                 </button>
                 <button name="tipo" value="meus-posts" type="submit" class="nav-input">
-                    <div class="menu-item" >👤<span>Seus posts</span></div>
+                    <div class="menu-item" >💼<span>Meus posts</span></div>
                 </button>
                 <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
-                    <div class="menu-item" >👤<span>Seus projetos</span></div>
+                    <div class="menu-item" >🎵<span>Meus projetos</span></div>
                 </button>
         </form>
     </div>
@@ -85,10 +85,10 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="post">
         <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
-        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
-        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="../../assets/cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
         <div class="over">
-          <label title="Talento"><img src="musical-note.png" class="icon">
+          <label title="Talento"><img src="../../assets/musical-note.png" class="icon">
             <select name="talento">
               <option value="">--Selecione--</option>
               <option value="vocalista">Vocalista</option>
@@ -97,10 +97,10 @@ if ($usuario && isset($_GET['enviar'])) {
               <option value="piano">Piano</option>
             </select>
           </label>
-          <label title="Pagamento"><img src="profit.png" class="icon">
+          <label title="Pagamento"><img src="../../assets/profit.png" class="icon">
             <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
           </label><br>
-          <label title="Distância"><img class="icon" src="distance.png">
+          <label title="Distância"><img class="icon" src="../../assets/distance.png">
             <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
             <span id="distanciaPost"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
@@ -143,8 +143,8 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="usuario">
         <input type="text" placeholder="Pesquisar..." class="type input" name="nome">
-        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
-        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="../../assets/cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
         <div class="over">
 
           <label>
@@ -186,8 +186,8 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="projeto">
         <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
-        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="cardapio.png"></button>
-        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="search.png"></button>
+        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="../../assets/cardapio.png"></button>
+        <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
       </form>
       <main>
         <h1 class="gradiente-texto">Projetos</h1>

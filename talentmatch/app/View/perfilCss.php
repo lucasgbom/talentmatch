@@ -111,7 +111,7 @@ border-top: 1px solid;
     display: grid;
     grid-template-rows: 5fr 1fr 9fr;
     position: relative;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('../../assets/fundo.jpg');
     box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
   

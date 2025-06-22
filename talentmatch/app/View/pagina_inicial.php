@@ -20,7 +20,7 @@
     body {
       min-height: 100vh;
       width: 100%;
-      background-image: url(fundo.jpg); 
+      background-image: url(../../assets/fundo.jpg); 
  /*background: #000000;
 background: linear-gradient(117deg, rgba(0, 0, 0, 1) 0%, rgb(92, 38, 2) 70%, rgb(80, 34, 4) 100%);*/
       color: #ffffff;
