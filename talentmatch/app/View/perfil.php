@@ -138,16 +138,14 @@ $usuarioP = $usuarioDAO->buscar('id', $id);
               data-descricao="<?= $projeto['descricao'] ?>"
               data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
               data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
-              <div class="poster-card">
-                <div class="poster-content">
+              <div class="poster-card">  
                   <div class="poster-title"><?= $projeto['titulo'] ?></div>
                   <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
-                </div>
-              </div>
+              </div></button>
             <?php } ?>
-        </div>
-
     </div>
+
+</div>
    
 </div>
 

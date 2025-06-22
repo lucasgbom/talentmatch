@@ -9,7 +9,7 @@
         const view_tab = modal.querySelector('.visualizar');
 
         modal.classList.add('active');
-        wrapper.style.display = "block";
+        wrapper.style.display = "flex";
 
 
         view.classList.add('active');

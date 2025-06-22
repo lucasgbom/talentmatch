@@ -2,16 +2,19 @@
     <div class="modal-content" id="projeto">
         <span class="close-btn" onclick="closeModal()">&times;</span>
 
-        <div class="tabs_usuario">
+        <div class="tabs">
             <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
         </div>
 
         <div class="tab-content" id="visualizar-projeto">
-            <div class="post-container">
+            <header>
                 <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuario">
                 <a href="" class="linkUsuario">
                     <span class="nomeUsuario"></span>
                 </a>
+            </header>
+            <div class="post-container">
+                
                 <h2 class="titulo"></h2>
                 <p class="descricao"></p>
                 <div class="post-video">
@@ -29,11 +32,14 @@
         </div>
         <!-- Conteúdo das abas -->
         <div class="tab-content" id="visualizar-post">
-            <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuario">
-            <a href="" class="linkUsuario">
-                <span class="nomeUsuario"></span>
-            </a>
-            <h2 class="titulo"></h2>
+            <header>
+                <img src="../../data/perfil_padrao.png" alt="" class="fotoUsuario">
+                <a href="" class="linkUsuario">
+                    <span class="nomeUsuario"></span>
+                </a>
+            </header>
+            <div class="post-container">
+                <h2 class="titulo"></h2>
             <p class="descricao"></p>
 
             <label for="dataV">Data de evento:</label>
@@ -43,11 +49,14 @@
             <label for="pagamentoV">Pagamento:</label>
             <p class="pagamento" name="pagamentoV"></p>
 
-            <form action="match.php" method="post">
+            <form class="bot" action="match.php" method="post">
                 <input type="hidden" name="idUsuario" class="userI">
                 <input type="hidden" name="idPost" class="postI">
                 <button class="match">Match</button>
             </form>
+            </div>
+            
+            
         </div>
 
 

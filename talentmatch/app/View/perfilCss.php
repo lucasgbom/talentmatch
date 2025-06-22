@@ -22,6 +22,9 @@
     word-wrap: break-word;
     white-space: normal;
   }
+
+  a{all: unset;
+  cursor: pointer;}
  
 
   .sidebar {
@@ -105,14 +108,18 @@ border-top: 1px solid;
   .main-content {
     width: 100%;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 5fr 1fr 9fr;
     position: relative;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('fundo.jpg');
     box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+  
   }
 
+  .main-content::-webkit-scrollbar {
+    display: none;
+  }
 
   .input-field {
     padding: 10px;
@@ -152,6 +159,10 @@ border-top: 1px solid;
     object-fit: cover;
   }
 
+  .thumbnail{
+    width: 100%;
+    height: auto;
+  }
 
   .open-modal-btn {
     padding: 10px 20px;
@@ -167,22 +178,35 @@ border-top: 1px solid;
     height: 100vh;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
   }
 
   .modal-content {
-    background-color: #fff;
+    background-color: rgb(233, 186, 129);
     margin: 5% auto;
     padding: 0;
     border-radius: 8px;
-    width: 60vw;
-    height: 80vh;
+
+    min-width: 40vw;      /* Largura mínima */
+    min-height: 50vh;      /* Altura mínima */
+
+    width: fit-content;    /* Cresce até o conteúdo */
+    height: fit-content;   /* Cresce até o conteúdo */
+
+    max-width: 90%;
+    max-height: 90%;
+
     display: none;
     flex-direction: column;
     position: relative;
+    overflow-y :auto;
   }
+  .modal-content::-webkit-scrollbar{display: none;}
 
   .modal-content.active {
     display: flex;
+    z-index: 1000;
   }
 
   .close-btn {
@@ -195,7 +219,7 @@ border-top: 1px solid;
 
   .tabs {
     display: flex;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #371705;
   }
 
   .tab {
@@ -206,7 +230,6 @@ border-top: 1px solid;
     font-weight: bold;
     outline: none;
     display: none;
-    /* Oculta completamente */
   }
 
   .tab.permit {
@@ -215,37 +238,31 @@ border-top: 1px solid;
     pointer-events: auto;
   }
 
-
   .tab.active {
-    border-bottom: 2px solid #007BFF;
-    color: #007BFF;
+    border-bottom: 2px solid #371705;
+    color: #371705;
   }
 
   .tab-content {
     display: none;
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
     padding: 20px;
-    margin: 10px;
     box-sizing: border-box;
     overflow-y: auto;
+    color: #371705;
   }
 
   .tab-content.active {
     display: block;
   }
 
-  /* Estilo do formulário na Aba 1 */
-  /* Estilo do formulário em qualquer aba */
-  .tab-content form {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-    overflow: auto;
-  }
-
   .tab-content #map{
     height: 100%;
+  }
+
+  .bot{
+    align-self: flex-end;
   }
 
   .tab-content input,
@@ -255,6 +272,8 @@ border-top: 1px solid;
     font-size: 16px;
     resize: none;
   }
+
+  .tab-content header{display: flex;align-items: center;margin-bottom: 2%;gap: 3%;}
 
   .tab-content button {
     background-color: #007BFF;
@@ -268,21 +287,44 @@ border-top: 1px solid;
   }
 
   .post-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    border: 2px solid #371705;   
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
+    flex-direction: column;
     overflow-y: auto;
+  }
+
+
+  .poster-card {
+    display: flex;
+    width: 100%;
+    height: 100%;
+flex-direction: column;
+    padding: 2%;
+  }
+
+  .poster-title{
+    height: 20%;
+    width: auto;
+    font-size: medium;
+    display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center;
+  }
+
+  .btn-projeto{
+    padding: 0 !important;
   }
 
   .post-title {
     font-size: 28px;
     margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
     color: #333;
-    height: auto;
   }
 
   .post-description {
@@ -332,7 +374,9 @@ border-top: 1px solid;
     border: none;
     transition: all 0.3s ease;
     cursor: pointer;
+    border-radius: 5px;
   }
+
 
   .grid-item:hover {
     transform: scale(1.06);
@@ -389,27 +433,6 @@ border-top: 1px solid;
             font-weight: bold;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content {
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 500px;
-        }
-
         .close {
             color: red;
             float: right;
@@ -446,6 +469,8 @@ border-top: 1px solid;
         .tab-page {
             display: none;
             padding: 20px;
+            width: 100%;
+            height: 100%;
         }
 
         .tab-page.active {
@@ -477,5 +502,6 @@ border-top: 1px solid;
   }
   .fotoUsuario{
     height: 2em;
+    border-radius: 3px;
   }
    </style>

@@ -77,11 +77,7 @@ if ($usuario && isset($_GET['enviar'])) {
     </div>
   </div>
 
-
   <div class="main-content">
-
-    <?php include('modal.php') ?>
-
 
     <div class="content posts shown">
       <form action="" method="get" class="search-bar">
@@ -221,6 +217,8 @@ if ($usuario && isset($_GET['enviar'])) {
     </div>
 
   </div>
+
+      <?php include('modal.php') ?>
 
 </body>
 
