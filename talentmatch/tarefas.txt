@@ -1,3 +1,0 @@
-Usar os a base do gerenciamento
-    modal do projeto
-    select do genero musical e habilidades do artista

@@ -10,7 +10,7 @@ include('../DAO/usuarioDAO.php');
 session_start();
 $guest = true;
 $usuario = $_SESSION['usuario'] ?? new Usuario();
-if (isset($usuario)) {
+if (isset($_SESSION['usuario'])) {
     $guest = false;
 }
 $usuarioDAO = new UsuarioDAO();
@@ -143,15 +143,8 @@ $projetoDAO = new ProjetoDAO();
                     <?php } ?>
                 </div>
         </div>
-
-
-
     </div>
-
     </div>
-
-
-
 </body>
 <?php include('perfilJs.php');
 include('modalJs.php'); ?>

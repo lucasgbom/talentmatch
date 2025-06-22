@@ -264,7 +264,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                             <option value="piano">Piano</option>
                             <option value="baixo">Baixo</option>
                         </select>
-                        <?php include("../../../teste/criar.php"); ?>
+                        <?php include("../../../mapa/mapa.php"); ?>
                         <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
                         <input type="hidden" class="id" name="id">
                         <button type="submit" name="editar">Salvar</button>
@@ -289,7 +289,7 @@ $tipo = $_GET['tipo'] ?? 'post';
 
 
     <?php include("meuPerfilJs.php"); ?>
-    <?php include("../../../teste/criarjs.php"); ?>
+    <?php include("../../../mapa/mapajs.php"); ?>
 </body>
 
 </html>
