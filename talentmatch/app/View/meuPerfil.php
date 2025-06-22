@@ -81,23 +81,23 @@ $tipo = $_GET['tipo'] ?? 'post';
         <div class="content perfil shown" id="informacoes">
             <h1 class="gradiente-texto">Informações</h1>
 
-        <div class="infor">
-        <div class="i1">
-<form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="tipo" value="atualizar">
-                <input type="hidden" name="id">
-                  
+            <div class="infor">
+                <div class="i1">
+                    <form id="formulario" action="../Controller/UsuarioController.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="tipo" value="atualizar">
+                        <input type="hidden" name="id">
+
                         <div class="special-input">
                             <img class="place input-field disabled" id="perf" src="../../data/<?php if ($usuario->getFotoPerfil()) {
-                                                                                            echo $usuario->getFotoPerfil();
-                                                                                        } else {
-                                                                                            echo 'perfil_padrao.png';
-                                                                                        } ?>">
+                                                                                                    echo $usuario->getFotoPerfil();
+                                                                                                } else {
+                                                                                                    echo 'perfil_padrao.png';
+                                                                                                } ?>">
                             <input type="file" name="foto" class="hide input-field disabled" id="foto">
                         </div>
 
                         <label for="nome">Nome:</label><br>
-                        <input type="text" name="nome" class="input-field disabled" value="<?= $usuario->getNome(); ?>" ><br>
+                        <input type="text" name="nome" class="input-field disabled" value="<?= $usuario->getNome(); ?>"><br>
 
                         <label for="email">Email:</label><br>
                         <input type="email" name="email" class="input-field disabled" value="<?= $usuario->getEmail(); ?>"><br>
@@ -105,11 +105,12 @@ $tipo = $_GET['tipo'] ?? 'post';
                         <label for="nomeUsuario">Nome de usuario:</label><br>
                         <input type="text" name="nomeUsuario" class="input-field disabled" value="<?= $usuario->getNomeUsuario(); ?>"><br>
 
-                       
-        </div>
 
-        <div class="i2">
-<!-- Coluna 2: Mapa -->                        <h2>Mapa de Localização</h2>
+                </div>
+
+                <div class="i2">
+                    <!-- Coluna 2: Mapa -->
+                    <h2>Mapa de Localização</h2>
 
                     <div id="map-content" class="input-field disabled">
                         <div id="mapU" style="width: 100%; height: 300px;"></div>
@@ -119,28 +120,28 @@ $tipo = $_GET['tipo'] ?? 'post';
                         <input type="hidden" name="acao" id='acao' value="atualizar">
                     </div>
 
-            
 
-                <input type="hidden" value="atualizar" name="tipo" disabled>
-            </form>
-        </div>
 
-        <div class="bot">
-             <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-                        <input type="submit" id="salvar" value="salvar">
-        </div>
+                    <input type="hidden" value="atualizar" name="tipo" disabled>
+                    </form>
+                </div>
 
-         
-                   
-                    
-        </div>
-           
+                <div class="bot">
+                    <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
+                    <input type="submit" id="salvar" value="salvar">
+                </div>
+
+
+
+
+            </div>
+
 
         </div>
 
         <div class="content meus-posts" id="posts">
             <h1 class="gradiente-texto">Posts</h1>
-            
+
             <div class="grid-container">
                 <button class="open-modal-btn create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
                 <?php

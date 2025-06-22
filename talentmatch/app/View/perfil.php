@@ -8,8 +8,11 @@ include('../DAO/ProjetoDAO.php');
 include('../Model/Usuario.php');
 include('../DAO/usuarioDAO.php');
 session_start();
+$guest = true;
 $usuario = $_SESSION['usuario'];
-
+if (isset($usuario)){
+    $guest = false;
+}
 $usuarioDAO = new UsuarioDAO();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
