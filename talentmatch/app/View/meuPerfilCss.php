@@ -82,7 +82,6 @@
       .sidebar::-webkit-scrollbar {
         display: none;
       }
-
       .logo {
         display: flex;
         align-items: center;
@@ -90,11 +89,11 @@
       }
 
       .logo img {
-        height: 100%;
+        width: 100%;
+        height: auto;
+        display: block;
         object-fit: contain;
       }
-
-
       .header {
         background-color: rgb(80, 40, 18);
         color: white;

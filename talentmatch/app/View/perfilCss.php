@@ -28,9 +28,10 @@
     cursor: pointer;
   }
 
-  .login{
+  .login {
     padding-bottom: 1em;
   }
+
   .sidebar {
     width: 100%;
     background-color: rgb(55, 23, 5);
@@ -114,7 +115,9 @@
   }
 
   .logo img {
-    height: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
     object-fit: contain;
   }
 
@@ -440,7 +443,9 @@
   }
 
   .foto_perfil {
+    width: 150px;
     height: 150px;
+    object-fit: cover;
     border-radius: 50%;
     margin-right: 100px;
   }
@@ -473,6 +478,7 @@
   }
 
   .tab-menu button {
+    background-color: #361200;
     border: none;
     outline: none;
     cursor: pointer;
@@ -489,7 +495,7 @@
 
   .tab-menu button.active {
     border-bottom: 3px solid red;
-    background-color: #222;
+    background-color:rgb(36, 17, 5);
   }
 
   .tab-page {

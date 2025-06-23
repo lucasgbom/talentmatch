@@ -118,8 +118,6 @@ $projetoDAO = new ProjetoDAO();
 
                         <?= $post['titulo'] ?>
                     <?php } ?>
-
-
                 </div>
                 <div id="projetos" class="tab-page">
                     <h2>Projetos</h2>
