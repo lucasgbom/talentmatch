@@ -302,7 +302,7 @@ border-top: 1px solid;
     display: flex;
     width: 100%;
     height: 100%;
-flex-direction: column;
+    flex-direction: column;
     padding: 2%;
   }
 
@@ -363,7 +363,7 @@ flex-direction: column;
         gap: 10px;
         max-height: 200px;
         overflow-y: auto;
-      }
+    }
 
   .grid-item {
     background-color: rgb(233, 186, 129);

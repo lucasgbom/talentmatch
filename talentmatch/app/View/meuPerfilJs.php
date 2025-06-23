@@ -96,7 +96,7 @@ function editarFormulario() {
         const edit = document.querySelector(`#editar-${target}`);
         const edit_tab = modal.querySelector('.editar');
 
-        wrapper.style.display = "block";
+        wrapper.style.display = "flex";
 
         tab = element.dataset.tb
         document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('permit', 'active'));

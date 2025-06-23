@@ -135,21 +135,45 @@ border-top: 1px solid;
   }
 
   .grid-posts,
-  .grid-projetos,
-  .grid-usuarios {
+  .grid-projetos{
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
+    max-height: 200px;
     gap: 1px;
   }
 
-  .grid-item {
+  .grid-usuarios{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
+    max-height: 200px;
+    gap: 1px;
+  }
+
+ .grid-item {
     background-color: rgb(233, 186, 129);
     padding: 20px;
     text-align: center;
     height: 200px;
     width: 200px;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+
+  }
+
+
+  .grid-usuarios .grid-item{
+     background-color: rgb(233, 186, 129);
+    padding: 20px;
+    text-align: center;
+    height: 200px;
+    width: 150px;
     border: none;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -445,8 +469,10 @@ border-top: 1px solid;
   /*
         Projeto
       */
-  .thumbnail {
+   .thumbnail{
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .btn-projeto {
@@ -456,14 +482,31 @@ border-top: 1px solid;
   /*
         Usuario
   */
-  .poster-content {
-    margin: 0;
-    padding: 0;
+  .poster-card{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 2%;
   }
 
-  .poster-card {
+  .btn-usuario{
     display: flex;
-    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 0 !important;
+    margin: 0;
+  }
+
+
+  .poster-title{
+    height: 20%;
+    width: auto;
+    font-size: medium;
+    display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center;
   }
 
   .link-perfil {
@@ -471,23 +514,25 @@ border-top: 1px solid;
     cursor: pointer;
   }
 
-  .foto-perfil {
-    width: 100%;
-    height: 15em;
-    object-fit: cover;
+  .user-title{
+    height: 15%;
+    width: auto;
+    font-size: medium;
+    display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center;
   }
 
-  .btn-usuario {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    width: 80%;
-    height: 17em;
-    padding: 0px;
+  .foto-perfil {
+    width: auto;
+    height: 85%;
+    object-fit: cover;
+    padding: 2% 2% 0 2% ;
+    margin: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: rgb(246, 196, 136);
   }
+
   .fotoUsuario{
     height: 2em;
   }

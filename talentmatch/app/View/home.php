@@ -164,14 +164,10 @@ if ($usuario && isset($_GET['enviar'])) {
           foreach ($usuarios as $usuario) {
           ?>
             <a href="perfil.php?id=<?= $usuario['id'] ?>" class="link-perfil">
-              <div class="poster-card">
                 <button class="grid-item open-btn btn-usuario">
-                  <div class="poster-content">
                     <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
-                  </div>
-                  <div class="poster-title"><?= $usuario['nome'] ?></div>
+                    <div class="user-title"><?= $usuario['nome'] ?></div>
                 </button>
-              </div>
             </a>
           <?php } ?>
         </div>
@@ -206,11 +202,9 @@ if ($usuario && isset($_GET['enviar'])) {
               data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
               data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
               <div class="poster-card">
-                <div class="poster-content">
-                  <div class="poster-title"><?= $projeto['titulo'] ?></div>
-                  <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
-                </div>
-              </div>
+                <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+              </div></button>
             <?php } ?>
         </div>
       </main>

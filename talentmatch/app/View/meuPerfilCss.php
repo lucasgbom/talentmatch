@@ -235,81 +235,132 @@ border-top: 1px solid;
         cursor: pointer;
       }
 
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
+     .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+  }
 
-      .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 0;
-        border-radius: 8px;
-        width: 40vw;
-        height: 60vh;
-        display: none;
-        flex-direction: column;
-        position: relative;
-      }
+  .modal-content {
+    background-color: rgb(233, 186, 129);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 8px;
 
-      .modal-content.active {
-        display: flex;
-      }
+    min-width: 40vw;      /* Largura mínima */
+    min-height: 50vh;      /* Altura mínima */
 
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        cursor: pointer;
-      }
+    width: fit-content;    /* Cresce até o conteúdo */
+    height: fit-content;   /* Cresce até o conteúdo */
 
-      .tabs {
-        display: flex;
-        border-bottom: 1px solid #ccc;
-      }
+    max-width: 90%;
+    max-height: 90%;
 
-      .tab {
-        padding: 10px 20px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        font-weight: bold;
-        outline: none;
-        display: none;
-      }
+    display: none;
+    flex-direction: column;
+    position: relative;
+    overflow-y :auto;
+  }
+  .modal-content::-webkit-scrollbar{display: none;}
 
-      .tab.permit {
-        display: inline-block;
-        opacity: 1;
-        pointer-events: auto;
-      }
+  .modal-content.active {
+    display: flex;
+    z-index: 1000;
+  }
 
-      .tab.active {
-        border-bottom: 2px solid #007BFF;
-        color: #007BFF;
-      }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
 
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #371705;
+  }
 
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bold;
+    outline: none;
+    display: none;
+  }
 
-      .tab-content {
-        display: none;
-        flex-grow: 1;
-        padding: 20px;
-        margin: 10px;
-        box-sizing: border-box;
-        overflow-y: auto;
-      }
+  .tab.permit {
+    display: inline-block;
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-      .tab-content.active {
-        display: block;
-      }
+  .tab.active {
+    border-bottom: 2px solid #371705;
+    color: #371705;
+  }
+
+  .tab-content {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: #371705;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .tab-content #map{
+    height: 100%;
+  }
+
+  .bot{
+    align-self: flex-end;
+  }
+
+  .tab-content input,
+  .tab-content textarea,
+  .tab-content button {
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+  }
+
+  .tab-content header{display: flex;align-items: center;margin-bottom: 2%;gap: 3%;}
+
+  .tab-content button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .tab-content button:hover {
+    background-color: #0056b3;
+  }
+
+  .post-container {
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    border: 2px solid #371705;   
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
 
       .tab-content form {
         display: flex;
@@ -319,41 +370,7 @@ border-top: 1px solid;
         overflow: auto;
       }
 
-      .tab-content #map {
-        height: 100%;
-      }
-
-      .tab-content input,
-      .tab-content textarea,
-      .tab-content button {
-        padding: 10px;
-        font-size: 16px;
-        resize: none;
-      }
-
-      .tab-content button {
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-      }
-
-      .tab-content button:hover {
-        background-color: #0056b3;
-      }
-
-      .post-container {
-        max-width: 80%;
-        max-height: 80%;
-        margin: 40px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-      }
+     
 
       .post-title {
         font-size: 28px;
@@ -390,21 +407,28 @@ border-top: 1px solid;
 
       .grid-container {
         display: grid;
-        width: 90%;
+        width: 100%;
         grid-template-columns: repeat(auto-fill, 200px);
-        gap: 10px;
+        gap: 1px;
         max-height: 200px;
-        overflow-y: auto;
       }
+  .grid-item {
+    background-color: rgb(233, 186, 129);
+    padding: 20px;
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 
-      .grid-item {
-        background-color: #ddd;
-        padding: 20px;
-        text-align: center;
-        border-radius: 8px;
-        height: 200px;
-        width: 200px;
-      }
+
+  .grid-item:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
 
       .create-btn {
         columns: 1 1;
@@ -527,4 +551,6 @@ border-top: 1px solid;
   margin-bottom: 2%;
   font-size: 300%;
 }
+
+.icon{width: 70%;}
 </style>

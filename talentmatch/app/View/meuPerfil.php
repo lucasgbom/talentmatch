@@ -123,16 +123,13 @@ $tipo = $_GET['tipo'] ?? 'post';
 
 
                     <input type="hidden" value="atualizar" name="tipo" disabled>
-                    </form>
                 </div>
 
                 <div class="bot">
                     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
                     <input type="submit" id="salvar" value="salvar">
                 </div>
-
-
-
+                    </form>
 
             </div>
 
@@ -143,7 +140,7 @@ $tipo = $_GET['tipo'] ?? 'post';
             <h1 class="gradiente-texto">Posts</h1>
 
             <div class="grid-container">
-                <button class="open-modal-btn create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)">criar post</button>
+                <button class="open-modal-btn grid-item create-btn" data-tb="criar" data-modal="post" onclick="openModal(this)"><img class="icon" src="../../assets/plus.png"></button>
                 <?php
                 $posts = $postDAO->listarPorUsuario($usuario);
                 foreach ($posts as $post) {
@@ -172,14 +169,13 @@ $tipo = $_GET['tipo'] ?? 'post';
                 <?php } ?>
             </div>
         </div>
+    </div>
 
-
-
-        <div class="modal" id="myModal">
+     <div class="modal" id="myModal">
             <div class="modal-content" id="projeto">
                 <span class="close-btn" onclick="closeModal()">&times;</span>
                 <!-- Abas -->
-                <div class="tabs_usuario">
+                <div class="tabs">
                     <button class="tab criar" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
                     <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
                     <button class="tab editar" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
