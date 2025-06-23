@@ -1,6 +1,9 @@
 <?php 
 include_once('../conexao/Conexao.php');
 
+if (!isset($idUsuario)){
+    header("location: home.php?msg=precisaLogar");
+}
 $idUsuario = $_POST['idUsuario'];
 $idPost = $_POST['idPost'];
 

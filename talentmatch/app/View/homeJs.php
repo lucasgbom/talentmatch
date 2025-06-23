@@ -82,8 +82,12 @@
       e.value = position.coords.longitude;
     });
   });
-  if ("<?=$_GET['msg'] ?? ""?>" == "sucesso"){
+  mensagem = "<?=$_GET['msg'] ?? ""?>";
+  console.log(mensagem);
+  if (mensagem == "sucesso"){
     alert("O Match foi bem sucedido!");
-    console.log("<?=$_GET['msg'] ?? ""?>");
+  }
+  else if (mensagem == "precisaLogar"){
+    alert("Você precisa estar logado para fazer um Match.");
   }
 </script>

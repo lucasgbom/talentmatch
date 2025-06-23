@@ -41,7 +41,7 @@ $projetoDAO = new ProjetoDAO();
         <div class="logo">
             <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
         </div>
-        <div class="section">
+        <div class="section login">
             <?php if ($guest) { ?>
                 <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
                 <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
@@ -52,26 +52,26 @@ $projetoDAO = new ProjetoDAO();
 
 
         <form class="nav-form" action="home.php" method="get">
+            <button name="tipo" value="usuario" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_usuarios"><img class="icon" src="../../assets/meuperfil.png"> <span>Usuarios</span></div>
+            </button>
             <button name="tipo" value="post" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
+                <div class="menu-item" id="btn_posts"><img class="icon" src="../../assets/post.png"> <span>Posts</span></div>
             </button>
             <button name="tipo" value="projeto" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
-            </button>
-            <button name="tipo" value="usuario" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+                <div class="menu-item" id="btn_projetos"><img class="icon" src="../../assets/music-note.png"> <span>Projetos</span></div>
             </button>
         </form>
         <div class="section">
             <form class="nav-form" action="meuPerfil.php" method="get">
                 <button name="tipo" value="perfil" type="submit" class="nav-input">
-                    <div class="menu-item">👤<span>Você</span></div>
+                    <div class="menu-item"><img class="icon" src="../../assets/meuperfil.png"><span>Você</span></div>
                 </button>
                 <button name="tipo" value="meus-posts" type="submit" class="nav-input">
-                    <div class="menu-item">💼<span>Meus posts</span></div>
+                    <div class="menu-item"><img class="icon" src="../../assets/post.png"><span>Meus posts</span></div>
                 </button>
                 <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
-                    <div class="menu-item">🎵<span>Meus projetos</span></div>
+                    <div class="menu-item"><img class="icon" src="../../assets/music-note.png"> <span>Meus projetos</span></div>
                 </button>
             </form>
         </div>
@@ -80,7 +80,7 @@ $projetoDAO = new ProjetoDAO();
     <div class="main-content">
 
         <div class="informacoes">
-            <img src="../../data/<?=$usuarioP['fotoPerfil'] ?? "perfil_padrao.png"?>" alt="Foto de Perfil" class="foto_perfil">
+            <img src="../../data/<?= $usuarioP['fotoPerfil'] ?? "perfil_padrao.png" ?>" alt="Foto de Perfil" class="foto_perfil">
             <div class="complementoPessoal">
                 <h1><?= $usuarioP['nome'] ?></h1>
             </div>
