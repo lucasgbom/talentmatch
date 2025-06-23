@@ -178,7 +178,7 @@
     cursor: pointer;
     border-radius: 5px;
     overflow: hidden;
-
+    color: #371705;
   }
 
 
@@ -334,7 +334,10 @@
   }
 
 
-
+.btn-post{
+  font-size: x-large;
+  font-weight: bold;
+}
   .match {
     padding: 10px;
     font-size: 16px;
@@ -611,9 +614,9 @@
     width: auto;
     font-size: medium;
     display: flex;
-    align-items: center;
-    /* Centraliza verticalmente */
+    align-items: center; /* Centraliza verticalmente */
     justify-content: center;
+    color: #371705;
   }
 
   .link-perfil {
