@@ -12,4 +12,5 @@ $consulta->bindValue(':idP',$idPost);
 $consulta->execute();
 
 echo($idPost . $idUsuario);
+header("location: home.php?msg=sucesso");
 ?>

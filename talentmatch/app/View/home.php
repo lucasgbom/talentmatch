@@ -21,6 +21,7 @@ if (isset($_SESSION['usuario'])) {
   $usuario->setLatitude($_GET['latitude'] ?? "");
   $usuario->setLongitude($_GET['longitude'] ?? "");
 }
+$postsAceitos = $postDAO->listarMatchUsuario($usuario->getId());
 $tipo = $_GET['tipo'] ?? 'post';
 
 
@@ -50,7 +51,7 @@ if ($usuario && isset($_GET['enviar'])) {
     <div class="logo">
       <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
     </div>
-    <div class="section">
+    <div class="section login">
       <?php if ($guest) { ?>
         <p style="font-size: 12px; color: #aaa;">Faça login para achar artistas e oportunidades.</p>
         <a class="login-btn" href="pagina_inicial.php">Fazer login</a>
@@ -58,22 +59,22 @@ if ($usuario && isset($_GET['enviar'])) {
         <a class="login-btn" href="sair.php">Sair</a>
       <?php } ?>
     </div>
-    <br>
-    <div class="menu-item" id="btn_posts" data-target="posts" onclick="switchContent(this)">💼 <span>Posts</span></div>
-    <div class="menu-item" id="btn_projetos" data-target="projetos" onclick="switchContent(this)">🎵 <span>Projetos</span></div>
-    <div class="menu-item" id="btn_usuarios" data-target="usuarios" onclick="switchContent(this)">👤 <span>Usuarios</span></div>
+    <div class="menu-item" id="btn_usuarios" data-target="usuarios" onclick="switchContent(this)"><img class="icon" src="../../assets/meuperfil.png"><span>Usuarios</span></div>
+    <div class="menu-item" id="btn_posts" data-target="posts" onclick="switchContent(this)"> <img class="icon" src="../../assets/post.png"> <span>Posts</span></div>
+    <div class="menu-item" id="btn_projetos" data-target="projetos" onclick="switchContent(this)"><img class="icon" src="../../assets/music-note.png"> <span>Projetos</span></div>
+
     <div class="section">
       <form class="nav-form" action="meuPerfil.php" method="get">
-                <button name="tipo" value="perfil" type="submit" class="nav-input">
-                    <div class="menu-item" >👤<span>Você</span></div>
-                </button>
-                <button name="tipo" value="meus-posts" type="submit" class="nav-input">
-                    <div class="menu-item" >💼<span>Meus posts</span></div>
-                </button>
-                <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
-                    <div class="menu-item" >🎵<span>Meus projetos</span></div>
-                </button>
-        </form>
+        <button name="tipo" value="perfil" type="submit" class="nav-input">
+          <div class="menu-item"><img class="icon" src="../../assets/meuperfil.png"><span>Você</span></div>
+        </button>
+        <button name="tipo" value="meus-posts" type="submit" class="nav-input">
+          <div class="menu-item">💼<span>Meus posts</span></div>
+        </button>
+        <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
+          <div class="menu-item">🎵<span>Meus projetos</span></div>
+        </button>
+      </form>
     </div>
   </div>
 
@@ -101,8 +102,11 @@ if ($usuario && isset($_GET['enviar'])) {
             <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
           </label><br>
           <label title="Distância"><img class="icon" src="../../assets/distance.png">
-            <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
-            <span id="distanciaPost"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+            <div class="range">
+              <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+              <span id="distanciaPost"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+            </div>
+
           </label>
         </div>
       </form>
@@ -117,9 +121,15 @@ if ($usuario && isset($_GET['enviar'])) {
             $posts = $resFiltrados;
           }
           foreach ($posts as $post) {
+            if (in_array($post['id'], $postsAceitos)) {
+              $aceito = 1;
+            } else {
+              $aceito = 0;
+            }
           ?>
             <button class="grid-item open-btn" onclick="openModal(this)"
               data-modal="post"
+              data-aceito="<?= $aceito ?>"
               data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
               data-id_usuario='<?= $usuario->getId() ?>'
               data-id='<?= $post['id'] ?>'
@@ -218,7 +228,7 @@ if ($usuario && isset($_GET['enviar'])) {
 
   </div>
 
-      <?php include('modal.php') ?>
+  <?php include('modal.php') ?>
 
 </body>
 

@@ -114,7 +114,6 @@ border-top: 1px solid;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('../../assets/fundo.jpg');
     box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
-  
   }
 
   .main-content::-webkit-scrollbar {

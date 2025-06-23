@@ -80,7 +80,7 @@ $projetoDAO = new ProjetoDAO();
     <div class="main-content">
 
         <div class="informacoes">
-            <img src="../../assets/perfil_padrao.png" alt="Foto de Perfil" class="foto_perfil">
+            <img src="../../data/<?=$usuarioP['fotoPerfil'] ?? "perfil_padrao.png"?>" alt="Foto de Perfil" class="foto_perfil">
             <div class="complementoPessoal">
                 <h1><?= $usuarioP['nome'] ?></h1>
             </div>

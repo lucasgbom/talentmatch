@@ -1,6 +1,5 @@
 <style>
-
-   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
   * {
     margin: 0;
@@ -23,7 +22,11 @@
     color: white;
   }
 
- 
+  .match.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
 
   .sidebar {
     width: 100%;
@@ -39,12 +42,15 @@
     -ms-overflow-style: none;
   }
 
-  .nav-input{
-        all: unset;          /* Remove TODOS os estilos padrões (o jeito mais limpo) */
-  cursor: pointer;     /* Opcional: pra manter o cursor de clique */
-  display: block;      /* Se quiser que ele se comporte como uma div */
-  width: 100%;    
-      }
+  .nav-input {
+    all: unset;
+    /* Remove TODOS os estilos padrões (o jeito mais limpo) */
+    cursor: pointer;
+    /* Opcional: pra manter o cursor de clique */
+    display: block;
+    /* Se quiser que ele se comporte como uma div */
+    width: 100%;
+  }
 
   .menu-item {
     display: flex;
@@ -68,18 +74,22 @@
   .section {
     margin-top: 20px;
     padding-top: 15px;
-border-top: 1px solid;
-  border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
-  border-right: 0;
-  border-left: 0;
-  border-bottom: 0;
+    border-top: 1px solid;
+    border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  .login {
+    padding-bottom: 1em;
   }
 
   .login-btn {
     margin-top: 10px;
     padding: 8px 12px;
-    border: 1px solid #3ea6ff;
-    color: #3ea6ff;
+    border: 1px solid #FBE793;
+    color: #FBE793;
     border-radius: 20px;
     font-size: 14px;
     text-align: center;
@@ -127,11 +137,13 @@ border-top: 1px solid;
   /* CONTEÚDO PRINCIPAL */
   .main-content {
     width: 100%;
-    overflow-y: auto;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 5fr 8fr;
     position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('../../assets/fundo.jpg');
+    box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
   }
 
   .grid-posts,
@@ -166,7 +178,7 @@ border-top: 1px solid;
 
   .posts,
   .projetos,
-  .usuarios{
+  .usuarios {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -174,8 +186,10 @@ border-top: 1px solid;
     flex-direction: column;
     padding: 20px;
   }
-  
-  main{padding: 2% 5% 0 5% ;}
+
+  main {
+    padding: 2% 5% 0 5%;
+  }
 
   .shown {
     display: grid;
@@ -184,14 +198,14 @@ border-top: 1px solid;
 
   .gradiente-texto {
     display: inline-block;
-  background: linear-gradient(to right, #B97E30, #FBE793);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 2%;
-  font-size: 400%;
-}
+    background: linear-gradient(to right, #B97E30, #FBE793);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 2%;
+    font-size: 400%;
+  }
 
 
   /* INPUT DE PESQUISA */
@@ -210,14 +224,19 @@ border-top: 1px solid;
     height: 100%;
     border: none;
     outline: none;
-    /* Remove o contorno ao focar (aquela "borda azul" no Chrome, por exemplo) */
     box-shadow: none;
-    background-color: #F6D9B5;
+    background-color: rgb(233, 186, 129);
     padding: 15px;
   }
 
   .input:hover {
-    background-color:rgb(218, 192, 160);
+    border: solid 1px #F6D9B5;
+  }
+
+  .search,
+  .seletor,
+  .type {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   }
 
   .type {
@@ -252,30 +271,43 @@ border-top: 1px solid;
     display: block;
   }
 
-  .over{
-    display: none;
+  .over {
+    display: flex;
     position: absolute;
     width: 100%;
-    height: 300%;
+    height: 100%;
     padding: 2%;
-    background-color: #F6D9B5;
-    border-radius:  30px;
+    background-color: rgb(233, 186, 129);
+    border-radius: 30px;
     flex-direction: row;
     align-items: flex-end;
     justify-content: center;
+    transition: all 0.3s ease;
     gap: 20px;
+    overflow: hidden;
   }
 
-  .over .icon{
+  .over.open {
+    height: 250%;
+  }
+
+  .over .icon {
     width: 30px;
     height: 30px;
   }
 
-  label{display: flex;align-items: center;}
-
-  .open {
-    display: flex;
+  .menu-item .icon {
+    filter: invert(1);
+    width: 30px;
+    height: 30px;
   }
+
+  label {
+    display: flex;
+    align-items: center;
+  }
+
+
 
   .match {
     width: 20%;
@@ -488,7 +520,8 @@ border-top: 1px solid;
     height: 17em;
     padding: 0px;
   }
-  .fotoUsuario{
+
+  .fotoUsuario {
     height: 2em;
   }
 </style>
