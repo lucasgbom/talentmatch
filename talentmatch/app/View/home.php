@@ -69,10 +69,10 @@ if ($usuario && isset($_GET['enviar'])) {
           <div class="menu-item"><img class="icon" src="../../assets/meuperfil.png"><span>Você</span></div>
         </button>
         <button name="tipo" value="meus-posts" type="submit" class="nav-input">
-          <div class="menu-item">💼<span>Meus posts</span></div>
+          <div class="menu-item"> <img class="icon" src="../../assets/post.png"><span>Meus posts</span></div>
         </button>
         <button name="tipo" value="meus-projetos" type="submit" class="nav-input">
-          <div class="menu-item">🎵<span>Meus projetos</span></div>
+          <div class="menu-item"><img class="icon" src="../../assets/music-note.png"> <span>Meus projetos</span></div>
         </button>
       </form>
     </div>
@@ -174,10 +174,10 @@ if ($usuario && isset($_GET['enviar'])) {
           foreach ($usuarios as $usuario) {
           ?>
             <a href="perfil.php?id=<?= $usuario['id'] ?>" class="link-perfil">
-                <button class="grid-item open-btn btn-usuario">
-                    <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
-                    <div class="user-title"><?= $usuario['nome'] ?></div>
-                </button>
+              <button class="grid-item open-btn btn-usuario">
+                <img src="../../data/<?= $usuario['fotoPerfil'] ?? 'perfil_padrao.png' ?>" alt="" class="foto-perfil">
+                <div class="user-title"><?= $usuario['nome'] ?></div>
+              </button>
             </a>
           <?php } ?>
         </div>
@@ -214,8 +214,9 @@ if ($usuario && isset($_GET['enviar'])) {
               <div class="poster-card">
                 <div class="poster-title"><?= $projeto['titulo'] ?></div>
                 <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
-              </div></button>
-            <?php } ?>
+              </div>
+            </button>
+          <?php } ?>
         </div>
       </main>
     </div>

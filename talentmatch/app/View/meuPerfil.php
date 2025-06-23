@@ -46,31 +46,31 @@ $tipo = $_GET['tipo'] ?? 'post';
         <div class="logo">
             <img src="../../assets/talentmatch.png" alt="Não foi possível carregar imagem.">
         </div>
-        <div class="section">
+        <div class="section login">
             <a class="login-btn" href="sair.php">Sair</a>
         </div>
         <form action="home.php" method="get">
+            <button name="tipo" value="usuario" type="submit" class="nav-input">
+                <div class="menu-item" id="btn_usuarios"><img class="icon" src="../../assets/meuperfil.png"> <span>Usuarios</span></div>
+            </button>
             <button name="tipo" value="post" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_posts">💼 <span>Posts</span></div>
+                <div class="menu-item" id="btn_posts"><img class="icon" src="../../assets/post.png"> <span>Posts</span></div>
             </button>
             <button name="tipo" value="projeto" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_projetos">🎵 <span>Projetos</span></div>
-            </button>
-            <button name="tipo" value="usuario" type="submit" class="nav-input">
-                <div class="menu-item" id="btn_usuarios">👤 <span>Usuarios</span></div>
+                <div class="menu-item" id="btn_projetos"><img class="icon" src="../../assets/music-note.png"> <span>Projetos</span></div>
             </button>
         </form>
 
         <div class="section">
-            <div class="menu-item" data-target="perfil" onclick="switchContent(this)">👤<span>Você</span></div>
-             <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)">💼 <span>Meus posts</span></div>
-            <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)">🎵 <span>Meus projetos</span></div>
+            <div class="menu-item" data-target="perfil" onclick="switchContent(this)"><img class="icon" src="../../assets/meuperfil.png"><span>Você</span></div>
+            <div class="menu-item" id="btn_usuarios" data-target="meus-posts" onclick="switchContent(this)"><img class="icon" src="../../assets/post.png"> <span>Meus posts</span></div>
+            <div class="menu-item" id="btn_projetos" data-target="meus-projetos" onclick="switchContent(this)"><img class="icon" src="../../assets/music-note.png"> <span>Meus projetos</span></div>
         </div>
     </div>
 
     <div class="main-content">
 
-    
+
         <div class="header">
             <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
             <div class="profile-info">
@@ -131,7 +131,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
                     <input type="submit" id="salvar" value="salvar">
                 </div>
-                    </form>
+                </form>
 
             </div>
 
@@ -173,116 +173,116 @@ $tipo = $_GET['tipo'] ?? 'post';
         </div>
     </div>
 
-     <div class="modal" id="myModal">
-            <div class="modal-content" id="projeto">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <!-- Abas -->
-                <div class="tabs">
-                    <button class="tab criar" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
-                    <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
-                    <button class="tab editar" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
-                </div>
-                <!-- Conteúdo das abas -->
-                <div class="tab-content" id="criar-projeto">
+    <div class="modal" id="myModal">
+        <div class="modal-content" id="projeto">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <!-- Abas -->
+            <div class="tabs">
+                <button class="tab criar" data-target="criar-projeto" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+                <button class="tab visualizar" data-target="visualizar-projeto" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+                <button class="tab editar" data-target="editar-projeto" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+            </div>
+            <!-- Conteúdo das abas -->
+            <div class="tab-content" id="criar-projeto">
 
-                    <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="titulo" class="titulo" required />
-                        <textarea name="descricao" rows="4" class="descricao" ></textarea>
+                <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="titulo" class="titulo" required />
+                    <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                        <div class="special-input">
-                            <video src="" class="projeto"></video>
-                            <input type="file" name="video" class="arquivo"  required/>
-                        </div>
-
-                        <input type="hidden" name="tipo" value="inserir">
-                        <input type="hidden" class="id" name="id">
-
-
-                        <button type="submit" name="editar">Salvar</button>
-                    </form>
-
-
-                </div>
-
-                <div class="tab-content" id="visualizar-projeto">
-                    <div class="post-container">
-                        <h2 class="titulo"></h2>
-                        <p class="descricao"></p>
-
-                        <div class="post-video">
-                            <video src="" class="projeto" controls></video>
-                        </div>
-
+                    <div class="special-input">
+                        <video src="" class="projeto"></video>
+                        <input type="file" name="video" class="arquivo" required />
                     </div>
-                </div>
+
+                    <input type="hidden" name="tipo" value="inserir">
+                    <input type="hidden" class="id" name="id">
 
 
-                <div class="tab-content" id="editar-projeto">
-                    <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                        <div>
-                            <input type="text" name="titulo" class="titulo" required />
-                            <textarea name="descricao" rows="4" class="descricao"></textarea>
-
-                            <div class="special-input">
-                                <video src="" class="projeto"></video>
-                                <input type="file" name="video" class="arquivo" required/>
-                            </div>
-
-                            <input type="hidden" name="tipo" value="editar">
-                            <input type="hidden" class="id" name="id">
+                    <button type="submit" name="editar">Salvar</button>
+                </form>
 
 
-                            <button type="submit" name="editar">Salvar</button>
-                        </div>
-                    </form>
+            </div>
+
+            <div class="tab-content" id="visualizar-projeto">
+                <div class="post-container">
+                    <h2 class="titulo"></h2>
+                    <p class="descricao"></p>
+
+                    <div class="post-video">
+                        <video src="" class="projeto" controls></video>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="modal-content" id="post">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <!-- Abas -->
-                <div class="tabs">
-                    <button class="tab criar" data-target="criar-post" data-mdl="criar" onclick="switchTab(this)">Criar</button>
-                    <button class="tab visualizar" data-target="visualizar-post" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
-                    <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Editar</button>
-                </div>
-                <!-- Conteúdo das abas -->
-                <div class="tab-content" id="criar-post">
-                    <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
+
+            <div class="tab-content" id="editar-projeto">
+                <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
+                    <div>
                         <input type="text" name="titulo" class="titulo" required />
                         <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                        <input type="date" name="date" id="dataI" max="2100-12-30" required>
-                        <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00" required>
+                        <div class="special-input">
+                            <video src="" class="projeto"></video>
+                            <input type="file" name="video" class="arquivo" required />
+                        </div>
 
-                        <input type="hidden" name="acao" value="inserir">
-                        <select name="habilidade" id="habilidades">
-                            <option value="vocalista">Vocalista</option>
-                            <option value="violao">Violão</option>
-                            <option value="piano">Piano</option>
-                            <option value="baixo">Baixo</option>
-                        </select>
-                        <?php include("../../../mapa/mapa.php"); ?>
-                        <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
+                        <input type="hidden" name="tipo" value="editar">
                         <input type="hidden" class="id" name="id">
-                        <button type="submit" name="editar">Salvar</button>
-                    </form>
-                </div>
-                <div class="tab-content" id="visualizar-post">
-                    <div class="post-container">
-                        <h2 class="titulo"></h2>
-                        <p class="descricao"></p>
 
-                        <p class="data"></p>
-                        <p class="habilidade"></p>
-                        <p class="pagamento"></p>
+
+                        <button type="submit" name="editar">Salvar</button>
                     </div>
-                </div>
-                <div class="tab-content" id="editar-post">
-                    
-                </div>
+                </form>
             </div>
         </div>
+
+        <div class="modal-content" id="post">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <!-- Abas -->
+            <div class="tabs">
+                <button class="tab criar" data-target="criar-post" data-mdl="criar" onclick="switchTab(this)">Criar</button>
+                <button class="tab visualizar" data-target="visualizar-post" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
+                <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+            </div>
+            <!-- Conteúdo das abas -->
+            <div class="tab-content" id="criar-post">
+                <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="titulo" class="titulo" required />
+                    <textarea name="descricao" rows="4" class="descricao"></textarea>
+
+                    <input type="date" name="date" id="dataI" max="2100-12-30" required>
+                    <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00" required>
+
+                    <input type="hidden" name="acao" value="inserir">
+                    <select name="habilidade" id="habilidades">
+                        <option value="vocalista">Vocalista</option>
+                        <option value="violao">Violão</option>
+                        <option value="piano">Piano</option>
+                        <option value="baixo">Baixo</option>
+                    </select>
+                    <?php include("../../../mapa/mapa.php"); ?>
+                    <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
+                    <input type="hidden" class="id" name="id">
+                    <button type="submit" name="editar">Salvar</button>
+                </form>
+            </div>
+            <div class="tab-content" id="visualizar-post">
+                <div class="post-container">
+                    <h2 class="titulo"></h2>
+                    <p class="descricao"></p>
+
+                    <p class="data"></p>
+                    <p class="habilidade"></p>
+                    <p class="pagamento"></p>
+                </div>
+            </div>
+            <div class="tab-content" id="editar-post">
+
+            </div>
+        </div>
+    </div>
     </div>
 
 

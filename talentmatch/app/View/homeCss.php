@@ -109,7 +109,9 @@
   }
 
   .logo img {
-    height: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
     object-fit: contain;
   }
 
@@ -147,7 +149,7 @@
   }
 
   .grid-posts,
-  .grid-projetos{
+  .grid-projetos {
     width: 100%;
     height: 100%;
     display: grid;
@@ -156,7 +158,7 @@
     gap: 1px;
   }
 
-  .grid-usuarios{
+  .grid-usuarios {
     width: 100%;
     height: 100%;
     display: grid;
@@ -165,7 +167,7 @@
     gap: 1px;
   }
 
- .grid-item {
+  .grid-item {
     background-color: rgb(233, 186, 129);
     padding: 20px;
     text-align: center;
@@ -180,8 +182,8 @@
   }
 
 
-  .grid-usuarios .grid-item{
-     background-color: rgb(233, 186, 129);
+  .grid-usuarios .grid-item {
+    background-color: rgb(233, 186, 129);
     padding: 20px;
     text-align: center;
     height: 200px;
@@ -504,7 +506,7 @@
   /*
         Projeto
       */
-   .thumbnail{
+  .thumbnail {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -517,7 +519,7 @@
   /*
         Usuario
   */
-  .poster-card{
+  .poster-card {
     display: flex;
     width: 100%;
     height: 100%;
@@ -525,7 +527,7 @@
     padding: 2%;
   }
 
-  .btn-usuario{
+  .btn-usuario {
     display: flex;
     width: 100%;
     height: 100%;
@@ -535,7 +537,7 @@
   }
 
 
-  .poster-title{
+  .poster-title {
     height: 20%;
     width: auto;
     font-size: medium;
@@ -550,20 +552,21 @@
     cursor: pointer;
   }
 
-  .user-title{
+  .user-title {
     height: 15%;
     width: auto;
     font-size: medium;
     display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center;
+    align-items: center;
+    /* Centraliza verticalmente */
+    justify-content: center;
   }
 
   .foto-perfil {
     width: auto;
     height: 85%;
     object-fit: cover;
-    padding: 2% 2% 0 2% ;
+    padding: 2% 2% 0 2%;
     margin: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     background-color: rgb(246, 196, 136);

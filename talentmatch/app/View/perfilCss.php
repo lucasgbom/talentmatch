@@ -23,10 +23,14 @@
     white-space: normal;
   }
 
-  a{all: unset;
-  cursor: pointer;}
- 
+  a {
+    all: unset;
+    cursor: pointer;
+  }
 
+  .login{
+    padding-bottom: 1em;
+  }
   .sidebar {
     width: 100%;
     background-color: rgb(55, 23, 5);
@@ -41,12 +45,15 @@
     -ms-overflow-style: none;
   }
 
-  .nav-input{
-        all: unset;          /* Remove TODOS os estilos padrões (o jeito mais limpo) */
-  cursor: pointer;     /* Opcional: pra manter o cursor de clique */
-  display: block;      /* Se quiser que ele se comporte como uma div */
-  width: 100%;    
-      }
+  .nav-input {
+    all: unset;
+    /* Remove TODOS os estilos padrões (o jeito mais limpo) */
+    cursor: pointer;
+    /* Opcional: pra manter o cursor de clique */
+    display: block;
+    /* Se quiser que ele se comporte como uma div */
+    width: 100%;
+  }
 
   .menu-item {
     display: flex;
@@ -70,24 +77,30 @@
   .section {
     margin-top: 20px;
     padding-top: 15px;
-border-top: 1px solid;
-  border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
-  border-right: 0;
-  border-left: 0;
-  border-bottom: 0;
+    border-top: 1px solid;
+    border-image: linear-gradient(to right, #B97E30, #FBE793) 1;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
   }
 
   .login-btn {
     margin-top: 10px;
     padding: 8px 12px;
-    border: 1px solid #3ea6ff;
-    color: #3ea6ff;
+    border: 1px solid #FBE793;
+    color: #FBE793;
     border-radius: 20px;
     font-size: 14px;
     text-align: center;
     display: inline-block;
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .menu-item .icon {
+    filter: invert(1);
+    width: 30px;
+    height: 30px;
   }
 
   .sidebar::-webkit-scrollbar {
@@ -158,7 +171,7 @@ border-top: 1px solid;
     object-fit: cover;
   }
 
-  .thumbnail{
+  .thumbnail {
     width: 100%;
     height: auto;
   }
@@ -187,11 +200,15 @@ border-top: 1px solid;
     padding: 0;
     border-radius: 8px;
 
-    min-width: 40vw;      /* Largura mínima */
-    min-height: 50vh;      /* Altura mínima */
+    min-width: 40vw;
+    /* Largura mínima */
+    min-height: 50vh;
+    /* Altura mínima */
 
-    width: fit-content;    /* Cresce até o conteúdo */
-    height: fit-content;   /* Cresce até o conteúdo */
+    width: fit-content;
+    /* Cresce até o conteúdo */
+    height: fit-content;
+    /* Cresce até o conteúdo */
 
     max-width: 90%;
     max-height: 90%;
@@ -199,9 +216,12 @@ border-top: 1px solid;
     display: none;
     flex-direction: column;
     position: relative;
-    overflow-y :auto;
+    overflow-y: auto;
   }
-  .modal-content::-webkit-scrollbar{display: none;}
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
+  }
 
   .modal-content.active {
     display: flex;
@@ -256,11 +276,11 @@ border-top: 1px solid;
     display: block;
   }
 
-  .tab-content #map{
+  .tab-content #map {
     height: 100%;
   }
 
-  .bot{
+  .bot {
     align-self: flex-end;
   }
 
@@ -272,7 +292,12 @@ border-top: 1px solid;
     resize: none;
   }
 
-  .tab-content header{display: flex;align-items: center;margin-bottom: 2%;gap: 3%;}
+  .tab-content header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+    gap: 3%;
+  }
 
   .tab-content button {
     background-color: #007BFF;
@@ -289,7 +314,7 @@ border-top: 1px solid;
     width: 100%;
     height: 100%;
     padding: 3%;
-    border: 2px solid #371705;   
+    border: 2px solid #371705;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -305,16 +330,17 @@ border-top: 1px solid;
     padding: 2%;
   }
 
-  .poster-title{
+  .poster-title {
     height: 20%;
     width: auto;
     font-size: medium;
     display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center;
+    align-items: center;
+    /* Centraliza verticalmente */
+    justify-content: center;
   }
 
-  .btn-projeto{
+  .btn-projeto {
     padding: 0 !important;
   }
 
@@ -350,19 +376,20 @@ border-top: 1px solid;
     height: 100%;
     border: none;
   }
-  .nav-form{
-  display: flex;
-  flex-direction: column;
+
+  .nav-form {
+    display: flex;
+    flex-direction: column;
   }
 
   .grid-container {
-        display: grid;
-        width: 90%;
-        grid-template-columns: repeat(auto-fill, 200px);
-        gap: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-    }
+    display: grid;
+    width: 90%;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
 
   .grid-item {
     background-color: rgb(233, 186, 129);
@@ -399,83 +426,83 @@ border-top: 1px solid;
     caret-color: auto;
   }
 
-   .informacoes {
-            max-width: 100%;
-   
-      background: linear-gradient(to right,rgb(42, 22, 10), rgb(55, 23, 5));
+  .informacoes {
+    max-width: 100%;
+
+    background: linear-gradient(to right, rgb(42, 22, 10), rgb(55, 23, 5));
 
 
-            display: flex;
-            align-items: center;
-            padding: 30px;
-                box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
 
-        }
+  }
 
-        .foto_perfil {
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 100px;
-        }
+  .foto_perfil {
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 100px;
+  }
 
-        .complementoPessoal {
-            max-width: 500px;
-        }
+  .complementoPessoal {
+    max-width: 500px;
+  }
 
-        .descricao {
-            margin-top: 10px;
-        }
+  .descricao {
+    margin-top: 10px;
+  }
 
-        .ver-mais {
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
+  .ver-mais {
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
-        .close {
-            color: red;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+  .close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-        .tab-menu {
-            display: flex;
-            background-color: #361200;
-        }
+  .tab-menu {
+    display: flex;
+    background-color: #361200;
+  }
 
-        .tab-menu button {
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 20px;
-            transition: 0.3s;
-            color: white;
-            font-size: 16px;
-            border-bottom: 3px solid transparent;
-        }
+  .tab-menu button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    transition: 0.3s;
+    color: white;
+    font-size: 16px;
+    border-bottom: 3px solid transparent;
+  }
 
-        .tab-menu button:hover {
-            background-color:rgba(77, 24, 0, 0.69);
-        }
+  .tab-menu button:hover {
+    background-color: rgba(77, 24, 0, 0.69);
+  }
 
-        .tab-menu button.active {
-            border-bottom: 3px solid red;
-            background-color: #222;
-        }
+  .tab-menu button.active {
+    border-bottom: 3px solid red;
+    background-color: #222;
+  }
 
-        .tab-page {
-            display: none;
-            padding: 20px;
-            width: 100%;
-            height: 100%;
-        }
+  .tab-page {
+    display: none;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+  }
 
-        .tab-page.active {
-            display: block;
-        }
-  
+  .tab-page.active {
+    display: block;
+  }
+
 
   .link-perfil {
     height: 100%;
@@ -499,8 +526,9 @@ border-top: 1px solid;
     height: 17em;
     padding: 0px;
   }
-  .fotoUsuario{
+
+  .fotoUsuario {
     height: 2em;
     border-radius: 3px;
   }
-   </style>
+</style>
