@@ -176,7 +176,7 @@
     cursor: pointer;
     border-radius: 5px;
     overflow: hidden;
-
+    color: #371705;
   }
 
 
@@ -332,7 +332,10 @@
   }
 
 
-
+.btn-post{
+  font-size: x-large;
+  font-weight: bold;
+}
   .match {
     width: 20%;
     position: absolute;
@@ -537,8 +540,9 @@
     width: auto;
     font-size: medium;
     display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center;
+    color: #371705;
   }
 
   .link-perfil {

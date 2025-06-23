@@ -127,7 +127,7 @@ if ($usuario && isset($_GET['enviar'])) {
               $aceito = 0;
             }
           ?>
-            <button class="grid-item open-btn" onclick="openModal(this)"
+            <button class="grid-item open-btn btn-post" onclick="openModal(this)"
               data-modal="post"
               data-aceito="<?= $aceito ?>"
               data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
