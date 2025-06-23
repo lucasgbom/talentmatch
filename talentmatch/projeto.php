@@ -1,5 +1,8 @@
-<?php session_start();
-$_SESSION['idArtista'] = 1; ?>
+<?php 
+session_start();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

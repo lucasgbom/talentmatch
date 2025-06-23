@@ -118,4 +118,16 @@ class PostDAO
             print "Erro ao listar Projetos <br>" . $e . '<br>';
         }
     }
+    public function listarMatchUsuario($idUsuario)
+    {
+        try {
+            $sql = 'SELECT idPost FROM usuario_post WHERE idUsuario = :idUsuario';
+            $consulta = Conexao::getConexao()->prepare($sql);
+            $consulta->bindValue(':idUsuario', $idUsuario);
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_COLUMN);
+        } catch (Exception $e) {
+            print "Erro ao listar Projetos <br>" . $e . '<br>';
+        }
+    }
 }

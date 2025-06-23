@@ -82,4 +82,8 @@
       e.value = position.coords.longitude;
     });
   });
+  if ("<?=$_GET['msg'] ?? ""?>" == "sucesso"){
+    alert("O Match foi bem sucedido!");
+    console.log("<?=$_GET['msg'] ?? ""?>");
+  }
 </script>

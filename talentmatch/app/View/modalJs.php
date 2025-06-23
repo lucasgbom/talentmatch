@@ -34,14 +34,13 @@
         if (target == 'post') {
             id = element.dataset.id;
             idU = element.dataset.id_usuario;
-            console.log(idU);
             usuario = JSON.parse(element.dataset.usuario); // array do json_encode, usuario do post
             titulo = element.dataset.titulo;
             descricao = element.dataset.descricao;
             data = element.dataset.data_;
             habilidade = element.dataset.habilidade;
             pagamento = element.dataset.pagamento;
-    
+            aceito = element.dataset.aceito;
             view.querySelector(".postI").value = id;
             view.querySelector(".userI").value = idU;
 
@@ -50,14 +49,21 @@
             view.querySelector(".data").textContent = data
             view.querySelector(".pagamento").textContent = pagamento
             view.querySelector(".habilidade").textContent = habilidade
-
             // usuario do post
             if (usuario['fotoPerfil']) {
                 view.querySelector(".fotoUsuario").src = "../../data/" + usuario['fotoPerfil'];
             }
             view.querySelector(".nomeUsuario").textContent = usuario['nome'];
             view.querySelector(".linkUsuario").href = "perfil.php?id=" + usuario['id']; // link pro perfil usando Id
-
+            // Se o usuario tiver aceito tal post aparecera aceito e desabilitará o botão
+            if (aceito == true){
+                view.querySelector(".match").textContent = "Aceito";
+                view.querySelector(".match").classList.add("disabled");
+            }
+            else{
+                view.querySelector(".match").textContent = "Match";
+                view.querySelector(".match").classList.remove("disabled");
+            }
         }
     }
 

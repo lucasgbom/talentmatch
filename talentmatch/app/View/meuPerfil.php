@@ -69,6 +69,8 @@ $tipo = $_GET['tipo'] ?? 'post';
     </div>
 
     <div class="main-content">
+
+    
         <div class="header">
             <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
             <div class="profile-info">
@@ -184,12 +186,12 @@ $tipo = $_GET['tipo'] ?? 'post';
                 <div class="tab-content" id="criar-projeto">
 
                     <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="titulo" class="titulo" />
-                        <textarea name="descricao" rows="4" class="descricao"></textarea>
+                        <input type="text" name="titulo" class="titulo" required />
+                        <textarea name="descricao" rows="4" class="descricao" ></textarea>
 
                         <div class="special-input">
                             <video src="" class="projeto"></video>
-                            <input type="file" name="video" class="arquivo" />
+                            <input type="file" name="video" class="arquivo"  required/>
                         </div>
 
                         <input type="hidden" name="tipo" value="inserir">
@@ -218,12 +220,12 @@ $tipo = $_GET['tipo'] ?? 'post';
                 <div class="tab-content" id="editar-projeto">
                     <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
                         <div>
-                            <input type="text" name="titulo" class="titulo" />
+                            <input type="text" name="titulo" class="titulo" required />
                             <textarea name="descricao" rows="4" class="descricao"></textarea>
 
                             <div class="special-input">
                                 <video src="" class="projeto"></video>
-                                <input type="file" name="video" class="arquivo" />
+                                <input type="file" name="video" class="arquivo" required/>
                             </div>
 
                             <input type="hidden" name="tipo" value="editar">
@@ -247,11 +249,11 @@ $tipo = $_GET['tipo'] ?? 'post';
                 <!-- Conteúdo das abas -->
                 <div class="tab-content" id="criar-post">
                     <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="titulo" class="titulo" />
+                        <input type="text" name="titulo" class="titulo" required />
                         <textarea name="descricao" rows="4" class="descricao"></textarea>
 
-                        <input type="date" name="date" id="dataI" max="2100-12-30">
-                        <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00">
+                        <input type="date" name="date" id="dataI" max="2100-12-30" required>
+                        <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00" required>
 
                         <input type="hidden" name="acao" value="inserir">
                         <select name="habilidade" id="habilidades">
@@ -277,7 +279,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     </div>
                 </div>
                 <div class="tab-content" id="editar-post">
-
+                    
                 </div>
             </div>
         </div>
