@@ -34,4 +34,6 @@ if ($_POST['tipo'] == 'logar') {
     header('location: ../View/pagina_inicial.php');
 } else if ($_POST['tipo'] == 'atualizar') {
     $usuarioDAO->atualizar($usuario);
+        header('location: ../View/meuPerfil.php');
+
 }

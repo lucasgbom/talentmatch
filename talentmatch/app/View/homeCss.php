@@ -375,6 +375,19 @@
     color: #371705;
   }
 
+  .btn-editar, .btn-salvar{
+        margin-top: 10px;
+        padding: 8px 12px;
+        border: 1px solid  rgb(80, 40, 18);
+        color: rgb(80, 40, 18);
+        border-radius: 20px;
+        font-size: 14px;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        background-color: transparent;
+      }
   .modal {
     display: none;
     position: fixed;
@@ -490,17 +503,7 @@
     color: #371705;
   }
 
-  .tab-content button {
-    border-radius: 10px;
-    background-color: #371705;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-
-  .tab-content button:hover {
-    background-color: rgb(78, 39, 17);
-  }
+  
 
   .post-container {
     width: 100%;

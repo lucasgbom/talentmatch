@@ -24,7 +24,7 @@ if ($usuario->getLongitude() !== null && $usuario->getLatitude() !== null) {
     $longitudeU = $usuario->getLongitude();
 }
 
-$tipo = $_GET['tipo'] ?? 'post';
+$tipo = $_GET['tipo'] ?? 'perfil';
 
 ?>
 

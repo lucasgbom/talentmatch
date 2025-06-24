@@ -54,7 +54,7 @@
                 <input type="hidden" name="idPost" class="postI">
                 <input type="hidden" name="nomeUsuario" class="userN">
 
-                <button class="match">Match</button>
+                <button class="match btn-salvar">Match</button>
             </form>
             </div>
             
