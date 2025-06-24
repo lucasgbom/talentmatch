@@ -339,10 +339,9 @@
   font-weight: bold;
 }
   .match {
-    width: 20%;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
   }
 
   .open-modal-btn {
@@ -362,13 +361,14 @@
 
   .modal {
     display: none;
-    position: absolute;
+    position: fixed;
     z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
   }
 
   .modal-content {
@@ -376,11 +376,28 @@
     margin: 5% auto;
     padding: 0;
     border-radius: 8px;
-    width: 40vw;
-    height: 60vh;
+
+    min-width: 40vw;
+    /* Largura mínima */
+    min-height: 50vh;
+    /* Altura mínima */
+
+    width: fit-content;
+    /* Cresce até o conteúdo */
+    height: fit-content;
+    /* Cresce até o conteúdo */
+
+    max-width: 90%;
+    max-height: 90%;
+
     display: none;
     flex-direction: column;
     position: relative;
+    overflow-y: auto;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
   }
 
   .modal-content.active {
@@ -418,9 +435,9 @@
 
   .tab-content {
     display: none;
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
     padding: 20px;
-    margin: 10px;
     box-sizing: border-box;
     overflow-y: auto;
     color: #371705;
@@ -434,8 +451,48 @@
     height: 100%;
   }
 
+  .bot {
+    align-self: flex-end;
+  }
+
+  .tab-content input,
+  .tab-content textarea,
+  .tab-content button {
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+  }
+
+  .tab-content header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+    gap: 3%;
+  }
+  .tab-content header a{
+    color: #371705;
+  }
+  .tab-content button {
+    border-radius: 10px;
+    background-color: #371705;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
   .tab-content button:hover {
-    background-color: #0056b3;
+    background-color:rgb(78, 39, 17);
+  }
+
+  .post-container {
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    border: 2px solid #371705;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
   }
 
   .post-title {
@@ -470,7 +527,16 @@
     border: none;
   }
 
-
+  .post-container {
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    border: 2px solid #371705;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
 
   .projeto {
     background-color: gray;

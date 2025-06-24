@@ -28,9 +28,10 @@
     cursor: pointer;
   }
 
-  .login{
+  .login {
     padding-bottom: 1em;
   }
+
   .sidebar {
     width: 100%;
     background-color: rgb(55, 23, 5);
@@ -114,7 +115,9 @@
   }
 
   .logo img {
-    height: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
     object-fit: contain;
   }
 
@@ -234,6 +237,7 @@
     right: 15px;
     font-size: 24px;
     cursor: pointer;
+    color: #371705;
   }
 
   .tabs {
@@ -300,14 +304,15 @@
   }
 
   .tab-content button {
-    background-color: #007BFF;
+    border-radius: 10px;
+    background-color: #371705;
     color: #fff;
     border: none;
     cursor: pointer;
   }
 
   .tab-content button:hover {
-    background-color: #0056b3;
+    background-color:rgb(78, 39, 17);   
   }
 
   .post-container {
@@ -437,17 +442,15 @@
   }
 
   .foto_perfil {
+    width: 150px;
     height: 150px;
+    object-fit: cover;
     border-radius: 50%;
     margin-right: 100px;
   }
 
   .complementoPessoal {
     max-width: 500px;
-  }
-
-  .descricao {
-    margin-top: 10px;
   }
 
   .ver-mais {
@@ -470,6 +473,7 @@
   }
 
   .tab-menu button {
+    background-color: #361200;
     border: none;
     outline: none;
     cursor: pointer;
@@ -485,8 +489,8 @@
   }
 
   .tab-menu button.active {
-    border-bottom: 3px solid red;
-    background-color: #222;
+    border-bottom: 3px solid #ffffff;
+    background-color: rgb(36, 17, 5);
   }
 
   .tab-page {

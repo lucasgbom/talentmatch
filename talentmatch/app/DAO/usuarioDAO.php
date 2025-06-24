@@ -53,6 +53,7 @@ class UsuarioDAO
                         $usuario->$method($valor);
                     }
                 }
+                var_dump($usuario);
                 $_SESSION["usuario"] = $usuario;
                 $_SESSION['nome'] = $usuario->getNome();
                 return true;
@@ -179,10 +180,8 @@ class UsuarioDAO
 
             $setString = implode(', ', $set);
             $sql = "UPDATE usuario SET $setString WHERE id = :id";
-
             $conexao = Conexao::getConexao();
-            $consulta = $conexao->prepare($sql);
-
+            $consulta = $conexao->prepare($sql);    
             // Bind dos valores
             foreach ($metodos as $metodo) {
                 if (str_starts_with($metodo, 'get')) {
@@ -191,7 +190,8 @@ class UsuarioDAO
                     $consulta->bindValue(":$campo", $valor);
                 }
             }
-            var_dump($setString);
+
+            $consulta->bindValue(":id", $usuario->getId());
             $consulta->execute();
             $_SESSION['usuario'] = $usuario;
             return true;

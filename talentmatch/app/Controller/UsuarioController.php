@@ -11,21 +11,18 @@ session_start();
 $arquivo = isset($_FILES['foto']) ? $_FILES['foto'] : '';
 $usuarioDAO = new UsuarioDAO();
 $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : new Usuario();
-
-
-
-var_dump($_POST);
-
-$usuario->setLatitude($_POST['lat']);
-$usuario->setLongitude($_POST['lon']);
+var_dump($_SESSION);
 
 isset($_POST['lat']) ?           $usuario->setLatitude($_POST['lat'])            : '';
 isset($_POST['lon']) ?           $usuario->setLongitude($_POST['lon'])           : '';
 isset($_POST['email']) ?         $usuario->setEmail($_POST['email'])             : '';
 isset($_POST['nome']) ?          $usuario->setNome($_POST['nome'])               : '';
 isset($_SESSION['usuario']) ?    $usuario->setId($_SESSION['usuario']->getId())  : '';
-isset($_POST['nomeUsuario']) ?   $usuario->setNomeUsuario($_POST['nomeUsuario']) : '';
+isset($_POST['telefone']) ?   $usuario->setTelefone($_POST['telefone']) : '';
 isset($arquivo['name']) ?        $usuario->setFotoPerfil($arquivo['name'])       : '';
+
+
+
 if ($_POST['tipo'] == 'logar') {
     if ($usuarioDAO->logar($_POST['email'], $_POST['senha'])) {
         header('location: ../View/home.php');

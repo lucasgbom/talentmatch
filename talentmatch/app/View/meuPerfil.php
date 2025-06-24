@@ -106,8 +106,8 @@ $tipo = $_GET['tipo'] ?? 'post';
                         <label for="email">Email:</label><br>
                         <input type="email" name="email" class="input-field disabled" value="<?= $usuario->getEmail(); ?>"><br>
 
-                        <label for="nomeUsuario">Nome de usuario:</label><br>
-                        <input type="text" name="nomeUsuario" class="input-field disabled" value="<?= $usuario->getNomeUsuario(); ?>"><br>
+                        <label for="telefone">Telefone:</label><br>
+                        <input type="text" name="telefone" class="input-field disabled" value="<?= $usuario->getTelefone(); ?>"><br>
 
 
                 </div>
