@@ -104,21 +104,23 @@ $postsAceitos = $postDAO->listarMatchUsuario($usuario->getId());
         <div id="posts" class="tab-page">
             <h2>Posts</h2>
             <p>Veja aqui os últimos posts e atualizações.</p>
-            <?php
-            $posts = $postDAO->buscar('idUsuario', $usuarioP['id']);
-            foreach ($posts as $post) {
-                if (in_array($post['id'], $postsAceitos)) {
-                    $aceito = 1;
-                } else {
-                    $aceito = 0;
-                }
-            ?>
-                <div class="grid-container">
+            <div class="grid-container">
+
+                <?php
+                $posts = $postDAO->buscar('idUsuario', $usuarioP['id']);
+                foreach ($posts as $post) {
+                    if (in_array($post['id'], $postsAceitos)) {
+                        $aceito = 1;
+                    } else {
+                        $aceito = 0;
+                    }
+                ?>
                     <button class="grid-item open-btn" onclick="openModal(this)"
                         data-modal="post"
-                         data-aceito="<?= $aceito ?>"
+                        data-aceito="<?= $aceito ?>"
                         data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
                         data-id_usuario='<?= $usuario->getId() ?>'
+                        data-nome_usuario="<?= $usuario->getNome() ?>"
                         data-id='<?= $post['id'] ?>'
                         data-titulo='<?= $post['titulo'] ?>'
                         data-descricao='<?= $post['descricao'] ?>'
@@ -126,33 +128,36 @@ $postsAceitos = $postDAO->listarMatchUsuario($usuario->getId());
                         data-habilidade='<?= $post['habilidade'] ?>'
                         data-pagamento='<?= formatarParaReal($post['pagamento']) ?>'>
 
-                        <?= $post['titulo'] ?>
+                        <?= $post['titulo'] ?></button>
+                <?php } ?>
+            </div>
+            </div>
+
+            <div id="projetos" class="tab-page">
+                <h2>Projetos</h2>
+                <p>Confira os projetos realizados e em andamento.</p>
+                <div class="grid-container">
+                    <?php
+                    $projetos = $projetoDAO->buscar('idUsuario', $usuarioP['id']);
+                    foreach ($projetos as $projeto) {
+                    ?>
+                        <button class="grid-item open-btn btn-projeto" onclick="openModal(this)"
+                            data-modal="projeto"
+                            data-titulo="<?= $projeto['titulo'] ?>"
+                            data-descricao="<?= $projeto['descricao'] ?>"
+                            data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
+                            data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
+                            <div class="poster-card">
+                                <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+                            </div>
+                        </button>
                     <?php } ?>
                 </div>
-                <div id="projetos" class="tab-page">
-                    <h2>Projetos</h2>
-                    <p>Confira os projetos realizados e em andamento.</p>
-                    <div class="grid-container">
-                        <?php
-                        $projetos = $projetoDAO->buscar('idUsuario', $usuarioP['id']);
-                        foreach ($projetos as $projeto) {
-                        ?>
-                            <button class="grid-item open-btn btn-projeto" onclick="openModal(this)"
-                                data-modal="projeto"
-                                data-titulo="<?= $projeto['titulo'] ?>"
-                                data-descricao="<?= $projeto['descricao'] ?>"
-                                data-arquivo="<?= $projeto['arquivoCaminho'] ?>"
-                                data-usuario='<?= json_encode($usuarioDAO->carregar($projeto['idUsuario'])) ?>'>
-                                <div class="poster-card">
-                                    <div class="poster-title"><?= $projeto['titulo'] ?></div>
-                                    <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
-                                </div>
-                            </button>
-                        <?php } ?>
-                    </div>
+            </div>
 
-                </div>
         </div>
+    </div>
     </div>
     </div>
 </body>

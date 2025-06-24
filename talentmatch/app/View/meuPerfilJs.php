@@ -185,10 +185,7 @@ function editarFormulario() {
         matchs.forEach(match => {
 
             document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
-                <form action="perfil.php" method="get" class="profile">
-                <input type="hidden" name="id" value="${match.idUsuario}">
-                <a${match.idUsuario}</button>
-                </form>
+                <a href="perfil.php?id=${match.idUsuario}">${match.nomeU}</a>
             `);
         });
     }

@@ -130,6 +130,7 @@ if ($usuario && isset($_GET['enviar'])) {
               data-aceito="<?= $aceito ?>"
               data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
               data-id_usuario='<?= $usuario->getId() ?>'
+              data-nome_usuario="<?= $usuario->getNome() ?>"
               data-id='<?= $post['id'] ?>'
               data-titulo='<?= $post['titulo'] ?>'
               data-descricao='<?= $post['descricao'] ?>'

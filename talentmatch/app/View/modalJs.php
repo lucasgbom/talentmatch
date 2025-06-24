@@ -36,6 +36,7 @@
             idU = element.dataset.id_usuario;
             usuario = JSON.parse(element.dataset.usuario); // array do json_encode, usuario do post
             titulo = element.dataset.titulo;
+            nomeU = element.dataset.nome_usuario;
             descricao = element.dataset.descricao;
             data = element.dataset.data_;
             habilidade = element.dataset.habilidade;
@@ -43,6 +44,9 @@
             aceito = element.dataset.aceito;
             view.querySelector(".postI").value = id;
             view.querySelector(".userI").value = idU;
+            view.querySelector(".userN").value = nomeU;
+
+
 
             view.querySelector(".titulo").textContent = titulo
             view.querySelector(".descricao").textContent = descricao

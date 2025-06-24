@@ -52,6 +52,8 @@
             <form class="bot" action="match.php" method="post">
                 <input type="hidden" name="idUsuario" class="userI">
                 <input type="hidden" name="idPost" class="postI">
+                <input type="hidden" name="nomeUsuario" class="userN">
+
                 <button class="match">Match</button>
             </form>
             </div>
