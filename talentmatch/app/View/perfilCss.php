@@ -428,10 +428,7 @@
 
   .informacoes {
     max-width: 100%;
-
     background: linear-gradient(to right, rgb(42, 22, 10), rgb(55, 23, 5));
-
-
     display: flex;
     align-items: center;
     padding: 30px;

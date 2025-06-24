@@ -70,17 +70,19 @@ $tipo = $_GET['tipo'] ?? 'post';
 
     <div class="main-content">
 
-
-        <div class="header">
-            <img src="../../data/<?php echo ($usuario->getFotoPerfil() ?? "perfil_padrao.png"); ?>" alt="Perfil" class="profile-pic" id="profile-pic">
-            <div class="profile-info">
-                <h1 id="profile-name"><?= $usuario->getNome() ?></h1>
-                <p id="descricao"></p>
+        <div class="informacoes">
+            <img src="../../data/<?= $usuario->getFotoPerfil() ?? "perfil_padrao.png" ?>" alt="Foto de Perfil" class="foto_perfil">
+            <div class="complementoPessoal">
+                <h1><?= $usuario->getNome() ?></h1>
             </div>
         </div>
 
 
-        <div class="content perfil shown" id="informacoes">
+    <div class="container">
+
+    
+
+        <div class="content perfil shown" id="perfil">
             <h1 class="gradiente-texto">Informações</h1>
 
             <div class="infor">
@@ -129,7 +131,7 @@ $tipo = $_GET['tipo'] ?? 'post';
 
                 <div class="bot">
                     <button type="button" class="btn-editar" onclick="editarFormulario()">Editar</button>
-                    <input type="submit" id="salvar" value="salvar">
+                    <input type="submit" class="btn-salvar" id="salvar" value="salvar">
                 </div>
                 </form>
 
@@ -171,6 +173,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                 <?php } ?>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="modal" id="myModal">

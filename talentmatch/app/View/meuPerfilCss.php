@@ -66,7 +66,7 @@
         padding-bottom: 1em;
       }
 
-      .login-btn {
+      .login-btn{
         margin-top: 10px;
         padding: 8px 12px;
         border: 1px solid #FBE793;
@@ -77,6 +77,20 @@
         display: inline-block;
         cursor: pointer;
         text-decoration: none;
+      }
+
+      .btn-editar, .btn-salvar{
+        margin-top: 10px;
+        padding: 8px 12px;
+        border: 1px solid  rgb(80, 40, 18);
+        color: rgb(80, 40, 18);
+        border-radius: 20px;
+        font-size: 14px;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        background-color: transparent;
       }
 
       .sidebar::-webkit-scrollbar {
@@ -198,34 +212,20 @@
         background-color: rgb(239, 210, 174);
         padding: 10px;
         border: none;
-        box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         opacity: 1;
       }
 
-      .input-field:focus {
-        outline: none;
-        border: 1px solid rgb(233, 186, 129);
-        /* Exemplo de cor dourada ao foco */
-
-      }
-
+      input:focus {
+  outline: none; /* Tira o contorno azul padrão */
+        box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
       .hide {
         display: none;
       }
 
-      .btn-editar {
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
 
-      .btn-editar:hover {
-        background-color: #45a049;
-      }
+   
 
       #perf {
         width: 100px;
@@ -339,9 +339,7 @@
         height: 100%;
       }
 
-      .bot {
-        align-self: flex-end;
-      }
+     
 
       .tab-content input,
       .tab-content textarea,
@@ -478,6 +476,22 @@
         caret-color: auto;
       }
 
+      .informacoes {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, rgb(42, 22, 10), rgb(55, 23, 5));
+        display: flex;
+        align-items: center;
+        padding: 30px;
+        box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+      }
+
+      .foto_perfil {
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 100px;
+      }
+
       /*
       Estilo Mapa
       */
@@ -520,13 +534,19 @@
       }
 
       .main-content {
-        width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
+    width: 100%;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-rows: 5fr 9fr;
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('../../assets/fundo.jpg');
+    box-shadow: inset 8px 0 10px -4px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+  }
+
+  .main-content::-webkit-scrollbar {
+    display: none;
+  }
 
       .content.shown {
         display: grid !important;
@@ -545,39 +565,56 @@
       }
 
       .infor {
-        background-color: #F6D9B5;
-        height: fit-content;
-        padding: 5%;
+        background-color:rgb(233, 186, 129);
+        padding: 2%;
         border-radius: 20px;
         overflow: hidden;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        width: fit-content;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 10%;
+        place-items: center;
+        min-width: 60vw;
+    /* Largura mínima */
+    min-height: 50vh;
+    /* Altura mínima */
+
+    width: fit-content;
+    /* Cresce até o conteúdo */
+    height: fit-content;
+    /* Cresce até o conteúdo */
+
+    max-width: 90%;
+    max-height: 90%;
         position: relative;
-        border: 5px solid rgb(233, 186, 129);
+        color:   rgb(55, 23, 5);
       }
 
       .i1 {
-        border-right: 1px solid rgb(233, 186, 129);
+        border-right: 1px solid  rgb(55, 23, 5);
         padding: 4%;
-        width: 100%;
+        padding-right: 10px;
+        width: fit-content;
         height: 100%;
       }
 
       .i2 {
-        border-left: 1px solid rgb(233, 186, 129);
         padding: 4%;
+        padding-left: 20px ;
         width: 100%;
         height: 100%;
       }
 
 
       .bot {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        margin: 5%;
-      }
+        height: 100%;
+        width: 100%;
+        grid-column: 1 / span 2; /* Ocupa as duas colunas */
+        grid-row: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;  
+        gap: 10px;
+          }
 
       .gradiente-texto {
         display: inline-block;
