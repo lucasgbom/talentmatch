@@ -7,6 +7,14 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
   }
+  .postInput{
+    width: 12em;
+  }
+  .distanciaSpan {
+    display: inline-block;
+    width: 50px;
+    text-align: right;
+  }
 
   body {
     margin: 0;
@@ -264,10 +272,11 @@
   .type {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   }
-#seletorProj{
-   box-shadow: 0px 4px 6px rgba(255, 255, 255, 0);
-   background-color: rgb(233, 186, 129);
-}
+
+  #seletorProj {
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0);
+    background-color: rgb(233, 186, 129);
+  }
 
   .type {
     z-index: 199;
@@ -340,10 +349,11 @@
   }
 
 
-.btn-post{
-  font-size: x-large;
-  font-weight: bold;
-}
+  .btn-post {
+    font-size: x-large;
+    font-weight: bold;
+  }
+
   .match {
     padding: 10px;
     font-size: 16px;
@@ -475,9 +485,11 @@
     margin-bottom: 2%;
     gap: 3%;
   }
-  .tab-content header a{
+
+  .tab-content header a {
     color: #371705;
   }
+
   .tab-content button {
     border-radius: 10px;
     background-color: #371705;
@@ -487,7 +499,7 @@
   }
 
   .tab-content button:hover {
-    background-color:rgb(78, 39, 17);
+    background-color: rgb(78, 39, 17);
   }
 
   .post-container {
@@ -614,7 +626,8 @@
     width: auto;
     font-size: medium;
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
     justify-content: center;
     color: #371705;
   }
