@@ -640,5 +640,6 @@
 
   .fotoUsuario {
     height: 2em;
+    
   }
 </style>
