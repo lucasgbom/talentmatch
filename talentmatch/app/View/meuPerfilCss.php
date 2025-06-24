@@ -144,7 +144,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 2%;
-    gap: 3%;
+    width: 100%;
+    background-color:rgb(239, 210, 174);
       }
   .profile a{
     color: #371705;
