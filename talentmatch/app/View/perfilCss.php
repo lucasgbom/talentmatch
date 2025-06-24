@@ -28,6 +28,11 @@
     cursor: pointer;
   }
 
+  .match.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   .login {
     padding-bottom: 1em;
   }
@@ -312,7 +317,7 @@
   }
 
   .tab-content button:hover {
-    background-color:rgb(78, 39, 17);   
+    background-color: rgb(78, 39, 17);
   }
 
   .post-container {

@@ -22,6 +22,7 @@ $usuarioP = $usuarioDAO->buscar('id', $id);
 $postDAO = new PostDAO();
 $projetoDAO = new ProjetoDAO();
 
+$postsAceitos = $postDAO->listarMatchUsuario($usuario->getId());
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -105,10 +106,17 @@ $projetoDAO = new ProjetoDAO();
             <p>Veja aqui os últimos posts e atualizações.</p>
             <?php
             $posts = $postDAO->buscar('idUsuario', $usuarioP['id']);
-            foreach ($posts as $post) { ?>
+            foreach ($posts as $post) {
+                if (in_array($post['id'], $postsAceitos)) {
+                    $aceito = 1;
+                } else {
+                    $aceito = 0;
+                }
+            ?>
                 <div class="grid-container">
                     <button class="grid-item open-btn" onclick="openModal(this)"
                         data-modal="post"
+                         data-aceito="<?= $aceito ?>"
                         data-usuario='<?= json_encode($usuarioDAO->carregar($post['idUsuario'])) ?>'
                         data-id_usuario='<?= $usuario->getId() ?>'
                         data-id='<?= $post['id'] ?>'

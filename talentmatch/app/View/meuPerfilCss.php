@@ -7,7 +7,7 @@
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
       }
-
+     
       body {
         margin: 0;
         font-family: Arial, sans-serif;
@@ -351,7 +351,7 @@
       }
 
       .tab-content #map {
-        height: 100%;
+        height: 200px;
       }
 
      

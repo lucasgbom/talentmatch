@@ -90,23 +90,21 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
         <div class="over">
           <label title="Talento"><img src="../../assets/musical-note.png" class="icon">
-            <select name="talento">
+            <select name="talento" class="postInput">
               <option value="">--Selecione--</option>
               <option value="vocalista">Vocalista</option>
               <option value="violao">Violão</option>
               <option value="baixo">Baixo</option>
               <option value="piano">Piano</option>
             </select>
-          </label>
+          </label> <br>
           <label title="Pagamento"><img src="../../assets/profit.png" class="icon">
-            <input type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
+            <input class="postInput" type="text" id="pagamento" name="pagamento" value="<?= htmlspecialchars($_GET['pagamento'] ?? '') ?>" placeholder="R$ 0,00">
           </label><br>
-          <label title="Distância"><img class="icon" src="../../assets/distance.png">
-            <div class="range">
-              <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
-              <span id="distanciaPost"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
-            </div>
-
+          <label title="Distância">
+            <img class="icon" src="../../assets/distance.png">
+            <input type="range" min="0" max="1000" id="inputDPost" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distanciaPost" class="distanciaSpan"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
         </div>
       </form>
@@ -156,10 +154,9 @@ if ($usuario && isset($_GET['enviar'])) {
         <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="../../assets/cardapio.png"></button>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
         <div class="over">
-
           <label>
-            <input type="range" min="0" max="1000" id="inputDUsuario" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
-            <span id="distanciaUsuario"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
+            <img class="icon" src="../../assets/distance.png"><input type="range" min="0" max="1000" id="inputDUsuario" name="distancia" value="<?= htmlspecialchars($_GET['distancia'] ?? 500) ?>">
+            <span id="distanciaUsuario" class="distanciaSpan"><?= htmlspecialchars($_GET['distancia'] ?? 500) ?></span> km
           </label>
         </div>
       </form>
@@ -192,7 +189,7 @@ if ($usuario && isset($_GET['enviar'])) {
         <input type="hidden" name="longitude" class="longitude">
         <input type="hidden" name="tipo" value="projeto">
         <input type="text" placeholder="Pesquisar..." class="type input" name="titulo">
-        <button type="button" class="seletor input" title="Filtrar pesquisa"><img src="../../assets/cardapio.png"></button>
+        <div id="seletorProj" class="seletor" title="Filtrar pesquisa"></div>
         <button type="submit" class="search input" title="Pesquisar" name="enviar"><img src="../../assets/search.png"></button>
       </form>
       <main>
