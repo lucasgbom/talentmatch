@@ -405,13 +405,7 @@
     z-index: 1000;
   }
 
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-  }
+
 
   .tabs {
     display: flex;

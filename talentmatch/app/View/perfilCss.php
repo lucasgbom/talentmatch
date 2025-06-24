@@ -237,6 +237,7 @@
     right: 15px;
     font-size: 24px;
     cursor: pointer;
+    color: #371705;
   }
 
   .tabs {
@@ -303,14 +304,15 @@
   }
 
   .tab-content button {
-    background-color: #007BFF;
+    border-radius: 10px;
+    background-color: #371705;
     color: #fff;
     border: none;
     cursor: pointer;
   }
 
   .tab-content button:hover {
-    background-color: #0056b3;
+    background-color:rgb(78, 39, 17);   
   }
 
   .post-container {
@@ -454,10 +456,6 @@
     max-width: 500px;
   }
 
-  .descricao {
-    margin-top: 10px;
-  }
-
   .ver-mais {
     color: white;
     cursor: pointer;
@@ -494,8 +492,8 @@
   }
 
   .tab-menu button.active {
-    border-bottom: 3px solid red;
-    background-color:rgb(36, 17, 5);
+    border-bottom: 3px solid #ffffff;
+    background-color: rgb(36, 17, 5);
   }
 
   .tab-page {

@@ -96,6 +96,8 @@ $projetoDAO = new ProjetoDAO();
         <div id="informacoes" class="tab-page active">
             <h2>Início</h2>
             <p>Bem-vindo ao perfil! Aqui fica o resumo principal.</p>
+            <p>Email: <?= $usuarioP['email']?></p>
+            <p>Telefone: <?= $usuarioP['telefone']?></p>
         </div>
 
         <div id="posts" class="tab-page">
