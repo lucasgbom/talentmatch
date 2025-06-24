@@ -39,7 +39,7 @@ if ($usuario && isset($_GET['enviar'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistema com Sidebar, Pesquisa e postes</title>
+  <title>TalentMatch</title>
   <?php include("homeCss.php"); ?>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
