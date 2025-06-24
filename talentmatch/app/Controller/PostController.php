@@ -23,4 +23,5 @@ $Post->setPagamento($_POST['pagamento']);
 
 if ($_POST['acao'] == "inserir") {
     $PostDAO->inserir($Post);
+    header("location: ../View/meuPerfil.php");
 }
