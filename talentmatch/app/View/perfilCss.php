@@ -388,32 +388,30 @@
   }
 
   .grid-container {
-    display: grid;
-    width: 90%;
-    grid-template-columns: repeat(auto-fill, 200px);
-    gap: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 1px;
+        max-height: 200px;
+      }
 
-  .grid-item {
-    background-color: rgb(233, 186, 129);
-    padding: 20px;
-    text-align: center;
-    height: 200px;
-    width: 200px;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border-radius: 5px;
-  }
+      .grid-item {
+        background-color: rgb(233, 186, 129);
+        padding: 20px;
+        text-align: center;
+        height: 200px;
+        width: 200px;
+        border: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border-radius: 5px;
+      }
 
 
-  .grid-item:hover {
-    transform: scale(1.06);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-
+      .grid-item:hover {
+        transform: scale(1.06);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
 
   .projeto {
     width: 100%;
@@ -446,7 +444,7 @@
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    margin-right: 100px;
+    margin-right: 26px;
   }
 
   .complementoPessoal {

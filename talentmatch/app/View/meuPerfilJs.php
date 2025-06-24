@@ -187,7 +187,7 @@ function editarFormulario() {
             document.getElementById("editar-post").insertAdjacentHTML('beforeend', `
                 <form action="perfil.php" method="get" class="profile">
                 <input type="hidden" name="id" value="${match.idUsuario}">
-                <button type="submit">${match.idUsuario}</button>
+                <a${match.idUsuario}</button>
                 </form>
             `);
         });

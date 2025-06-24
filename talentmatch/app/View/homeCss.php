@@ -352,7 +352,7 @@
 
   .close-btn {
     position: absolute;
-    top: 2%;
+    top: 1%;
     right: 2%;
     font-size: 24px;
     cursor: pointer;

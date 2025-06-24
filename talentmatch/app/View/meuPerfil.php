@@ -117,7 +117,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     <h2>Mapa de Localização</h2>
 
                     <div id="map-content" class="input-field disabled">
-                        <div id="mapU" style="width: 100%; height: 300px;"></div>
+                        <div id="mapU"></div>
                         <button onclick="getLocationU()" type="button">Usar localização atual</button>
                         <input type="hidden" name="lat" id='latU' value="">
                         <input type="hidden" name="lon" id='lonU' value="">
@@ -149,7 +149,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                 $posts = $postDAO->listarPorUsuario($usuario);
                 foreach ($posts as $post) {
                 ?>
-                    <button class="grid-item open-btn" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
+                    <button class="grid-item open-btn btn-post" data-tb="visualizar" data-matchs="<?= htmlspecialchars(json_encode($postDAO->listarMatch($post['id']))) ?> " data-modal="post" onclick="openModal(this)" data-id='<?= $post['id'] ?>' data-titulo='<?= $post['titulo'] ?>' data-descricao='<?= $post['descricao'] ?>' data-data_='<?= $post['data_'] ?>' data-habilidade='<?= $post['habilidade'] ?>' data-pagamento='<?= $post['pagamento'] ?>'>
 
                         <?= $post['titulo'] ?>
                     </button>
@@ -161,14 +161,17 @@ $tipo = $_GET['tipo'] ?? 'post';
             <h1 class="gradiente-texto">Projetos</h1>
             <div class="grid-container">
 
-                <button class="open-modal-btn create-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)">criar projeto</button>
+                <button class="open-modal-btn grid-item create-btn" data-tb="criar" data-modal="projeto" onclick="openModal(this)"><img class="icon" src="../../assets/plus.png"></button>
                 <?php
                 $projetos = $projetoDAO->listar($usuario);
                 foreach ($projetos as $projeto) {
                 ?>
-                    <button class="grid-item open-btn" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
+                    <button class="grid-item open-btn btn-projeto" data-tb="visualizar" data-modal="projeto" onclick="openModal(this)" data-id='<?= $projeto['id'] ?>' data-titulo='<?= $projeto['titulo'] ?>' data-descricao='<?= $projeto['descricao'] ?>' data-arquivo='<?= $projeto['arquivoCaminho'] ?>'>
 
-                        <?= $projeto['titulo'] ?>
+                         <div class="poster-card">
+                <div class="poster-title"><?= $projeto['titulo'] ?></div>
+                <video src="../../data/<?= $projeto['arquivoCaminho'] ?>" class="thumbnail"></video>
+              </div>
                     </button>
                 <?php } ?>
             </div>
@@ -189,11 +192,11 @@ $tipo = $_GET['tipo'] ?? 'post';
             <div class="tab-content" id="criar-projeto">
 
                 <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" required />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
+                    <input type="text" name="titulo" class="titulo input-field" placeholder="Título do projeto" required />
+                    <textarea name="descricao" rows="4" class="descricao input-field" placeholder="Descrição do projeto"></textarea>
 
                     <div class="special-input">
-                        <video src="" class="projeto"></video>
+                        <video src="" class="projeto input-field"></video>
                         <input type="file" name="video" class="arquivo" required />
                     </div>
 
@@ -201,7 +204,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     <input type="hidden" class="id" name="id">
 
 
-                    <button type="submit" name="editar">Salvar</button>
+                    <button type="submit" name="editar" class="btn-salvar">Salvar</button>
                 </form>
 
 
@@ -213,7 +216,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     <p class="descricao"></p>
 
                     <div class="post-video">
-                        <video src="" class="projeto" controls></video>
+                        <video src="" class="projeto input-field" controls></video>
                     </div>
 
                 </div>
@@ -222,21 +225,21 @@ $tipo = $_GET['tipo'] ?? 'post';
 
             <div class="tab-content" id="editar-projeto">
                 <form action="../Controller/ProjetoController.php" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <input type="text" name="titulo" class="titulo" required />
-                        <textarea name="descricao" rows="4" class="descricao"></textarea>
+                    
+                        <input type="text" name="titulo" class="titulo input-field" required />
+                        <textarea name="descricao" rows="4" class="descricao input-field"></textarea>
 
                         <div class="special-input">
-                            <video src="" class="projeto"></video>
-                            <input type="file" name="video" class="arquivo" required />
+                            <video src="" class="projeto input-field"></video>
+                            <input type="file" name="video" class="arquivo"/>
                         </div>
 
                         <input type="hidden" name="tipo" value="editar">
                         <input type="hidden" class="id" name="id">
 
 
-                        <button type="submit" name="editar">Salvar</button>
-                    </div>
+                        <button type="submit" name="editar" class="btn-salvar">Salvar</button>
+                    
                 </form>
             </div>
         </div>
@@ -247,19 +250,19 @@ $tipo = $_GET['tipo'] ?? 'post';
             <div class="tabs">
                 <button class="tab criar" data-target="criar-post" data-mdl="criar" onclick="switchTab(this)">Criar</button>
                 <button class="tab visualizar" data-target="visualizar-post" data-mdl="visualizar" onclick="switchTab(this)">Visualizar</button>
-                <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Editar</button>
+                <button class="tab editar" data-target="editar-post" data-mdl="editar" onclick="switchTab(this)">Matchs</button>
             </div>
             <!-- Conteúdo das abas -->
             <div class="tab-content" id="criar-post">
                 <form action="../Controller/PostController.php" method="POST" enctype="multipart/form-data">
-                    <input type="text" name="titulo" class="titulo" required />
-                    <textarea name="descricao" rows="4" class="descricao"></textarea>
+                    <input type="text" name="titulo" class="titulo input-field" placeholder="Título do post" required />
+                    <textarea name="descricao" rows="4" class="descricao input-field" placeholder="Descrição do post"></textarea>
 
-                    <input type="date" name="date" id="dataI" max="2100-12-30" required>
-                    <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00" required>
+                    <input type="date" name="date" id="dataI" max="2100-12-30" class="input-field" required>
+                    <input type="text" id="pagamento" name="pagamento" placeholder="R$ 0,00" class="input-field" required>
 
                     <input type="hidden" name="acao" value="inserir">
-                    <select name="habilidade" id="habilidades">
+                    <select name="habilidade" id="habilidades" class="input-field">
                         <option value="vocalista">Vocalista</option>
                         <option value="violao">Violão</option>
                         <option value="piano">Piano</option>
@@ -268,7 +271,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                     <?php include("../../../mapa/mapa.php"); ?>
                     <input type="hidden" name="idUsuario" value="<?= $_SESSION['usuario']->getId() ?>">
                     <input type="hidden" class="id" name="id">
-                    <button type="submit" name="editar">Salvar</button>
+                    <button type="submit" name="editar" class="btn-salvar">Salvar</button>
                 </form>
             </div>
             <div class="tab-content" id="visualizar-post">
@@ -282,6 +285,7 @@ $tipo = $_GET['tipo'] ?? 'post';
                 </div>
             </div>
             <div class="tab-content" id="editar-post">
+                <h4>Matchs do post</h4>
 
             </div>
         </div>
