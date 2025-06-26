@@ -30,6 +30,7 @@ $projeto->setIdUsuario($idUsuario);
 //ESCOLHENDO ENTRE INSERIR E ATUALIZAR
 if ($tipoAcao == 'inserir') {
     $projetoDAO->inserir($projeto);
+    header("Location: ../view/meuPerfil.php");
 } else if ($tipoAcao == 'editar') {
     $projeto->setId($id);
     $projetoDAO->atualizar($projeto);
@@ -50,5 +51,5 @@ function arquivoCriacao($arquivo)
         echo "Erro ao mover o arquivo para o diretório de uploads.";
     }
     return $encrypt;
-    //$projeto->setArquivoCaminho($encrypt);
+    $projeto->setArquivoCaminho($encrypt);
 }
